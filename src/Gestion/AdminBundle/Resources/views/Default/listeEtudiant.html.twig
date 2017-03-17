@@ -1,0 +1,36 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <h1>Liste des étudiants :</h1>
+<table class="table">
+<thead>
+<tr>
+    <th>Nom</th>
+    <th>Prenom</th>
+    <th>DateNaissance</th>
+    <th>LieuNaissance</th>
+    <th>Ville</th>
+    <th>Sexe</th>
+    <th>Action</th>
+</tr>
+</thead>
+{% for etd in etudiants %}
+        <tbody>
+        <tr>
+            <td>{{ etd.nom }}</td>
+            <td>{{ etd.prenom }}</td>
+            <td>{{ etd.dateNaissance|date("m/d/Y", false) }}</td>
+            <td>{{ etd.lieuNaissance }}</td>
+            <td>{{ etd.ville }}</td>
+            <td>{{ etd.sexe }}</td>
+            <td><a href="{{ path('valider_preinscrit',{'id':etd.id}) }}"><button class="btn btn-primary">Modifier</button></a><button class="btn btn-danger">Supprimer</button>
+        </tr>
+{% else %}
+    <p>Aucune préinscrit n'a été trouvée.</p>
+{% endfor %}
+        </tbody>
+</table>
+
+{% endblock %}
+
+

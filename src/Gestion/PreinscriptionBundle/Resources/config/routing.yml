@@ -1,0 +1,39 @@
+gestion_preinscription_homepage:
+    path:     /
+    defaults: { _controller: GestionAdminBundle:Default:index }
+
+preinscrits:
+    path:     /preinscrits/
+    defaults: { _controller: GestionPreinscriptionBundle:Default:list }
+
+Liste_preinscrits:
+    path:     /listePreinscrits
+    defaults: { _controller: GestionPreinscriptionBundle:Default:listPreinscrit }
+
+valider_inscrit:
+  path: /Liste_preinscrits/valider/{id}
+  defaults: { _controller: GestionPreinscriptionBundle:Default:validerPreInscrit }
+
+refuser_inscrit:
+  path: /Liste_preinscrits/refuserInscrit/{id}
+  defaults: { _controller: GestionPreinscriptionBundle:Default:supprimer }
+
+ajouter_Etudiant:
+  path: /Liste_preinscrits/etudiant/ajouter
+  defaults: { _controller: GestionPreinscriptionBundle:Default:ajouterEtudiant }
+
+myapplication_contact:
+    path:     /contact
+    defaults: { _controller: GestionPreinscriptionBundle:Default:contact }
+
+gestion_form:
+    path:     /form
+    defaults: { _controller: GestionPreinscriptionBundle:Default:new }
+
+email_form:
+    path:     /contact
+    defaults: { _controller: GestionPreinscriptionBundle:Default:contact  }
+
+email_test:
+    path:     /contacts
+    defaults: { _controller: GestionPreinscriptionBundle:Default:testEmail  }

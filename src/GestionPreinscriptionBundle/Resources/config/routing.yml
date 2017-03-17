@@ -1,0 +1,3 @@
+gestion_preinscription_homepage:
+    path:     /
+    defaults: { _controller: GestionPreinscriptionBundle:Default:index }
