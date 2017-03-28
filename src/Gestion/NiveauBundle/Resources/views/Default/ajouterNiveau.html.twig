@@ -1,0 +1,20 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(form,{'attr':{'action':path('ajouter_Niveau')}}) }}
+
+    <div class="form-group">
+        <label for="gestion_filierebundle_filiere_intitule">{{ form_label(form.nomNiveau) }}</label>
+        {{ form_widget(form.nomNiveau) }}
+    </div>
+
+
+    <div>
+        {{ form_rest(form) }}
+    </div>
+
+    {{ form_end(form) }}
+
+
+{% endblock %}

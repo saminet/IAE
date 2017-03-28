@@ -5,6 +5,7 @@ use Gestion\PreinscriptionBundle\Entity\Preinscrit;
 use Gestion\PreinscriptionBundle\Entity\Etudiant;
 use Gestion\PreinscriptionBundle\Entity\Task;
 use Gestion\PreinscriptionBundle\Form\EtudiantForm;
+use Gestion\PreinscriptionBundle\Form\EtudiantType;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -19,7 +20,7 @@ class DefaultController extends Controller
     }
 
 
- public function listAction() {
+ public function newAction() {
         $em = $this->container->get('doctrine')->getEntityManager();
 
         $preinscrit1 = new Preinscrit();
@@ -61,6 +62,105 @@ class DefaultController extends Controller
         );
     }
 
+
+    public function accepterPreinscritAction($id)
+    {
+        $preinscrit= $this->getDoctrine()->getRepository('GestionPreinscriptionBundle:Preinscrit')->find($id);
+
+        $attachment = \Swift_Attachment::fromPath('../web/uploads/frais-scolarite.pdf');
+        $message = \Swift_Message::newInstance()
+            ->setContentType("text/html")
+            ->setSubject('Préinscription IAE')
+            ->setFrom('jeap37208@gmail.com')
+            ->setTo(''.$preinscrit->getEmail().'')
+            ->setBody(
+                'Bonjour Mr/Mme '.$preinscrit->getPrenom().',<br /> <br /> <br /> nous vous informons que votre demande d\'inscription à été bien accéptée 
+                <br /><br />  Vous trouvez ci dessous toutes les informations pour compléter votre dossier ainsi que les frais de scolarités.<br /><br /> <br />Si vous avez quelque chose 
+                à renseigner, merci de nous avoir contacter sur :<br /><br />Email :  iaetunis@gmail.com / contact@iaetunis.com <br /><br />Tél. : 94569697<br /><br />Fax : 71845269 E-mail <br /> <br /> <br /> <br /> <br /> <br />
+                Cordialement','text/html'
+            )
+            ->attach($attachment);
+
+        $type = $message->getHeaders()->get('Content-Type');
+        $type->setParameter('charset', 'utf-8');
+
+        $this->get('mailer')->send($message);
+
+
+        return $this->render('GestionPreinscriptionBundle:Default:accepterPreinscrit.html.twig',array(
+            'candidat' => $preinscrit) );
+    }
+
+
+    public function refuserPreinscritAction($id)
+    {
+        $preinscrit= $this->getDoctrine()->getRepository('GestionPreinscriptionBundle:Preinscrit')->find($id);
+
+        $message = \Swift_Message::newInstance()
+            ->setContentType("text/html")
+            ->setSubject('Préinscription IAE')
+            ->setFrom('jeap37208@gmail.com')
+            ->setTo(''.$preinscrit->getEmail().'')
+            ->setBody(
+                'Bonjour Mr/Mme '.$preinscrit->getNom().',<br /> <br /> <br />
+                Nous vous remercions de l’intérêt que vous avez manifesté vis-à-vis de notre université.<br /> <br />
+                Après un examen attentif de votre dossier, nous avons le regret de vous informer que nous ne 
+                pouvons pas retenir votre candidature <br />car votre profil ne répond pas aux critères exigés. 
+                <br /><br />Nous sommes toujours ouvert à acceuillir votre candidature en cas d\'évolution de votre dossier  <br /><br />
+                <br />Pour toutes informations, merci de nous contacter sur : <br /><br />
+                Email :  iaetunis@gmail.com / contact@iaetunis.com <br /><br />
+                Tél. : 94569697<br /><br />Fax : 71845269 E-mail <br /> <br /> <br /> <br /> <br /><br />
+                Cordialement','text/html'
+            );
+
+        $type = $message->getHeaders()->get('Content-Type');
+        $type->setParameter('charset', 'utf-8');
+
+        $this->get('mailer')->send($message);
+
+
+        return $this->render('GestionPreinscriptionBundle:Default:refuserPreinscrit.html.twig',array(
+            'candidat' => $preinscrit) );
+    }
+
+
+    public function suprimerPreinscritAction($id)
+    {
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $preinscrit= $this->getDoctrine()->getRepository('GestionPreinscriptionBundle:Preinscrit')->find($id);
+        if (!$preinscrit)
+        {
+            throw new NotFoundHttpException("Aucune préinscrit trouvé");
+        }
+        $em->remove($preinscrit);
+        $em->flush();
+
+        $message = \Swift_Message::newInstance()
+            ->setContentType("text/html")
+            ->setSubject('Préinscription IAE')
+            ->setFrom('jeap37208@gmail.com')
+            ->setTo(''.$preinscrit->getEmail().'')
+            ->setBody(
+                'Bonjour Mr/Mme '.$preinscrit->getNom().',<br /> <br /> <br />
+                Nous vous remercions de l’intérêt que vous avez manifesté vis-à-vis de notre université.<br /> <br />
+                Après un examen attentif de votre dossier, nous avons le regret de vous informer que nous ne 
+                pouvons pas retenir votre candidature <br />car votre profil ne répond pas aux critères exigés. 
+                <br /><br />Nous sommes toujours ouvert à acceuillir votre candidature en cas d\'évolution de votre dossier  <br /><br />
+                <br />Pour toutes informations, merci de nous contacter sur : <br /><br />
+                Email :  iaetunis@gmail.com / contact@iaetunis.com <br /><br />
+                Tél. : 94569697<br /><br />Fax : 71845269 E-mail <br /> <br /> <br /> <br /> <br /><br />
+                Cordialement','text/html'
+            );
+
+        $type = $message->getHeaders()->get('Content-Type');
+        $type->setParameter('charset', 'utf-8');
+
+        $this->get('mailer')->send($message);
+
+        return new RedirectResponse($this->container->get('router')->generate('Liste_preinscrits'));
+    }
+
+
     public function validerPreinscritAction($id)
     {
         $em = $this->container->get('doctrine')->getEntityManager();
@@ -82,13 +182,32 @@ class DefaultController extends Controller
         $etudiant->setDiplome($preinscrit->getDiplome());
         $etudiant->setEtablissement($preinscrit->getEtablissement());
         $etudiant->setAnneeObtention($preinscrit->getAnneeObtention());
-        $etudiant->setMessage($preinscrit->getMessage());
         $etudiant->setNiveau($preinscrit->getNiveau());
         $etudiant->setFormation($preinscrit->getFormation());
 
         $em->persist($etudiant);
 
         $em->flush();
+
+        $attachment = \Swift_Attachment::fromPath('../web/uploads/frais-scolarite.pdf');
+        $message = \Swift_Message::newInstance()
+            ->setContentType("text/html")
+            ->setSubject('Préinscription IAE')
+            ->setFrom('jeap37208@gmail.com')
+            ->setTo(''.$preinscrit->getEmail().'')
+            ->setBody(
+                'Bonjour Mr/Mme '.$preinscrit->getPrenom().',<br /> <br /> <br /> nous vous informons que votre demande d\'inscription à été bien accéptée 
+                <br /><br />  Vous trouvez ci dessous toutes les informations pour compléter votre dossier ainsi que les frais de scolarités.<br /><br /> <br />Si vous avez quelque chose 
+                à renseigner, merci de nous avoir contacter sur :<br />Email :  iaetunis@gmail.com / contact@iaetunis.com <br /><br />Tél. : 94569697<br /><br />Fax : 71845269 E-mail <br /> <br /> <br /> <br /> <br /> <br />
+                Cordialement','text/html'
+            )
+           ->attach($attachment);
+
+        $type = $message->getHeaders()->get('Content-Type');
+        $type->setParameter('charset', 'utf-8');
+
+        $this->get('mailer')->send($message);
+
 
         return $this->render('GestionPreinscriptionBundle:Default:valider_preinscrit.html.twig',array(
             'etudiant' => $etudiant) );
@@ -99,29 +218,91 @@ class DefaultController extends Controller
         $em = $this->container->get('doctrine')->getEntityManager();
         $etudiants = $em->getRepository('GestionPreinscriptionBundle:Etudiant')->findAll();
 
-        return $this->container->get('templating')->renderResponse('GestionAdminBundle:Default:listeEtudiant.html.twig',array(
+        return $this->container->get('templating')->renderResponse('GestionPreinscriptionBundle:Default:listEtd.html.twig',array(
                 'etudiants' => $etudiants)
         );
     }
 
-    public function refuserPreInscritAction($id)
+    public function ajouterEtudiantAction(Request $request)
     {
-        return $this->container->get('templating')->renderResponse(
-            'GestionPreinscriptionBundle:Default:refuser.html.twig');
-    }
-
-    public function ajouterEtudiantAction()
-    {
+        $em = $this->container->get('doctrine')->getEntityManager();
+        //on crée un nouveau etudiant
         $etudiant = new Etudiant();
-        $form = $this->container->get('form.factory')->create(new EtudiantForm(), $etudiant);
+        //on recupere le formulaire
+        $form = $this->createForm(EtudiantType::class,$etudiant);
 
-        return $this->container->get('templating')->renderResponse(
-            'GestionPreinscriptionBundle:Default:ajouterEtudiant.html.twig',
-            array(
-                'form' => $form->createView(),
-                'message' => ''
-            ));
+        //on génère le html du formulaire crée
+        $formView = $form->createView();
+        // Refill the fields in case the form is not valid.
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()){
+           if($form->isValid()){
+               $em->persist($etudiant);
+               $em->flush();
+               return $this->redirect($this->generateUrl('listEtudiant'));
+           }
+        }
+        //on rend la vue
+        return $this->render('GestionPreinscriptionBundle:Default:ajouterEtudiant.html.twig',array(
+            'form' => $formView) );
     }
+
+    public function modifierEtudiantAction($id, Request $request)
+    {
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $etudiant= $em->getRepository('GestionPreinscriptionBundle:Etudiant')->find($id);
+        if (null === $etudiant) {
+            throw new NotFoundHttpException("L'étudiant d'id ".$id." n'existe pas.");
+        }
+        //on recupere le formulaire
+        $form = $this->createForm(EtudiantType::class, $etudiant);
+        //on génère le html du formulaire crée
+        $formView = $form->createView();
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            // Inutile de persister ici, Doctrine connait déjà notre annonce
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Les données de l\'étudiant'.$etudiant->getId().' est bien modifiée.');
+
+            return $this->redirectToRoute('listEtudiant', array('id' => $etudiant->getId()));
+        }
+
+        return $this->render('GestionPreinscriptionBundle:Default:modifierEtudiant.html.twig', array(
+            'etudiant' => $etudiant,
+            'form'   => $formView,
+        ));
+    }
+
+    public function sauvegarderEtudiantAction(Request $request,$id)
+    {
+        $idEtd =  $request->get('idEtud');
+        dump($idEtd);
+        die('Hello !!');
+        $em = $this->container->get('doctrine')->getEntityManager();
+        //on crée un nouveau etudiant
+        $etudiant = new Etudiant();
+
+        //on recupere le formulaire
+        $form = $this->createForm(EtudiantType::class,$etudiant);
+
+        //on génère le html du formulaire crée
+        $formView = $form->createView();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()){
+            if($form->isValid()){
+                $em->persist($etudiant);
+                $em->flush();
+                return $this->redirect($this->generateUrl('listEtudiant'));
+            }
+        }
+        //on rend la vue
+        return $this->render('GestionPreinscriptionBundle:Default:modifierEtudiant.html.twig',array(
+            'form' => $formView) );
+    }
+
 
     public function contactAction(Request $request)
     {
@@ -143,7 +324,7 @@ class DefaultController extends Controller
 
                     // Everything OK, redirect to wherever you want ! :
 
-                    return $this->redirectToRoute('GestionPreinscriptionBundle:Default:reponse.html.twig');
+                    return $this->redirectToRoute('email_valide');
                 }else{
                     // An error ocurred, handle
                     var_dump("Errooooor :(");
@@ -169,33 +350,69 @@ class DefaultController extends Controller
 
         $mailer = \Swift_Mailer::newInstance($transport);
 
-        $message = \Swift_Message::newInstance("Our Code World Contact Form ". $data["subject"])
-            ->setFrom(array($myappContactMail => "Message by ".$data["name"]))
+        $message = \Swift_Message::newInstance("A Propos de votre Preinscription ". $data["subject"])
+            ->setFrom(array($myappContactMail => "Message envoyé par ".$data["name"]))
             ->setTo(array(
                 $myappContactMail => $myappContactMail
             ))
-            ->setBody($data["message"]."<br>ContactMail :".$data["email"]);
+            ->setBody($data["message"]." "."ContactMail :".$data["email"]);
 
         return $mailer->send($message);
     }
 
-
-    public function newAction(Request $request)
+    public function supprimerEtudiantAction($id)
     {
-        // create a task and give it some dummy data for this example
-        $task = new Task();
-        $task->setTask('Write a blog post');
-        $task->setDueDate(new \DateTime('tomorrow'));
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $etudiant= $this->getDoctrine()->getRepository('GestionPreinscriptionBundle:Etudiant')->find($id);
+        if (!$etudiant)
+        {
+            throw new NotFoundHttpException("Etudiant non trouvé");
+        }
+        $em->remove($etudiant);
+        $em->flush();
+        return new RedirectResponse($this->container->get('router')->generate('listEtudiant'));
+    }
 
-        $form = $this->createFormBuilder($task)
-            ->add('task', TextType::class)
-            ->add('dueDate', DateType::class)
-            ->add('save', SubmitType::class, array('label' => 'Create Post'))
-            ->getForm();
 
-        return $this->render('GestionPreinscriptionBundle:Default:new.html.twig', array(
-            'form' => $form->createView(),
+    public function infosEtudiantAction($id)
+    {
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $etudiant= $em->getRepository('GestionPreinscriptionBundle:Etudiant')->find($id);
+        return $this->container->get('templating')->renderResponse('GestionPreinscriptionBundle:Default:infosEtudiant.html.twig',
+        array(
+            'etudiant' => $etudiant
         ));
     }
+
+    public function infosPreEtudiantAction($id)
+    {
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $preinscrit= $em->getRepository('GestionPreinscriptionBundle:Preinscrit')->find($id);
+        return $this->container->get('templating')->renderResponse('GestionPreinscriptionBundle:Default:infosPreEtudiant.html.twig',
+            array(
+                'preinscrit' => $preinscrit
+            ));
+    }
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

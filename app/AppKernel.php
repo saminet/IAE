@@ -19,6 +19,10 @@ class AppKernel extends Kernel
             new Gestion\AdminBundle\GestionAdminBundle(),
             new Gestion\PreinscriptionBundle\GestionPreinscriptionBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new Gestion\MatiereBundle\GestionMatiereBundle(),
+            new Gestion\UEBundle\GestionUEBundle(),
+            new Gestion\FiliereBundle\GestionFiliereBundle(),
+            new Gestion\NiveauBundle\GestionNiveauBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -1,3 +1,19 @@
+gestion_niveau:
+    resource: "@GestionNiveauBundle/Resources/config/routing.yml"
+    prefix:   /
+
+gestion_filiere:
+    resource: "@GestionFiliereBundle/Resources/config/routing.yml"
+    prefix:   /
+
+gestion_ue:
+    resource: "@GestionUEBundle/Resources/config/routing.yml"
+    prefix:   /
+
+gestion_matiere:
+    resource: "@GestionMatiereBundle/Resources/config/routing.yml"
+    prefix:   /
+
 gestion_preinscription:
     resource: "@GestionPreinscriptionBundle/Resources/config/routing.yml"
     prefix:   /

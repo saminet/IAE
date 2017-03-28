@@ -1,0 +1,20 @@
+gestion_filiere_homepage:
+    path:     /
+    defaults: { _controller: GestionFiliereBundle:Default:index }
+
+Liste_filières:
+    path:     /filieres/liste
+    defaults: { _controller: GestionFiliereBundle:Default:listFilieres }
+
+ajouter_filieres:
+    path:     /filieres/ajouter
+    defaults: { _controller: GestionFiliereBundle:Default:ajouterFiliere }
+
+modifier_filières:
+    path:     /filieres/modifier/{id}
+    defaults: { _controller: GestionFiliereBundle:Default:modifierFilieres }
+
+supprimer_filières:
+    path:     /filieres/supprimer/{id}
+    defaults: { _controller: GestionFiliereBundle:Default:supprimerFilieres }
+

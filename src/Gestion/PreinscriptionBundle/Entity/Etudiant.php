@@ -122,7 +122,7 @@ class Etudiant
     /**
      * @var string
      *
-     * @ORM\Column(name="message", type="text")
+     * @ORM\Column(name="message", type="text", nullable=TRUE)
      */
     private $message;
 

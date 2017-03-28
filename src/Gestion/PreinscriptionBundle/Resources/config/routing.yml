@@ -1,39 +1,85 @@
 gestion_preinscription_homepage:
     path:     /
-    defaults: { _controller: GestionAdminBundle:Default:index }
+    defaults: { _controller: GestionPreinscriptionBundle:Default:index }
 
 preinscrits:
-    path:     /preinscrits/
-    defaults: { _controller: GestionPreinscriptionBundle:Default:list }
+    path:     /preinscrits/instance
+    defaults: { _controller: GestionPreinscriptionBundle:Default:new }
 
 Liste_preinscrits:
-    path:     /listePreinscrits
+    path:     /preinscrit/liste
     defaults: { _controller: GestionPreinscriptionBundle:Default:listPreinscrit }
 
-valider_inscrit:
-  path: /Liste_preinscrits/valider/{id}
-  defaults: { _controller: GestionPreinscriptionBundle:Default:validerPreInscrit }
+infosPreEtudiant:
+    path:     preinscrit/infos/{id}
+    defaults: { _controller: GestionPreinscriptionBundle:Default:infosPreEtudiant }
 
-refuser_inscrit:
-  path: /Liste_preinscrits/refuserInscrit/{id}
-  defaults: { _controller: GestionPreinscriptionBundle:Default:supprimer }
+valider_preinscrit:
+    path:     /preinscrit/valider/{id}
+    defaults: { _controller: GestionPreinscriptionBundle:Default:validerPreinscrit }
+
+acepterPreinscrit:
+    path: /preinscrits/acepter/{id}
+    defaults: { _controller: GestionPreinscriptionBundle:Default:accepterPreinscrit }
+
+refuserPreinscrit:
+    path: /preinscrits/refuser/{id}
+    defaults: { _controller: GestionPreinscriptionBundle:Default:refuserPreinscrit }
+
+suprimerPreinscrit:
+    path: /preinscrits/suprimer/{id}
+    defaults: { _controller: GestionPreinscriptionBundle:Default:suprimerPreinscrit }
+
+
+listEtudiant:
+    path:     /etudiant/list
+    defaults: { _controller: GestionPreinscriptionBundle:Default:listEtudiant }
+
+infosEtudiant:
+    path:     /etudiant/infos/{id}
+    defaults: { _controller: GestionPreinscriptionBundle:Default:infosEtudiant }
+
+supprimerEtudiant:
+    path:     /etudiant/supprimer/{id}
+    defaults: { _controller: GestionPreinscriptionBundle:Default:supprimerEtudiant }
 
 ajouter_Etudiant:
-  path: /Liste_preinscrits/etudiant/ajouter
-  defaults: { _controller: GestionPreinscriptionBundle:Default:ajouterEtudiant }
+    path: /etudiant/ajouter
+    defaults: { _controller: GestionPreinscriptionBundle:Default:ajouterEtudiant }
+
+modifier_Etudiant:
+    path: /etudiant/edit/{id}
+    defaults: { _controller: GestionPreinscriptionBundle:Default:modifierEtudiant }
+
+validerModificationEtd:
+    path: /etudiant/valider
+    defaults: { _controller: GestionPreinscriptionBundle:Default:sauvegarderEtudiant }
 
 myapplication_contact:
     path:     /contact
     defaults: { _controller: GestionPreinscriptionBundle:Default:contact }
 
-gestion_form:
-    path:     /form
-    defaults: { _controller: GestionPreinscriptionBundle:Default:new }
-
 email_form:
     path:     /contact
     defaults: { _controller: GestionPreinscriptionBundle:Default:contact  }
 
-email_test:
-    path:     /contacts
-    defaults: { _controller: GestionPreinscriptionBundle:Default:testEmail  }
+list_Salles:
+    path:     /salles/list
+    defaults: { _controller: GestionPreinscriptionBundle:Salle:listSalles  }
+
+ajouter_Salle:
+    path: /salles/ajouter
+    defaults: { _controller: GestionPreinscriptionBundle:Salle:ajouterSalle }
+
+suprimer_Salle:
+    path: /salles/supprimer/{id}
+    defaults: { _controller: GestionPreinscriptionBundle:Salle:supprimerSalle }
+
+modifier_Salle:
+    path: /salles/modifier/{id}
+    defaults: { _controller: GestionPreinscriptionBundle:Salle:modifierSalle }
+
+
+
+
+

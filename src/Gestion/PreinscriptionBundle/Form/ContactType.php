@@ -23,25 +23,25 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, array('attr' => array('placeholder' => 'Your name'),
+            ->add('name', TextType::class, array('attr' => array('placeholder' => 'Votre Nom'),
                 'constraints' => array(
                     new NotBlank(array("message" => "Please provide your name")),
                 )
             ))
-            ->add('subject', TextType::class, array('attr' => array('placeholder' => 'Subject'),
+            ->add('subject', TextType::class, array('attr' => array('placeholder' => 'Sujet'),
                 'constraints' => array(
                     new NotBlank(array("message" => "Please give a Subject")),
                 )
             ))
-            ->add('email', EmailType::class, array('attr' => array('placeholder' => 'Your email address'),
+            ->add('email', EmailType::class, array('attr' => array('placeholder' => 'Votre adrese Email'),
                 'constraints' => array(
-                    new NotBlank(array("message" => "Please provide a valid email")),
-                    new Email(array("message" => "Your email doesn't seems to be valid")),
+                    new NotBlank(array("message" => "Veuillez indiquer une adresse mail valide")),
+                    new Email(array("message" => "Votre Email semble invalide")),
                 )
             ))
-            ->add('message', TextareaType::class, array('attr' => array('placeholder' => 'Your message here'),
+            ->add('message', TextareaType::class, array('attr' => array('placeholder' => 'Tapez votre message ici'),
                 'constraints' => array(
-                    new NotBlank(array("message" => "Please provide a message here")),
+                    new NotBlank(array("message" => "Veuillez indiquer votre message")),
                 )
             ))
         ;

@@ -2,54 +2,27 @@ gestion_admin_homepage:
     path:     /
     defaults: { _controller: GestionAdminBundle:Default:index }
 
-Preinscrit:
-    path:     /Preinscrit
-    defaults: { _controller: GestionPreinscriptionBundle:Default:list }
-
-listPreinscrit:
-    path:     /listPreinscrit
-    defaults: { _controller: GestionPreinscriptionBundle:Default:listPreinscrit }
-
-listEtudiant:
-    path:     /listEtudiant
-    defaults: { _controller: GestionPreinscriptionBundle:Default:listEtudiant }
-
-valider_preinscrit:
-    path:     /valider_preinscrit/{id}
-    defaults: { _controller: GestionPreinscriptionBundle:Default:validerPreinscrit }
-
-mailing:
-    path:     /mailing
-    defaults: { _controller: GestionAdminBundle:Default:mailing }
-
-
-default:
-    path:     /default
-    defaults: { _controller: GestionAdminBundle:Default:default }
-pre_inscription:
-    path:     /pre_inscription
-    defaults: { _controller: GestionAdminBundle:Default:preinscrire }
 dashbord2:
-        path:     /dashbord2
-        defaults: { _controller: GestionAdminBundle:Default:dashbord2 }
+    path:     /dashbord2
+    defaults: { _controller: GestionAdminBundle:Default:dashbord2 }
 dashbord3:
-        path:     /dashbord3
-        defaults: { _controller: GestionAdminBundle:Default:dashbord3 }
+    path:     /dashbord3
+    defaults: { _controller: GestionAdminBundle:Default:dashbord3 }
 ui_colors:
-        path:     /ui_colors
-        defaults: { _controller: GestionAdminBundle:Default:ui_colors }
+    path:     /ui_colors
+    defaults: { _controller: GestionAdminBundle:Default:ui_colors }
 ui_metronic_grid:
-        path:     /ui_metronic_grid
-        defaults: { _controller: GestionAdminBundle:Default:ui_metronic_grid }
+    path:     /ui_metronic_grid
+    defaults: { _controller: GestionAdminBundle:Default:ui_metronic_grid }
 ui_general:
-        path:     /ui_general
-        defaults: { _controller: GestionAdminBundle:Default:ui_general }
+    path:     /ui_general
+    defaults: { _controller: GestionAdminBundle:Default:ui_general }
 ui_buttons:
-        path:     /ui_buttons
-        defaults: { _controller: GestionAdminBundle:Default:ui_buttons }
+    path:     /ui_buttons
+    defaults: { _controller: GestionAdminBundle:Default:ui_buttons }
 ui_buttons_spinner:
-        path:     /ui_buttons_spinner
-        defaults: { _controller: GestionAdminBundle:Default:ui_buttons_spinner }
+    path:     /ui_buttons_spinner
+    defaults: { _controller: GestionAdminBundle:Default:ui_buttons_spinner }
 ui_confirmations:
         path:     /ui_confirmations
         defaults: { _controller: GestionAdminBundle:Default:ui_confirmations }

@@ -1,0 +1,31 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(form,{'attr':{'action':path('modifier_UE',{ 'id': unite.id })}}) }}
+
+    <div class="form-group">
+        <label for="gestion_uebundle_salle_ue_intitule">{{ form_label(form.intitule) }}</label>
+        {{ form_widget(form.nomSalle) }}
+    </div>
+
+    <div class="form-group">
+        <label for="gestion_uebundle_salle_ue_intitule">{{ form_label(form.coeffUnite) }}</label>
+        {{ form_widget(form.etat) }}
+    </div>
+
+    <div class="form-group">
+        <label for="gestion_uebundle_salle_ue_intitule">{{ form_label(form.creditUnite) }}</label>
+        {{ form_widget(form.nbrMaxChaises) }}
+    </div>
+
+
+
+    <div>
+        {{ form_rest(form) }}
+    </div>
+
+    {{ form_end(form) }}
+
+
+{% endblock %}

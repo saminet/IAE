@@ -1,0 +1,19 @@
+gestion_ue_homepage:
+    path:     /Unite_Enseignement
+    defaults: { _controller: GestionUEBundle:Default:index }
+
+UE_Instance:
+    path:     /Unite_Enseignement/instance
+    defaults: { _controller: GestionUEBundle:Default:new }
+
+Liste_UE:
+    path:     /Unite_Enseignement/liste
+    defaults: { _controller: GestionUEBundle:Default:list }
+
+ajouter_UE:
+    path: /Unite_Enseignement/ajouter
+    defaults: { _controller: GestionUEBundle:Default:ajouter }
+
+modifier_UE:
+    path: /Unite_Enseignement/modifier
+    defaults: { _controller: GestionUEBundle:Default:modifierUE }

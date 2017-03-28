@@ -8,6 +8,6 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('GestionPreinscriptionBundle:Default:index.html.twig');
+        return $this->render('GestionAdminBundle:Default:index.html.twig');
     }
 }

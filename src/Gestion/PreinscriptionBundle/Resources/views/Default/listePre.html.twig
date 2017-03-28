@@ -17,13 +17,13 @@
 {% for pre in preinscrits %}
         <tbody>
         <tr>
-            <td>{{ pre.nom }}</td>
+            <td><a href="{{ path('infosPreEtudiant', { 'id': pre.id }) }}">{{ pre.nom }}</a></td>
             <td>{{ pre.prenom }}</td>
             <td>{{ pre.dateNaissance|date("m/d/Y", false) }}</td>
             <td>{{ pre.lieuNaissance }}</td>
             <td>{{ pre.ville }}</td>
             <td>{{ pre.sexe }}</td>
-            <td><a href="{{ path('valider_preinscrit',{ 'id': pre.id }) }}"><button class="btn btn-success">Valider</button></a><button class="btn btn-danger">Refuser</button>
+            <td><a href="{{ path('valider_preinscrit',{ 'id': pre.id }) }}"><button class="btn btn-success">Valider</button></a><a href="{{ path('suprimerPreinscrit',{'id':pre.id}) }}"><button class="btn btn-danger">Supprimer</button></a>
         </tr>
 {% else %}
     <p>Aucune préinscrit n'a été trouvée.</p>
