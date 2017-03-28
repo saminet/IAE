@@ -43,7 +43,7 @@ class DefaultController extends Controller
             if($form->isValid()){
                 $em->persist($filiere);
                 $em->flush();
-                return $this->redirect($this->generateUrl('Liste_filières'));
+                return $this->redirect($this->generateUrl('liste_filieres'));
             }
         }
         //on rend la vue
@@ -69,7 +69,7 @@ class DefaultController extends Controller
 
             $request->getSession()->getFlashBag()->add('notice', 'Les données de la filière'.$filiere->getId().' est bien modifiée.');
 
-            return $this->redirectToRoute('Liste_filières', array('id' => $filiere->getId()));
+            return $this->redirectToRoute('liste_filieres', array('id' => $filiere->getId()));
         }
 
         return $this->render('GestionFiliereBundle:Default:modifierFilieres.html.twig', array(
@@ -88,7 +88,7 @@ class DefaultController extends Controller
         }
         $em->remove($filiere);
         $em->flush();
-        return new RedirectResponse($this->container->get('router')->generate('Liste_filières'));
+        return new RedirectResponse($this->container->get('router')->generate('liste_filieres'));
     }
 
 }

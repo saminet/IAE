@@ -3,6 +3,7 @@
 namespace Gestion\NiveauBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gestion\FiliereBundle\Entity\Filiere;
 
 /**
  * Niveau
@@ -30,12 +31,9 @@ class Niveau
 
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nomFiliere", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Gestion\FiliereBundle\Entity\Filiere", cascade={"persist"})
      */
-    private $nomFiliere;
-
+    private $filiere;
 
 
     /**
@@ -74,26 +72,26 @@ class Niveau
     
 
     /**
-     * Set nomFiliere
+     * Set Filiere
      *
-     * @param string $nomFiliere
+     * @param Filiere $filiere
      *
      * @return Niveau
      */
-    public function setNomFiliere ($nomFiliere)
+    public function setFiliere ($filiere)
     {
-        $this->nomFiliere = $nomFiliere;
+        $this->filiere = $filiere;
 
         return $this;
     }
 
     /**
-     * Get nomFiliere
+     * Get Filiere
      *
      * @return string
      */
-    public function getNomFiliere()
+    public function getFiliere()
     {
-        return $this->nomFiliere;
+        return $this->filiere;
     }
 }
