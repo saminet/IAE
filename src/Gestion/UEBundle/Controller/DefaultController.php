@@ -4,7 +4,7 @@ namespace Gestion\UEBundle\Controller;
 
 use Gestion\UEBundle\Entity\UE;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Gestion\PreinscriptionBundle\Form\UEType;
+use Gestion\UEBundle\Form\UEType;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,23 +14,6 @@ class DefaultController extends Controller
     public function indexAction()
     {
         return $this->render('GestionUEBundle:Default:index.html.twig');
-    }
-
-    public function newAction() {
-        $em = $this->container->get('doctrine')->getEntityManager();
-
-        $ue = new UE();
-        $ue->setIntitule('Communication');
-        $ue->setCoeffUnite('3');
-        $ue->setCreditUnite('2');
-        $em->persist($ue);
-        $em->flush();
-
-        $message = 'Insertion terminée : ';
-
-        return $this->container->get('templating')->renderResponse('GestionUEBundle:Default:index.html.twig',
-            array('message' => $message)
-        );
     }
 
     public function listAction()
@@ -47,9 +30,9 @@ class DefaultController extends Controller
     {
         $em = $this->container->get('doctrine')->getEntityManager();
         //on crée un nouveau etudiant
-        $salle = new UE();
+        $ue = new UE();
         //on recupere le formulaire
-        $form = $this->createForm(SalleType::class,$salle);
+        $form = $this->createForm(UEType::class,$ue);
 
         //on génère le html du formulaire crée
         $formView = $form->createView();
@@ -58,13 +41,13 @@ class DefaultController extends Controller
 
         if($form->isSubmitted()){
             if($form->isValid()){
-                $em->persist($salle);
+                $em->persist($ue);
                 $em->flush();
-                return $this->redirect($this->generateUrl('list_Salles'));
+                return $this->redirect($this->generateUrl('Liste_UE'));
             }
         }
         //on rend la vue
-        return $this->render('GestionPreinscriptionBundle:Default:ajouterSalle.html.twig',array(
+        return $this->render('GestionUEBundle:Default:ajouterUE.html.twig',array(
             'form' => $formView) );
     }
 
@@ -76,14 +59,14 @@ class DefaultController extends Controller
             throw new NotFoundHttpException("L'unité d'id ".$id." n'existe pas.");
         }
         //on recupere le formulaire
-        $form = $this->createForm(SalleType::class, $ue);
+        $form = $this->createForm(UEType::class, $ue);
         //on génère le html du formulaire crée
         $formView = $form->createView();
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             // Inutile de persister ici, Doctrine connait déjà notre unité d'enseignement
             $em->flush();
 
-            return $this->redirectToRoute('list_UE', array('id' => $ue->getId()));
+            return $this->redirectToRoute('Liste_UE');
         }
 
         return $this->render('GestionUEBundle:Default:modifierUE.html.twig', array(
@@ -95,13 +78,13 @@ class DefaultController extends Controller
     public function supprimerUEAction($id)
     {
         $em = $this->container->get('doctrine')->getEntityManager();
-        $salle= $this->getDoctrine()->getRepository('GestionPreinscriptionBundle:Salle')->find($id);
-        if (!$salle)
+        $ue= $this->getDoctrine()->getRepository('GestionUEBundle:UE')->find($id);
+        if (!$ue)
         {
-            throw new NotFoundHttpException("Aucune salle trouvé");
+            throw new NotFoundHttpException("Aucune unité trouvé");
         }
-        $em->remove($salle);
+        $em->remove($ue);
         $em->flush();
-        return new RedirectResponse($this->container->get('router')->generate('list_Salles'));
+        return new RedirectResponse($this->container->get('router')->generate('Liste_UE'));
     }
 }

@@ -3,6 +3,7 @@
 namespace Gestion\UEBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * UE
@@ -46,7 +47,18 @@ class UE
     /**
      * @ORM\ManyToOne(targetEntity="Gestion\NiveauBundle\Entity\Niveau", cascade={"persist"})
      */
-    private $idNiveau;
+    private $Niveau;
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Gestion\MatiereBundle\Entity\Matiere")
+     */
+    protected $matieres;
+
+    public function __construct()
+    {
+        $this->matieres = new ArrayCollection();
+    }
 
 
 
@@ -134,26 +146,65 @@ class UE
 
 
     /**
-     * Set idNiveau
+     * Set Niveau
      *
-     * @param \Gestion\NiveauBundle\Entity\Niveau $idNiveau
+     * @param \Gestion\NiveauBundle\Entity\Niveau $Niveau
      *
      * @return UE
      */
-    public function setIdNiveau(\Gestion\NiveauBundle\Entity\Niveau $idNiveau = null)
+    public function setNiveau(\Gestion\NiveauBundle\Entity\Niveau $Niveau = null)
     {
-        $this->idNiveau = $idNiveau;
+        $this->Niveau = $Niveau;
 
         return $this;
     }
 
     /**
-     * Get idNiveau
+     * Get Niveau
      *
      * @return \Gestion\NiveauBundle\Entity\Niveau
      */
-    public function getIdNiveau()
+    public function getNiveau()
     {
-        return $this->idNiveau;
+        return $this->Niveau;
+    }
+
+    public function __toString()
+    {
+        return $this->Niveau;
+    }
+
+    /**
+     * Add matiere
+     *
+     * @param \Gestion\MatiereBundle\Entity\Matiere $matiere
+     *
+     * @return UE
+     */
+    public function addMatiere(\Gestion\MatiereBundle\Entity\Matiere $matiere)
+    {
+        $this->matieres[] = $matiere;
+
+        return $this;
+    }
+
+    /**
+     * Remove matiere
+     *
+     * @param \Gestion\MatiereBundle\Entity\Matiere $matiere
+     */
+    public function removeMatiere(\Gestion\MatiereBundle\Entity\Matiere $matiere)
+    {
+        $this->matieres->removeElement($matiere);
+    }
+
+    /**
+     * Get matieres
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMatieres()
+    {
+        return $this->matieres;
     }
 }

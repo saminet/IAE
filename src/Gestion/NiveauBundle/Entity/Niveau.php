@@ -94,4 +94,9 @@ class Niveau
     {
         return $this->filiere;
     }
+
+    public function __toString()
+    {
+        return $this->nomNiveau;
+    }
 }

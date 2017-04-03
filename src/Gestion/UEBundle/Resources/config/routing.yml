@@ -2,7 +2,7 @@ gestion_ue_homepage:
     path:     /Unite_Enseignement
     defaults: { _controller: GestionUEBundle:Default:index }
 
-UE_Instance:
+UE_Ajout:
     path:     /Unite_Enseignement/instance
     defaults: { _controller: GestionUEBundle:Default:new }
 
@@ -15,5 +15,9 @@ ajouter_UE:
     defaults: { _controller: GestionUEBundle:Default:ajouter }
 
 modifier_UE:
-    path: /Unite_Enseignement/modifier
+    path: /Unite_Enseignement/modifier/{id}
     defaults: { _controller: GestionUEBundle:Default:modifierUE }
+
+supprimer_UE:
+    path: /Unite_Enseignement/supprimer/{id}
+    defaults: { _controller: GestionUEBundle:Default:supprimerUE }
