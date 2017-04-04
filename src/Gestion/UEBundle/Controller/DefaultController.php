@@ -3,6 +3,8 @@
 namespace Gestion\UEBundle\Controller;
 
 use Gestion\UEBundle\Entity\UE;
+use Gestion\NiveauBundle\Entity\Niveau;
+use Gestion\FiliereBundle\Entity\Filiere;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Gestion\UEBundle\Form\UEType;
 use Symfony\Component\DependencyInjection\ContainerAware;
@@ -25,6 +27,53 @@ class DefaultController extends Controller
                 'unite' => $ue)
         );
     }
+
+    public function newAction()
+    {
+
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $matiere= $em->getRepository('GestionMatiereBundle:Matiere')->findAll();
+        $niveau= $em->getRepository('GestionNiveauBundle:Niveau')->findAll();
+        $filiere= $em->getRepository('GestionFiliereBundle:Filiere')->findAll();
+
+        return $this->render('GestionUEBundle:Default:ajouter.html.twig', array('matiere' => $matiere,'niveau' => $niveau,'filiere' => $filiere));
+    }
+
+    public function validerUEAction(Request $request)
+    {
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $unites= $em->getRepository('GestionUEBundle:UE')->findAll();
+        //on crée un nouvelle unité
+        $unite = new UE();
+        $nomUnite=$request->get('nomUnite');
+        $coef=$request->get('Coef');
+        $credit=$request->get('Credit');
+        $niveau=$request->get('niveau');
+        $matiere= array();
+
+        $matiere=$request->get('nomMatiere');
+
+        if(!is_null($matiere)){
+            foreach($matiere as $matiere) {
+                $matiere=$request->get('nomMatiere');
+            }
+        }
+
+        var_dump($nomUnite,$coef,$credit,$matiere,$niveau);die('hello !!');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $unite->setIntitule($nomUnite);
+        $unite->setMatiere($matiere);
+        $unite->setCoeffUnite($coef);
+        $unite->setCreditUnite($credit);
+        //$unite->setIdNiveau($niveau);
+        $em->persist($unite);
+        $em->flush();
+        //on rend la vue
+        return $this->render('GestionUEBundle:Default:listeUE.html.twig',array('unite' => $unites));
+    }
+
 
     public function ajouterAction(Request $request)
     {

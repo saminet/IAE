@@ -3,7 +3,7 @@ gestion_ue_homepage:
     defaults: { _controller: GestionUEBundle:Default:index }
 
 UE_Ajout:
-    path:     /Unite_Enseignement/instance
+    path:     /Unite_Enseignement/new
     defaults: { _controller: GestionUEBundle:Default:new }
 
 Liste_UE:
@@ -13,6 +13,10 @@ Liste_UE:
 ajouter_UE:
     path: /Unite_Enseignement/ajouter
     defaults: { _controller: GestionUEBundle:Default:ajouter }
+
+Valider_Ajout:
+    path: /Unite_Enseignement/valider
+    defaults: { _controller: GestionUEBundle:Default:validerUE }
 
 modifier_UE:
     path: /Unite_Enseignement/modifier/{id}
