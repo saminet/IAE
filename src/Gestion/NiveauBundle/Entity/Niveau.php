@@ -28,13 +28,18 @@ class Niveau
      * @ORM\Column(name="nomNiveau", type="string", length=255)
      */
     private $nomNiveau;
+	
+	        public function __toString()
+    {
+        return $this->nomNiveau;
+    }
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="Gestion\FiliereBundle\Entity\Filiere", cascade={"persist"})
+     *@ORM\ManyToOne(targetEntity="Gestion\FiliereBundle\Entity\Filiere")
+     *@ORM\joinColumn(onDelete="SET NULL")
      */
     private $filiere;
-
 
     /**
      * Get id
@@ -95,8 +100,4 @@ class Niveau
         return $this->filiere;
     }
 
-    public function __toString()
-    {
-        return $this->nomNiveau;
-    }
 }

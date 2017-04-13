@@ -1,0 +1,26 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+<div class="col-sm-11" style="background-color:lavender;">
+
+<form action="{{path('ValiderModification')}}" method="POST" id="MyForm">
+       <div class="form-group">
+       <label for="usr">Nom de matiere:</label>
+       <input type="text" class="form-control" id="usr" name="nomMatiere" value="{{matieres.nomMatiere}}" required>
+       </div>
+
+       <div class="form-group">
+       <label for="usr">Coefficient:</label>
+       <input type="text" class="form-control" id="usr" name="coefficient" value="{{matieres.coefficient}}" required>
+       </div>
+      <!-- parcour de la table module pour l'affichage des module present dans la table -->
+      <div class="form-group">
+       <label for="usr">Credit:</label>
+       <input type="text" class="form-control" id="usr" name="credit"  value="{{matieres.credit}}" required>
+       </div>
+       <input type="hidden" name="idMatiere" value={{matieres.id}}/>
+       <center><input type="submit" value="Submit" type="button" class="btn btn-success"></center>
+</form>
+
+{% endblock %}

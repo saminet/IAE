@@ -7,6 +7,7 @@
         <tr>
             <th>ID</th>
             <th>Intitulé</th>
+			<th>Niveau</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -15,6 +16,7 @@
         <tr>
             <td>{{ fil.id }}</td>
             <td>{{ fil.intitule }}</td>
+			<td>{{ fil.niveau }}</td>
             <td><a href="{{ path('modifier_filieres', { 'id': fil.id }) }}"><button class="btn btn-success">Modifier</button></a><a href="{{ path('supprimer_filieres', { 'id': fil.id }) }}"><button class="btn btn-danger">Supprimer</button></a>
         </tr>
         {% else %}

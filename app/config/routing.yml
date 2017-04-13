@@ -1,3 +1,15 @@
+gestion_salle:
+    resource: "@GestionSalleBundle/Resources/config/routing.yml"
+    prefix:   /
+
+gestion_enseignant:
+    resource: "@GestionEnseignantBundle/Resources/config/routing.yml"
+    prefix:   /
+
+gestion_absence:
+    resource: "@GestionAbsenceBundle/Resources/config/routing.yml"
+    prefix:   /
+
 gestion_niveau:
     resource: "@GestionNiveauBundle/Resources/config/routing.yml"
     prefix:   /
@@ -16,10 +28,6 @@ gestion_matiere:
 
 gestion_preinscription:
     resource: "@GestionPreinscriptionBundle/Resources/config/routing.yml"
-    prefix:   /
-
-gestion_admin:
-    resource: "@GestionAdminBundle/Resources/config/routing.yml"
     prefix:   /
 
 app:

@@ -1,0 +1,82 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <div class="floating-box" style ="display: inline-block;">
+        <form action="{{path('Save_Query')}}" method="post" id="myForm" class="form-inline">
+            Classe: <select name="NameClass" onchange="getValue(this)">
+                <option value=""></option>
+                {% for classe in classes %}
+                    <option value={{classe.intitule}}>{{classe.intitule}}</option>
+                {% endfor %}
+            </select>
+        </form>
+
+        <!-- select groupe -->
+        <form action="{{path('Save_QueryGroupe')}}" method="post" id="myFormGroupe" class="form-inline">
+            Groupe: <select name="NameGroupe" onchange="getValueGroupe(this)">
+                <option value="-- Choisir le Groupe --"></option>
+                {% if groupes is not empty %}
+                    {% for groupe in groupes %}
+                        <option value={{groupe.intitule}}>{{groupe.intitule}}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+        </form>
+
+        <!-- select matiere -->
+    </div>
+    {% if etudiants is not empty %}
+        <form action="{{path('Save_Query')}}" method="post"  >
+
+            Matiere:<select name="NameMatiere" >
+                <option value=""></option>
+                {% if dates is not empty %}
+                    {% for date in dates %}
+                        <option value={{date.matiere.nomMatiere}}>{{date.matiere.nomMatiere}}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+
+            <div class="container">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Etudiant(e)</th>
+                        <th>Marquage</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for etudiant in etudiants %}
+                        <tr>
+                            <td>
+                                {{etudiant.etudiant.nom}}
+                            </td>
+                            <td> <input type="checkbox" name="vehicle" value="Bike"><br></td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            <center><input type="submit" value="Submit" type="button" class="btn btn-success"></center>
+        </form>
+    {% endif %}
+
+
+
+    <script>
+        function getValue(obj){
+            $('#myForm').submit();
+
+        }
+    </script>
+
+    <script>
+        function getValueGroupe(obj){
+            $('#myFormGroupe').submit();
+
+        }
+    </script>
+
+{% endblock %}

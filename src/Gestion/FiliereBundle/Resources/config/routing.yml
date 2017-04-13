@@ -2,6 +2,10 @@ gestion_filiere_homepage:
     path:     /
     defaults: { _controller: GestionFiliereBundle:Default:index }
 
+flashMessageExample:
+    path:     /flash
+    defaults: { _controller: GestionFiliereBundle:Default:flashMessageExample }
+
 liste_filieres:
     path:     /filieres/liste
     defaults: { _controller: GestionFiliereBundle:Default:listFilieres }

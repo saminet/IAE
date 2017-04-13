@@ -21,9 +21,10 @@ class UEType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+
             ->add('intitule',TextType::class, array('attr' => array('class'=>'form-control')))
-            ->add('coeffUnite',integerType::class, array('attr' => array('class'=>'form-control')))
-            ->add('creditUnite',integerType::class, array('attr' => array('class'=>'form-control')))
+            //->add('coeffUnite',integerType::class, array('attr' => array('class'=>'form-control')))
+            //->add('creditUnite',integerType::class, array('attr' => array('class'=>'form-control')))
 
             ->add('niveau', EntityType::class, array(
                 'required' => true,
@@ -38,6 +39,21 @@ class UEType extends AbstractType
                     'class'     => 'form-control',
                 ),
             ))
+           ->add('filiere', EntityType::class, array(
+                'required' => true,
+                'class' => 'GestionFiliereBundle:Filiere',
+                'placeholder' => '-- Choisir le filiére --',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                       // ->join('u.niveau','n')
+                        ->orderBy('u.intitule', 'ASC');
+                },
+                'choice_label' => 'intitule',
+                'attr' => array(
+                    'class'     => 'form-control',
+                ),
+            ))
+
             ->add('matieres', EntityType::class, [
                 'class'        => 'GestionMatiereBundle:Matiere',
                 'choice_label' => 'nomMatiere',
@@ -45,7 +61,8 @@ class UEType extends AbstractType
                 'expanded'     => true,
                 'multiple'     => true,
             ])
-            ->add('submit',SubmitType::class, array('attr' => array('class'=>'btn btn-success')));
+            ->add('Enregistrer',SubmitType::class, array('attr' => array('class'=>'btn btn-success')));
+
 
 
 

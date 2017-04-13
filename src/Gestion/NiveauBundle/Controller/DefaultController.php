@@ -56,6 +56,33 @@ class DefaultController extends Controller
     }
 
 
+    public function modifierNiveauAction($id, Request $request)
+    {
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $niveau= $em->getRepository('GestionNiveauBundle:Niveau')->find($id);
+        if (null === $niveau) {
+            throw new NotFoundHttpException("Le niveau demandé d'id ".$id." n'existe pas.");
+        }
+        //on recupere le formulaire
+        $form = $this->createForm(NiveauType::class, $niveau);
+        //on génère le html du formulaire crée
+        $formView = $form->createView();
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            // Inutile de persister ici, Doctrine connait déjà notre filière
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Les données du niveau'.$niveau->getId().' est bien modifiée.');
+
+            return $this->redirectToRoute('Liste_Niveau');
+        }
+
+        return $this->render('GestionNiveauBundle:Default:modifierNiveau.html.twig', array(
+            'niveau' => $niveau,
+            'form'   => $formView,
+        ));
+    }
+
+
     public function supprimerNiveauAction($id)
     {
         $em = $this->container->get('doctrine')->getEntityManager();

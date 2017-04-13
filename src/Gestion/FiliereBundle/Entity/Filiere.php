@@ -28,6 +28,15 @@ class Filiere
      */
     private $intitule;
 
+    public function __toString()
+    {
+        return $this->intitule;
+    }
+
+    /**
+     *@ORM\ManyToOne(targetEntity="Gestion\NiveauBundle\Entity\Niveau")
+     */
+    private $niveau;
 
     /**
      * Get id
@@ -61,5 +70,60 @@ class Filiere
     public function getIntitule()
     {
         return $this->intitule;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->niveau = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add niveau
+     *
+     * @param \Gestion\NiveauBundle\Entity\Niveau $niveau
+     *
+     * @return Filiere
+     */
+    public function addNiveau(\Gestion\NiveauBundle\Entity\Niveau $niveau)
+    {
+        $this->niveau[] = $niveau;
+
+        return $this;
+    }
+
+    /**
+     * Remove niveau
+     *
+     * @param \Gestion\NiveauBundle\Entity\Niveau $niveau
+     */
+    public function removeNiveau(\Gestion\NiveauBundle\Entity\Niveau $niveau)
+    {
+        $this->niveau->removeElement($niveau);
+    }
+
+    /**
+     * Get niveau
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNiveau()
+    {
+        return $this->niveau;
+    }
+
+    /**
+     * Set niveau
+     *
+     * @param \Gestion\NiveauBundle\Entity\Niveau $niveau
+     *
+     * @return Filiere
+     */
+    public function setNiveau(\Gestion\NiveauBundle\Entity\Niveau $niveau = null)
+    {
+        $this->niveau = $niveau;
+
+        return $this;
     }
 }

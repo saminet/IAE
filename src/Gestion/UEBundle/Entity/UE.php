@@ -60,6 +60,13 @@ class UE
         $this->matieres = new ArrayCollection();
     }
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="filiere", type="string", length=255)
+     */
+    private $filiere;
+
 
 
     /**
@@ -206,5 +213,29 @@ class UE
     public function getMatieres()
     {
         return $this->matieres;
+    }
+
+    /**
+     * Set filiere
+     *
+     * @param string $filiere
+     *
+     * @return UE
+     */
+    public function setFiliere($filiere)
+    {
+        $this->filiere = $filiere;
+
+        return $this;
+    }
+
+    /**
+     * Get filiere
+     *
+     * @return string
+     */
+    public function getFiliere()
+    {
+        return $this->filiere;
     }
 }

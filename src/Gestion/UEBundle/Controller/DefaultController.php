@@ -10,6 +10,12 @@ use Gestion\UEBundle\Form\UEType;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Gestion\UEBundle\Entity\Tag;
+use Gestion\MatiereBundle\Entity\Matiere;
+use Gestion\UEBundle\Form\StringToTagsTransformer;
+use Gestion\UEBundle\Form\TagsType;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 
 class DefaultController extends Controller
 {
@@ -24,7 +30,7 @@ class DefaultController extends Controller
         $ue = $em->getRepository('GestionUEBundle:UE')->findAll();
 
         return $this->container->get('templating')->renderResponse('GestionUEBundle:Default:listeUE.html.twig',array(
-                'unite' => $ue)
+                'unites' => $ue)
         );
     }
 
@@ -59,7 +65,7 @@ class DefaultController extends Controller
             }
         }
 
-        var_dump($nomUnite,$coef,$credit,$matiere,$niveau);die('hello !!');
+        //var_dump($nomUnite,$coef,$credit,$matiere,$niveau);die('hello !!');
 
         $em = $this->getDoctrine()->getManager();
 
@@ -78,6 +84,8 @@ class DefaultController extends Controller
     public function ajouterAction(Request $request)
     {
         $em = $this->container->get('doctrine')->getEntityManager();
+        $niveau = $em->getRepository('GestionNiveauBundle:Niveau')->findAll();
+        $filiere = $em->getRepository('GestionFiliereBundle:Filiere')->findAll();
         //on crée un nouveau etudiant
         $ue = new UE();
         //on recupere le formulaire
@@ -96,8 +104,7 @@ class DefaultController extends Controller
             }
         }
         //on rend la vue
-        return $this->render('GestionUEBundle:Default:ajouterUE.html.twig',array(
-            'form' => $formView) );
+        return $this->render('GestionUEBundle:Default:ajouterUE.html.twig', array('niveau' => $niveau, 'filiere' => $filiere));
     }
 
     public function modifierUEAction($id, Request $request)
@@ -106,10 +113,10 @@ class DefaultController extends Controller
         $ue= $em->getRepository('GestionUEBundle:UE')->find($id);
         if (null === $ue) {
             throw new NotFoundHttpException("L'unité d'id ".$id." n'existe pas.");
+            //on génère le html du formulaire crée
         }
         //on recupere le formulaire
         $form = $this->createForm(UEType::class, $ue);
-        //on génère le html du formulaire crée
         $formView = $form->createView();
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             // Inutile de persister ici, Doctrine connait déjà notre unité d'enseignement
@@ -136,4 +143,53 @@ class DefaultController extends Controller
         $em->flush();
         return new RedirectResponse($this->container->get('router')->generate('Liste_UE'));
     }
+
+    public function unitesAction()
+    {   $filieres=null;
+        $niveaux= $this->getDoctrine()->getEntityManager()->getRepository('GestionNiveauBundle:Niveau')->findAll();
+        $matiere= $this->getDoctrine()->getEntityManager()->getRepository('GestionMatiereBundle:Matiere')->findAll();
+        return $this->render('GestionUEBundle:Default:ajouter.html.twig', array('niveau'=>$niveaux, 'matiere'=>$matiere,
+            'filiere'=>$filieres
+        ));
+
+    }
+
+    public function ajaxGetFilieresAction(Request $request) {
+        // Get the niveau ID
+        $id = $request->query->get('niveau_id');
+        $result = array();
+        // Return a list of filiere, based on the selected niveau
+        $repo = $this->getDoctrine()->getEntityManager()->getRepository('GestionFiliereBundle:Filiere');
+        $filieres = $repo->findBy(array('niveau' => $id), array('intitule' => 'asc'), array('intitule' => 'asc'));
+        foreach ($filieres as $filiere) {
+            $result[$filiere->getIntitule()] = $filiere->getId();
+        }
+        return new JsonResponse($result);
+    }
+
+
+    public function saveAction(Request $request)
+    {
+        $selectedniveau=$request->get('NameNiveau');
+        //$selectedniveau='1 ère année Finance';
+        $selectedFiliere=$request->get('NameFiliere');
+
+        $repository1=$this->getDoctrine()->getRepository('GestionNiveauBundle:Niveau');
+        $selectedNiveau=$repository1->createQueryBuilder('e')->where('e.nomNiveau = :nomNiveauVarr')->setParameter('nomNiveauVarr', $selectedniveau)->getQuery()->getResult();
+        //recherche de l'objet niveau selon id
+        //var_dump($selectedNiveau); die('Hello');
+
+        $Niveaux= $this->getDoctrine()->getRepository('GestionNiveauBundle:Niveau')->find($selectedNiveau[0]->getId());
+
+        //determiner les objets filiere selon le niveau selected
+        $repository2=$this->getDoctrine()->getRepository('GestionFiliereBundle:Filiere');
+        $filieres=$repository2->createQueryBuilder('e')->where('e.niveau = :nomniveauVarr')->setParameter('nomniveauVarr', $Niveaux)->getQuery()->getResult();
+
+        $niveau= $this->getDoctrine()->getEntityManager()->getRepository('GestionNiveauBundle:Niveau')->findAll();
+
+        return $this->render('GestionUEBundle:Default:ajouter.html.twig', array('niveau'=>$niveau,'filre'=>$filieres));
+    }
+
+
+
 }

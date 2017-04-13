@@ -26,7 +26,7 @@ class NiveauType extends AbstractType
             ->add('filiere', EntityType::class, array(
                 'required' => true,
                 'class' => 'GestionFiliereBundle:Filiere',
-                'placeholder' => 'Nom filière',
+                'placeholder' => '-- choisir le filière --',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.intitule', 'ASC');
@@ -38,7 +38,7 @@ class NiveauType extends AbstractType
             ))
             
            // ->add('nomFiliere', 'entity', array('label' => 'nomFiliere','class' => 'GestionFiliereBundle:Filiere','expanded' => false,'multiple' => false))
-            ->add('submit',SubmitType::class, array('attr' => array('class'=>'btn btn-success')));
+            ->add('Enregistrer',SubmitType::class, array('attr' => array('class'=>'btn btn-success')));
 
     }
     

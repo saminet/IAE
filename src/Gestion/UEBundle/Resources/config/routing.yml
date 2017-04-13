@@ -2,10 +2,6 @@ gestion_ue_homepage:
     path:     /Unite_Enseignement
     defaults: { _controller: GestionUEBundle:Default:index }
 
-UE_Ajout:
-    path:     /Unite_Enseignement/new
-    defaults: { _controller: GestionUEBundle:Default:new }
-
 Liste_UE:
     path:     /Unite_Enseignement/liste
     defaults: { _controller: GestionUEBundle:Default:list }
@@ -14,10 +10,6 @@ ajouter_UE:
     path: /Unite_Enseignement/ajouter
     defaults: { _controller: GestionUEBundle:Default:ajouter }
 
-Valider_Ajout:
-    path: /Unite_Enseignement/valider
-    defaults: { _controller: GestionUEBundle:Default:validerUE }
-
 modifier_UE:
     path: /Unite_Enseignement/modifier/{id}
     defaults: { _controller: GestionUEBundle:Default:modifierUE }
@@ -25,3 +17,28 @@ modifier_UE:
 supprimer_UE:
     path: /Unite_Enseignement/supprimer/{id}
     defaults: { _controller: GestionUEBundle:Default:supprimerUE }
+
+UE_Ajout:
+    path:     /Unite_Enseignement/new
+    defaults: { _controller: GestionUEBundle:Default:new }
+
+Valider_Ajout:
+    path: /Unite_Enseignement/valider
+    defaults: { _controller: GestionUEBundle:Default:validerUE }
+
+Unites:
+    path:     /Unite_Enseignement/unites
+    defaults: { _controller: GestionUEBundle:Default:unites }
+
+
+filieres_list_ajax_call:
+    path:     /ajax/filieres_list
+    defaults: { _controller: GestionUEBundle:Default:ajaxGetFilieres }
+
+Save_Unites:
+    path:     /Unite_Enseignement/addUE
+    defaults: { _controller: GestionUEBundle:Default:save }
+
+Save_Query_Unites:
+    path:     /Unite_Enseignement/ajouterUE
+    defaults: { _controller: GestionUEBundle:Default:Save_Query }

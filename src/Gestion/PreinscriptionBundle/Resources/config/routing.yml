@@ -63,23 +63,6 @@ email_form:
     path:     /contact
     defaults: { _controller: GestionPreinscriptionBundle:Default:contact  }
 
-list_Salles:
-    path:     /salles/list
-    defaults: { _controller: GestionPreinscriptionBundle:Salle:listSalles  }
-
-ajouter_Salle:
-    path: /salles/ajouter
-    defaults: { _controller: GestionPreinscriptionBundle:Salle:ajouterSalle }
-
-suprimer_Salle:
-    path: /salles/supprimer/{id}
-    defaults: { _controller: GestionPreinscriptionBundle:Salle:supprimerSalle }
-
-modifier_Salle:
-    path: /salles/modifier/{id}
-    defaults: { _controller: GestionPreinscriptionBundle:Salle:modifierSalle }
-
-
 
 
 

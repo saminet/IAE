@@ -1,0 +1,71 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    <div class="panel-heading">
+        <b class="panel-title">
+            <i class="fa fa-bar-chart-o fa-fw"></i> </b>
+        <a href="" class=" btn btn-primary pull-right" id="add-prof-btn"> <span class="glyphicon glyphicon-plus"></span>NOUVEAU</a>
+
+    </div>
+
+    {% block javasscripts %}
+        {{ parent() }}
+        <script>
+
+            $("[edit]").on("click", function (e) {
+                e.preventDefault();
+
+                var _idclasse= $(this).attr("edit");
+
+                var _link="{{ path("modifier_filieres",{"id":888}) }}";
+
+                _link=_link.replace("888",_idclasse);
+
+
+                $("#notice .modal-title").html("<b> MODIFICATION DE LA MATIERE</b>");
+                $("#notice .modal-body").html("<div class='text-center'> un instant ...</div>");
+                $("#notice").modal()
+
+
+                $.ajax({
+                    url:_link,
+                    success:function(data){
+                        $("#notice .modal-body").html(data)
+                    },
+                    error: function (err) {
+                        $("#notice .modal-body").html("<b class='text-danger'> ERREUR LORS DU CHARGMENT</b>")
+                    },
+                    failed: function () {
+                        $("#notice .modal-body").html("<b class='text-danger'> ERREUR LORS DU CHARGMENT</b>")
+                    }
+                })
+            })
+
+
+            $("#add-prof-btn").on("click", function (e) {
+                e.preventDefault();
+
+                $("#notice .modal-title").html("<b> NOUVELLE MATIERE</b>");
+                $("#notice .modal-body").html("<div class='text-center'> un instant ...</div>");
+                $("#notice").modal()
+
+
+                $.ajax({
+                    url:"{{ path("ajouter_filieres") }}",
+                    success:function(data){
+                        $("#notice .modal-body").html(data)
+                    },
+                    error: function (err) {
+                        $("#notice .modal-body").html("<b class='text-danger'> ERREUR LORS DU CHARGMENT</b>")
+                    },
+                    failed: function () {
+                        $("#notice .modal-body").html("<b class='text-danger'> ERREUR LORS DU CHARGMENT</b>")
+                    }
+                })
+            })
+        </script>
+    {% endblock %}
+{% endblock %}
+
+

@@ -1,0 +1,12 @@
+gestion_absence_homepage:
+    path:     /absence
+    defaults: { _controller: GestionAbsenceBundle:Default:index }
+
+Save_Query:
+    path: /Save
+    defaults: { _controller: GestionAbsenceBundle:Default:save }
+
+
+Save_QueryGroupe:
+    path: /Save_QueryGroupe
+    defaults: { _controller: GestionAbsenceBundle:Default:Save_QueryGroupe }
