@@ -1,5 +1,5 @@
-gestion_absence_homepage:
-    path:     /absence
+absence_gestion_absence_homepage:
+    path:     /Absence
     defaults: { _controller: GestionAbsenceBundle:Default:index }
 
 Save_Query:
@@ -10,3 +10,51 @@ Save_Query:
 Save_QueryGroupe:
     path: /Save_QueryGroupe
     defaults: { _controller: GestionAbsenceBundle:Default:Save_QueryGroupe }
+
+SaveAbsenceForm:
+    path: /SaveAbsenceForm
+    defaults: { _controller: GestionAbsenceBundle:Default:SaveAbsenceForm }
+
+ConsulterAbsenceRetard:
+    path: /ConsulterAbsenceRetard
+    defaults: { _controller: GestionAbsenceBundle:consulterAbsenceRetard:ConsulterAbsenceRetard }
+
+Save_QueryConsu:
+    path: /Save_QueryConsu
+    defaults: { _controller: GestionAbsenceBundle:consulterAbsenceRetard:Save_QueryConsultation }
+
+Save_QueryGroupeConsu:
+    path: /Save_QueryGroupeConsu
+    defaults: { _controller: GestionAbsenceBundle:consulterAbsenceRetard:Save_QueryGroupeConsu }
+
+ListAbsence:
+    path: /ListAbsence
+    defaults: { _controller: GestionAbsenceBundle:consulterAbsenceRetard:ListAbsence }
+
+SaveAbsenceMatiereConsu:
+    path: /SaveAbsenceMatiereConsu
+    defaults: { _controller: GestionAbsenceBundle:consulterAbsenceRetard:SaveAbsenceMatiereConsu }
+
+listClasse:
+    path:     /classe
+    defaults: { _controller: GestionAbsenceBundle:Classe:listClasse }
+
+AjoutClasse:
+    path:     /classe/ajouter
+    defaults: { _controller: GestionAbsenceBundle:Classe:AjoutClasse }
+
+ValiderAjoutClasse:
+    path:     /classe/valider
+    defaults: { _controller: GestionAbsenceBundle:Classe:validerAjoutClasse }
+
+ModifierClasse:
+    path:     /classe/modifier/{id}
+    defaults: { _controller: GestionAbsenceBundle:Classe:modifierClasse }
+
+ValiderModifClasse:
+    path:     /classe/valider/{id}
+    defaults: { _controller: GestionAbsenceBundle:Classe:validerModifClasse }
+
+deleteClasse:
+    path:     /classe/delete/{id}
+    defaults: { _controller: GestionAbsenceBundle:Classe:deleteClasse }

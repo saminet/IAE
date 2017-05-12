@@ -64,9 +64,9 @@ class Etudiant
     private $ville;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="num_cin_pass", type="integer")
+     * @ORM\Column(name="num_cin_pass", type="string")
      */
     private $numCinPass;
 
@@ -122,24 +122,35 @@ class Etudiant
     /**
      * @var string
      *
-     * @ORM\Column(name="message", type="text", nullable=TRUE)
+     * @ORM\Column(name="classe", type="string", length=255)
      */
-    private $message;
+    private $classe;
+
+    /**
+     *@ORM\ManyToOne(targetEntity="Gestion\AbsenceBundle\Entity\Groupe", cascade={"persist"})
+     */
+    private $groupe;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="niveau", type="string", length=255)
+     * @ORM\Column(name="login", type="string", length=255, options={"default":0})
      */
-    private $niveau;
+    private $login;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="formation", type="string", length=255)
+     * @ORM\Column(name="password", type="string", length=255)
      */
-    private $formation;
+    private $password;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="etat", type="string", length=255)
+     */
+    private $etat;
 
     /**
      * Get id
@@ -488,74 +499,123 @@ class Etudiant
     }
 
     /**
-     * Set message
+     * Set login
      *
-     * @param string $message
+     * @param string $login
      *
-     * @return etudiant
+     * @return Etudiant
      */
-    public function setMessage($message)
+    public function setLogin($login)
     {
-        $this->message = $message;
+        $this->login = $login;
 
         return $this;
     }
 
     /**
-     * Get message
+     * Get login
      *
      * @return string
      */
-    public function getMessage()
+    public function getLogin()
     {
-        return $this->message;
+        return $this->login;
     }
 
     /**
-     * Set niveau
+     * Set password
      *
-     * @param string $niveau
+     * @param string $password
      *
-     * @return etudiant
+     * @return Etudiant
      */
-    public function setNiveau($niveau)
+    public function setPassword($password)
     {
-        $this->niveau = $niveau;
+        $this->password = $password;
 
         return $this;
     }
 
     /**
-     * Get niveau
+     * Get password
      *
      * @return string
      */
-    public function getNiveau()
+    public function getPassword()
     {
-        return $this->niveau;
+        return $this->password;
     }
 
     /**
-     * Set formation
+     * Set groupe
      *
-     * @param string $formation
+     * @param \Gestion\AbsenceBundle\Entity\Groupe $groupe
      *
-     * @return etudiant
+     * @return Etudiant
      */
-    public function setFormation($formation)
+    public function setGroupe(\Gestion\AbsenceBundle\Entity\Groupe $groupe = null)
     {
-        $this->formation = $formation;
+        $this->groupe = $groupe;
 
         return $this;
     }
 
     /**
-     * Get formation
+     * Get groupe
+     *
+     * @return \Gestion\AbsenceBundle\Entity\Groupe
+     */
+    public function getGroupe()
+    {
+        return $this->groupe;
+    }
+
+    /**
+     * Set etat
+     *
+     * @param string $etat
+     *
+     * @return Etudiant
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * Get etat
      *
      * @return string
      */
-    public function getFormation()
+    public function getEtat()
     {
-        return $this->formation;
+        return $this->etat;
+    }
+
+
+    /**
+     * Set classe
+     *
+     * @param string $classe
+     *
+     * @return Etudiant
+     */
+    public function setClasse($classe)
+    {
+        $this->classe = $classe;
+
+        return $this;
+    }
+
+    /**
+     * Get classe
+     *
+     * @return string
+     */
+    public function getClasse()
+    {
+        return $this->classe;
     }
 }

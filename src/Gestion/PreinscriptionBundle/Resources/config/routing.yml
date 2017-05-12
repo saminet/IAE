@@ -32,7 +32,7 @@ suprimerPreinscrit:
 
 
 listEtudiant:
-    path:     /etudiant/list
+    path:     /etudiant/liste
     defaults: { _controller: GestionPreinscriptionBundle:Default:listEtudiant }
 
 infosEtudiant:
@@ -51,9 +51,27 @@ modifier_Etudiant:
     path: /etudiant/edit/{id}
     defaults: { _controller: GestionPreinscriptionBundle:Default:modifierEtudiant }
 
-validerModificationEtd:
-    path: /etudiant/valider
-    defaults: { _controller: GestionPreinscriptionBundle:Default:sauvegarderEtudiant }
+
+listParent:
+    path:     /parent/liste
+    defaults: { _controller: GestionPreinscriptionBundle:Default:listParent }
+
+infosParent:
+    path:     /parent/infos/{id}
+    defaults: { _controller: GestionPreinscriptionBundle:Default:infosParent }
+
+ajouter_Parent:
+    path: /parent/ajouter
+    defaults: { _controller: GestionPreinscriptionBundle:Default:ajouterParent}
+
+modifier_Parent:
+    path: /parent/edit/{id}
+    defaults: { _controller: GestionPreinscriptionBundle:Default:modifierParent }
+
+supprimerParent:
+    path:     /parent/supprimer/{id}
+    defaults: { _controller: GestionPreinscriptionBundle:Default:supprimerParent }
+
 
 myapplication_contact:
     path:     /contact
@@ -62,6 +80,20 @@ myapplication_contact:
 email_form:
     path:     /contact
     defaults: { _controller: GestionPreinscriptionBundle:Default:contact  }
+
+email_valide:
+    path:     /contact/sent
+    defaults: { _controller: GestionPreinscriptionBundle:Default:validerMail  }
+
+etudiant_rechercher:
+    path: /etudiant/rechercher
+    defaults: { _controller: GestionPreinscriptionBundle:Default:rechercher }
+    requirements:
+        _method: POST
+
+
+
+
 
 
 

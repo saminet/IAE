@@ -43,13 +43,6 @@ class Enseignant
     private $sexe;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="age", type="integer")
-     */
-    private $age;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="ville", type="text")
@@ -94,14 +87,21 @@ class Enseignant
     /**
      * @var string
      *
+     * @ORM\Column(name="login", type="string", length=255)
+     */
+    private $login;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="cin", type="integer")
+     * @ORM\Column(name="cin", type="string")
      */
     private $cin;
 
@@ -115,7 +115,7 @@ class Enseignant
     /**
      * @var int
      *
-     * @ORM\Column(name="rib", type="integer")
+     * @ORM\Column(name="rib", type="string")
      */
     private $rib;
 
@@ -200,30 +200,6 @@ class Enseignant
     public function getSexe()
     {
         return $this->sexe;
-    }
-
-    /**
-     * Set age
-     *
-     * @param integer $age
-     *
-     * @return Enseignant
-     */
-    public function setAge($age)
-    {
-        $this->age = $age;
-
-        return $this;
-    }
-
-    /**
-     * Get age
-     *
-     * @return int
-     */
-    public function getAge()
-    {
-        return $this->age;
     }
 
     /**
@@ -347,30 +323,6 @@ class Enseignant
     }
 
     /**
-     * Set password
-     *
-     * @param string $password
-     *
-     * @return Enseignant
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
      * Set cin
      *
      * @param string $cin
@@ -464,5 +416,53 @@ class Enseignant
     public function getTel()
     {
         return $this->tel;
+    }
+
+    /**
+     * Set login
+     *
+     * @param string $login
+     *
+     * @return Enseignant
+     */
+    public function setLogin($login)
+    {
+        $this->login = $login;
+
+        return $this;
+    }
+
+    /**
+     * Get login
+     *
+     * @return string
+     */
+    public function getLogin()
+    {
+        return $this->login;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     *
+     * @return Enseignant
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
     }
 }

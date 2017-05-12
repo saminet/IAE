@@ -15,16 +15,6 @@ class DefaultController extends Controller
         return $this->render('GestionFiliereBundle:Default:index.html.twig');
     }
 
-    public function flashMessageExampleAction()
-    {
-
-        $flash =  $this->get('session')->getFlashBag()->add('info', 'Article bien enregistré');
-
-        return $this->render('GestionFiliereBundle:Default:flash.html.twig',array(
-                'flash' => $flash)
-        );
-    }
-
     public function listFilieresAction()
     {
         $em = $this->container->get('doctrine')->getEntityManager();
@@ -49,13 +39,13 @@ class DefaultController extends Controller
         // Refill the fields in case the form is not valid.
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if($form->isSubmitted()){
+            if($form->isValid()){
                 $em->persist($filiere);
                 $em->flush();
-            $request->getSession()->getFlashBag()->add('succes','Ton email a été bien envoyé');
-            return $this->redirect($this->generateUrl('liste_filieres'));
+                return $this->redirect($this->generateUrl('liste_filieres'));
+            }
         }
-
         //on rend la vue
         return $this->render('GestionFiliereBundle:Default:ajouterFiliere.html.twig',array(
             'form' => $formView) );

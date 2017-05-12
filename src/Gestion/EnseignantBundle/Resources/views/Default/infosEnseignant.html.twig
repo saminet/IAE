@@ -1,8 +1,9 @@
-{% extends '::base.html.twig' %}
+{% extends '::layoutAdmin.html.twig' %}
 
 {% block body %}
 
     <h1>Information sur l'enseignant(e) : <b>{{ enseignant.nom }}</b> </h1>
+    <a href="{{path('Liste_enseignant')}}">Revenir à la liste des enseignants</a>
     <table class="table">
 
     <tbody>
@@ -19,7 +20,9 @@
         <tr><td><b>Téléphone</b></td><td>{{ enseignant.tel }}</td></tr>
         <tr><td><b>Email</b></td><td>{{ enseignant.email }}</td></tr>
         <tr><td><b>RIB</b></td><td>{{ enseignant.rib }}</td></tr>
-        <tr><td><a href="{{ path('modifier_Enseignant',{ 'id': enseignant.id }) }}"><button class="btn btn-primary">Modifier</button></a></td></tr>
+        <tr><td><b>Login</b></td><td>{{ enseignant.login }}</td></tr>
+        <tr><td><b>Mot de Passe</b></td><td>{{ enseignant.password }}</td></tr>
+        <tr><td><a href="{{ path('modifier_Enseignant',{'id':enseignant.id,'username':enseignant.login }) }}"><button class="btn btn-primary">Modifier</button></a></td></tr>
 
     </tbody>
 

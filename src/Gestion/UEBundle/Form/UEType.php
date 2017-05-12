@@ -29,7 +29,7 @@ class UEType extends AbstractType
             ->add('niveau', EntityType::class, array(
                 'required' => true,
                 'class' => 'GestionNiveauBundle:Niveau',
-                'placeholder' => 'Nom niveau',
+                'placeholder' => '-- Choisir le Niveau --',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.nomNiveau', 'ASC');
@@ -39,13 +39,13 @@ class UEType extends AbstractType
                     'class'     => 'form-control',
                 ),
             ))
-           ->add('filiere', EntityType::class, array(
+            ->add('filiere', EntityType::class, array(
                 'required' => true,
                 'class' => 'GestionFiliereBundle:Filiere',
                 'placeholder' => '-- Choisir le filiére --',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
-                       // ->join('u.niveau','n')
+                        // ->join('u.niveau','n')
                         ->orderBy('u.intitule', 'ASC');
                 },
                 'choice_label' => 'intitule',

@@ -1,7 +1,101 @@
-{% extends '::base.html.twig' %}
+{% extends '::layoutAdmin.html.twig' %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        function checkname()
+        {
+            var name=document.getElementById( "etudiant_login" ).value;
+            var pseudo = $("#etudiant_login").val();
+
+            if(name)
+            {
+                $.ajax({
+                    type: 'post',
+                    url: "{{ url('verifLogin') }}?pseudo=" + pseudo,
+                    data: {
+                        user_name:name,
+                    },
+                    success: function (response) {
+                        $( '#name_status' ).html(response);
+                        if(response=="OK")
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                });
+            }
+            else
+            {
+                $( '#name_status' ).html("");
+                return false;
+            }
+        }
+
+        function checkemail()
+        {
+            var email=document.getElementById( "etudiant_email" ).value;
+            var email = $("#etudiant_email").val();
+
+            if(email)
+            {
+                $.ajax({
+                    type: 'post',
+                    url: "{{ url('verifEmail') }}?mail=" + email,
+                    data: {
+                        user_email:email,
+                    },
+                    success: function (response) {
+                        $( '#email_status' ).html(response);
+                        if(response=="OK")
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                });
+            }
+            else
+            {
+                $( '#email_status' ).html("");
+                return false;
+            }
+        }
+
+        function checkall()
+        {
+            var namehtml=document.getElementById("name_status").innerHTML;
+            var emailhtml=document.getElementById("email_status").innerHTML;
+
+            if((namehtml && emailhtml)=="OK")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+    </script>
+
+    <script>
+        function same()
+        {
+            document.getElementById( "etudiant_login" ).value=document.getElementById( "etudiant_email" ).value;
+            document.getElementById( "etudiant_password" ).value=document.getElementById( "etudiant_numCinPass" ).value;
+        }
+    </script>
+{% endblock %}
 
 {% block body %}
-
+    <a href="{{path('listEtudiant')}}">Revenir à la liste des étudiants</a>
     {{ form_start(form,{'attr':{'action':path('modifier_Etudiant',{ 'id': etudiant.id })}}) }}
 
     <div class="form-group">
@@ -41,7 +135,7 @@
 
     <div class="form-group">
         <label for="etudiant_numCinPass">{{ form_label(form.numCinPass) }}</label>
-        {{ form_widget(form.numCinPass) }}
+        {{ form_widget(form.numCinPass, { 'attr': { 'onkeyup': 'same();'  } } ) }}
     </div>
 
     <div class="form-group">
@@ -51,7 +145,8 @@
 
     <div class="form-group">
         <label for="etudiant_email">{{ form_label(form.email) }}</label>
-        {{ form_widget(form.email) }}
+        {{ form_widget(form.email, { 'attr': { 'onkeyup': 'checkemail();same();'  } } ) }}
+        <span id="email_status"></span>
     </div>
 
     <div class="form-group">
@@ -70,13 +165,13 @@
     </div>
 
     <div class="form-group">
-        <label for="etudiant_niveau">{{ form_label(form.niveau) }}</label>
-        {{ form_widget(form.niveau) }}
+        <label for="etudiant_classe">{{ form_label(form.classe) }}</label>
+        {{ form_widget(form.classe) }}
     </div>
 
     <div class="form-group">
-        <label for="etudiant_formation">{{ form_label(form.formation) }}</label>
-        {{ form_widget(form.formation) }}
+        <label for="etudiant_groupe">{{ form_label(form.groupe) }}</label>
+        {{ form_widget(form.groupe) }}
     </div>
 
     <div class="form-group">
@@ -84,11 +179,41 @@
         {{ form_widget(form.nationalite) }}
     </div>
 
+    <div class="form-group">
+    <label for="etudiant_login">{{ form_label(form.login) }}</label>
+    {{ form_widget(form.login, { 'attr': { 'onkeyup': 'checkname()'  } } ) }}
+    <span id="name_status"></span>
+
+    <div class="form-group">
+        <label for="etudiant_password">{{ form_label(form.password) }}</label>
+        {{ form_widget(form.password) }}
+    </div>
+
     <div>
         {{ form_rest(form) }}
+        <input type="hidden" name="idEtud" value={{ oldUser }} >
     </div>
 
     {{ form_end(form) }}
-
+    <!-- filtrer la liste des groupe selon la classe séléctionnée -->
+    <script type="text/javascript">
+        (function($) {
+            $('#etudiant_classe').change(function(){
+                var idClasse = $(this).val();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('groupe_list_ajax_call') }}?classe_id=" + idClasse,
+                    success: function(data) {
+                        // Remove current options
+                        $('#etudiant_groupe').html('');
+                        $.each(data, function(k, v) {
+                            $('#etudiant_groupe').append('<option value="' + v + '">' + k + '</option>');
+                        });
+                    }
+                });
+                return false;
+            });
+        })(jQuery);
+    </script>
 
 {% endblock %}

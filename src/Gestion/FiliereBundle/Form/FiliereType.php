@@ -20,7 +20,7 @@ class FiliereType extends AbstractType
     {
         $builder
             ->add('intitule',TextType::class, array('attr' => array('class'=>'form-control')))
-			 ->add('niveau', EntityType::class, array(
+			->add('niveau', EntityType::class, array(
                 'required' => true,
                 'class' => 'GestionNiveauBundle:Niveau',
                 'placeholder' => '-- Choisir le Niveau --',
@@ -35,7 +35,7 @@ class FiliereType extends AbstractType
             ))
             ->add('submit',SubmitType::class, array('attr' => array('class'=>'btn btn-success')));
     }
-    
+
     /**
      * {@inheritdoc}
      */

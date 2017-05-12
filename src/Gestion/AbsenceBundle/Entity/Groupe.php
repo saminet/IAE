@@ -28,6 +28,12 @@ class Groupe
      */
     private $intitule;
 
+    public function __toString()
+    {
+        return $this->intitule;
+    }
+
+
     /**
      *@ORM\ManyToOne(targetEntity="Gestion\AbsenceBundle\Entity\Classe")
      *@ORM\joinColumn(onDelete="SET NULL")

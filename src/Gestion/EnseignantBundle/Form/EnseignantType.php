@@ -3,6 +3,7 @@
 namespace Gestion\EnseignantBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,22 +25,26 @@ class EnseignantType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom',TextType::class, array('attr' => array('class'=>'form-control')))
-            ->add('prenom',TextType::class, array('attr' => array('class'=>'form-control')))
-            ->add('sexe',ChoiceType::class, array('choices' => array('Féminin'=>'Féminin','Masculin'=>'Masculin'),'attr' => array('class'=>'form-control')))
-            ->add('adresse',TextareaType::class, array('attr' => array('class'=>'form-control')))
-            ->add('email',emailType::class, array('attr' => array('class'=>'form-control')))
-            ->add('dateNaissance',DateType::class, array('attr' => array('class'=>'form-control')))
-            ->add('ville',TextType::class, array('attr' => array('class'=>'form-control')))
-            ->add('lieuxNaissance',TextType::class, array('attr' => array('class'=>'form-control')))
-            ->add('nationalite',TextType::class, array('attr' => array('class'=>'form-control')))
-            ->add('password',TextType::class, array('attr' => array('class'=>'form-control')))
-            ->add('tel',IntegerType::class, array('attr' => array('class'=>'form-control')))
-            ->add('cin',IntegerType::class, array('attr' => array('class'=>'form-control')))
-            ->add('rib',IntegerType::class, array('attr' => array('class'=>'form-control')))
+            ->add('nom',TextType::class, array('attr' => array('class'=>'form-control','placeholder'=>'Nom de l\'enseignant')))
+            ->add('prenom',TextType::class, array('attr' => array('class'=>'form-control','placeholder'=>'Prenom de l\'enseignant')))
+            ->add('sexe',ChoiceType::class, array('placeholder'=>'Choisir le sexe','choices' => array('Masculin'=>'Masculin','Féminin'=>'Féminin'),
+                'expanded' => true,
+                'multiple' => false))
+            ->add('adresse',TextareaType::class, array('attr' => array('class'=>'form-control','placeholder'=>'Adresse de l\'enseignant')))
+            ->add('email',emailType::class, array('attr' => array('class'=>'form-control','placeholder'=>'Email de l\'enseignant')))
+            ->add('dateNaissance',DateType::class, array(
+                'years' => range(1950, date('Y'))))
+            ->add('ville',TextType::class, array('attr' => array('class'=>'form-control','placeholder'=>'Ville de l\'enseignant')))
+            ->add('lieuxNaissance',TextType::class, array('attr' => array('class'=>'form-control','placeholder'=>'Lieux de Naissance d\'enseignant')))
+            ->add('nationalite',TextType::class, array('attr' => array('class'=>'form-control','placeholder'=>'Nationalité de l\'enseignant')))
+            ->add('tel',TextType::class, array('attr' => array('class'=>'form-control','placeholder'=>'Téléphone')))
+            ->add('cin',TextType::class, array('attr' => array('class'=>'form-control','placeholder'=>'Numéro CIN/Passeport')))
+            ->add('rib',TextType::class, array('attr' => array('class'=>'form-control','placeholder'=>'Numéro de RIB')))
+            ->add('login',TextType::class, array('label' => 'Nom d\'utilisateur', 'attr' => array('class'=>'form-control','placeholder'=>'Nom d\'utilisateur')))
+            ->add('password',PasswordType::class, array('label' => 'Mot de Passe', 'attr' => array('class'=>'form-control','placeholder'=>'Mot de Passe')))
             ->add('submit',SubmitType::class, array('attr' => array('class'=>'btn btn-success')));
     }
-    
+
     /**
      * {@inheritdoc}
      */

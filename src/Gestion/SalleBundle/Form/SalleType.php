@@ -30,7 +30,7 @@ class SalleType extends AbstractType
             ->add('etage',IntegerType::class, array('attr' => array('class'=>'form-control')))
             ->add('submit',SubmitType::class, array('attr' => array('class'=>'btn btn-success')));
     }
-    
+
     /**
      * {@inheritdoc}
      */

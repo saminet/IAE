@@ -21,8 +21,8 @@ class NiveauType extends AbstractType
     {
         $builder
             ->add('nomNiveau',TextType::class, array('attr' => array('class'=>'form-control')))
-           // ->add('nomFiliere',TextType::class, array('attr' => array('class'=>'form-control')))
-           
+            // ->add('nomFiliere',TextType::class, array('attr' => array('class'=>'form-control')))
+
             ->add('filiere', EntityType::class, array(
                 'required' => true,
                 'class' => 'GestionFiliereBundle:Filiere',
@@ -36,12 +36,12 @@ class NiveauType extends AbstractType
                     'class'     => 'form-control',
                 ),
             ))
-            
-           // ->add('nomFiliere', 'entity', array('label' => 'nomFiliere','class' => 'GestionFiliereBundle:Filiere','expanded' => false,'multiple' => false))
+
+            // ->add('nomFiliere', 'entity', array('label' => 'nomFiliere','class' => 'GestionFiliereBundle:Filiere','expanded' => false,'multiple' => false))
             ->add('Enregistrer',SubmitType::class, array('attr' => array('class'=>'btn btn-success')));
 
     }
-    
+
     /**
      * {@inheritdoc}
      */

@@ -1,23 +1,24 @@
-gestion_matiere_homepage:
-    path:     /matiere
+listMatiere:
+    path:     /matieres
     defaults: { _controller: GestionMatiereBundle:Default:listMatiere }
 
-NewMatiere:
-    path:     /matiere/ajouter
-    defaults: { _controller: GestionMatiereBundle:Default:ajouterMatiere }
+AjoutMatiere:
+    path:     /matieres/ajouter
+    defaults: { _controller: GestionMatiereBundle:Default:AjoutMatiere }
 
-AddMatiere:
-    path:     /matiere/
-    defaults: { _controller: GestionMatiereBundle:Default:AddMatiere }
+ValiderAjoutMatiere:
+    path:     /matieres/valider
+    defaults: { _controller: GestionMatiereBundle:Default:validerAjoutMatiere }
 
 modifierMatiere:
-    path:     /matiere/edit/{id}
+    path:     /modifierMatiere/{id}
     defaults: { _controller: GestionMatiereBundle:Default:modifierMatiere }
+
+ValiderModification:
+    path:     /ValiderModification/{id}
+    defaults: { _controller: GestionMatiereBundle:Default:ValiderModification }
 
 deleteMatiere:
     path:     /deleteMatiere/{id}
     defaults: { _controller: GestionMatiereBundle:Default:deleteMatiere }
 
-ValiderModification:
-    path:     /matiere/liste
-    defaults: { _controller: GestionMatiereBundle:Default:ValiderModification }
