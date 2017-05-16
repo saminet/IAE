@@ -28,6 +28,11 @@ class Etudiant
      */
     private $nom;
 
+    public function __toString()
+    {
+        return $this->nom;
+    }
+
     /**
      * @var string
      *
@@ -185,7 +190,6 @@ class Etudiant
     {
         return $this->nom;
     }
-
     /**
      * Set prenom
      *

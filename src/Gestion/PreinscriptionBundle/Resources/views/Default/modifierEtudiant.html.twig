@@ -1,6 +1,23 @@
 {% extends '::layoutAdmin.html.twig' %}
 
+{% block header %}
+
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/font-awesome/css/font-awesome.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables/media/css/dataTables.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables-scroller/css/scroller.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/flatpickr/dist/flatpickr.min.css') }}"/>
+
+{% endblock %}
+
 {% block javascripts %}
+
+    <script type="text/javascript">
+        document.getElementById('contrat').onchange = function(){
+            alert(this.value);
+        };
+    </script>
+
     <script type="text/javascript">
         function checkname()
         {
@@ -85,6 +102,13 @@
 
     </script>
 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        jQuery(document).ready(function() {
+            $('.js-datepicker').datepicker({format: 'yyyy-mm-dd'});
+        });
+    </script>
+
     <script>
         function same()
         {
@@ -92,128 +116,166 @@
             document.getElementById( "etudiant_password" ).value=document.getElementById( "etudiant_numCinPass" ).value;
         }
     </script>
-{% endblock %}
-
-{% block body %}
-    <a href="{{path('listEtudiant')}}">Revenir à la liste des étudiants</a>
-    {{ form_start(form,{'attr':{'action':path('modifier_Etudiant',{ 'id': etudiant.id })}}) }}
-
-    <div class="form-group">
-        <label for="etudiant_nom">{{ form_label(form.nom) }}</label>
-        {{ form_widget(form.nom) }}
-    </div>
-
-    <div class="form-group">
-        <label for="etudiant_prenom">{{ form_label(form.prenom) }}</label>
-        {{ form_widget(form.prenom) }}
-    </div>
-
-    <div class="form-group">
-        <label for="etudiant_sexe">{{ form_label(form.sexe) }}</label>
-        {{ form_widget(form.sexe) }}
-    </div>
-
-    <div class="form-group">
-        <label for="etudiant_dateNaissance">{{ form_label(form.dateNaissance) }}</label>
-        {{ form_widget(form.dateNaissance) }}
-    </div>
-
-    <div class="form-group">
-        <label for="etudiant_adresse">{{ form_label(form.adresse) }}</label>
-        {{ form_widget(form.adresse) }}
-    </div>
-
-    <div class="form-group">
-        <label for="etudiant_lieuNaissance">{{ form_label(form.lieuNaissance) }}</label>
-        {{ form_widget(form.lieuNaissance) }}
-    </div>
-
-    <div class="form-group">
-        <label for="etudiant_ville">{{ form_label(form.ville) }}</label>
-        {{ form_widget(form.ville) }}
-    </div>
-
-    <div class="form-group">
-        <label for="etudiant_numCinPass">{{ form_label(form.numCinPass) }}</label>
-        {{ form_widget(form.numCinPass, { 'attr': { 'onkeyup': 'same();'  } } ) }}
-    </div>
-
-    <div class="form-group">
-        <label for="etudiant_tel">{{ form_label(form.tel) }}</label>
-        {{ form_widget(form.tel) }}
-    </div>
-
-    <div class="form-group">
-        <label for="etudiant_email">{{ form_label(form.email) }}</label>
-        {{ form_widget(form.email, { 'attr': { 'onkeyup': 'checkemail();same();'  } } ) }}
-        <span id="email_status"></span>
-    </div>
-
-    <div class="form-group">
-        <label for="etudiant_diplome">{{ form_label(form.diplome) }}</label>
-        {{ form_widget(form.diplome) }}
-    </div>
-
-    <div class="form-group">
-        <label for="etudiant_etablissement">{{ form_label(form.etablissement) }}</label>
-        {{ form_widget(form.etablissement) }}
-    </div>
-
-    <div class="form-group">
-        <label for="etudiant_anneeObtention">{{ form_label(form.anneeObtention) }}</label>
-        {{ form_widget(form.anneeObtention) }}
-    </div>
-
-    <div class="form-group">
-        <label for="etudiant_classe">{{ form_label(form.classe) }}</label>
-        {{ form_widget(form.classe) }}
-    </div>
-
-    <div class="form-group">
-        <label for="etudiant_groupe">{{ form_label(form.groupe) }}</label>
-        {{ form_widget(form.groupe) }}
-    </div>
-
-    <div class="form-group">
-        <label for="etudiant_nationalite">{{ form_label(form.nationalite) }}</label>
-        {{ form_widget(form.nationalite) }}
-    </div>
-
-    <div class="form-group">
-    <label for="etudiant_login">{{ form_label(form.login) }}</label>
-    {{ form_widget(form.login, { 'attr': { 'onkeyup': 'checkname()'  } } ) }}
-    <span id="name_status"></span>
-
-    <div class="form-group">
-        <label for="etudiant_password">{{ form_label(form.password) }}</label>
-        {{ form_widget(form.password) }}
-    </div>
-
-    <div>
-        {{ form_rest(form) }}
-        <input type="hidden" name="idEtud" value={{ oldUser }} >
-    </div>
-
-    {{ form_end(form) }}
-    <!-- filtrer la liste des groupe selon la classe séléctionnée -->
-    <script type="text/javascript">
-        (function($) {
-            $('#etudiant_classe').change(function(){
-                var idClasse = $(this).val();
-                $.ajax({
-                    type: "POST",
-                    url: "{{ url('groupe_list_ajax_call') }}?classe_id=" + idClasse,
-                    success: function(data) {
-                        // Remove current options
-                        $('#etudiant_groupe').html('');
-                        $.each(data, function(k, v) {
-                            $('#etudiant_groupe').append('<option value="' + v + '">' + k + '</option>');
-                        });
-                    }
-                });
-                return false;
-            });
-        })(jQuery);
-    </script>
 
 {% endblock %}
+
+ {% block body %}
+<h3>Mise à jours des donnée de l'étudiant :</h3>  <b>{{ etudiant.nom }} {{ etudiant.prenom }}</b>
+<div class="content content-product-edit datatable-width">
+    <div class="nav-tab-horizontal">
+        <div class="divider15"></div>
+        <div class="tab-content">
+            <div>
+                <div class="row">
+                    {{ form_start(form,{'attr':{'action':path('modifier_Etudiant',{ 'id': etudiant.id })}}) }}
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <label for="etudiant_nom">Nom</label>
+                        <div class="form-group">
+                            {{ form_widget(form.nom) }}
+                        </div>
+                        <label>Prenom</label>
+                        <div class="form-group">
+                            {{ form_widget(form.prenom) }}
+                        </div>
+                        <label>Date de Naissance</label>
+                        <div class="form-group form-bootstrap-datetime">
+                            <div class="input-group" data-plugin="flatpickr" data-wrap="true">
+                                {{ form_widget(form.dateNaissance, { 'attr': {'class': 'form-control flatpickr-input', 'readonly': 'readonly', 'data-input':'' } }) }}
+                                <span class="input-group-addon date-icon" data-toggle="">
+<i class="icon icon_calendar"></i>
+</span>
+                            </div>
+                        </div>
+                        <label>Sexe</label>
+                        <div class="form-group">
+                            {{ form_widget(form.sexe) }}
+                        </div>
+                        <label>Lieu de Naissnace</label>
+                        <div class="form-group">
+                            {{ form_widget(form.lieuNaissance) }}
+                        </div>
+                        <label>Adresse</label>
+                        <div class="form-group">
+                            {{ form_widget(form.adresse) }}
+                        </div>
+                        <label>Nationalite</label>
+                        <div class="form-group">
+                            {{ form_widget(form.nationalite) }}
+                        </div>
+                        <label>Numéro CIN/Passeport</label>
+                        <div class="form-group">
+                            {{ form_widget(form.numCinPass, { 'attr': { 'onkeyup': 'same();'  } } ) }}
+                        </div>
+                        <label>Ville</label>
+                        <div class="form-group">
+                            {{ form_widget(form.ville) }}
+                        </div>
+                        <label>Etablissement</label>
+                        <div class="form-group">
+                            {{ form_widget(form.etablissement) }}
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <label>Téléphone</label>
+                        <div class="form-group">
+                            {{ form_widget(form.tel) }}
+                        </div>
+                        <label>Email</label>
+                        <div class="form-group">
+                            {{ form_widget(form.email, { 'attr': { 'onkeyup': 'checkemail();same();'  } } ) }}
+                            <span id="email_status"></span>
+                        </div>
+                        <label>Diplome</label>
+                        <div class="form-group">
+                            {{ form_widget(form.diplome) }}
+                        </div>
+                        <label>Année d'Obtention</label>
+                        <div class="form-group form-bootstrap-datetime">
+                            <div class="input-group" data-plugin="flatpickr" data-wrap="true">
+                                {{ form_widget(form.anneeObtention, { 'attr': {'class': 'form-control flatpickr-input', 'readonly': 'readonly', 'data-input':'' } }) }}
+                                <span class="input-group-addon date-icon" data-toggle="">
+<i class="icon icon_calendar"></i>
+</span>
+                            </div>
+                        </div>
+                        <label>Classe</label>
+                        <div class="form-group">
+                            {{ form_widget(form.classe, { 'attr': {'id': 'etudiant_classe', 'onkeyup': 'search();'  } } ) }}
+                        </div>
+                        <label>Groupe</label>
+                        <div class="form-group">
+                            {{ form_widget(form.groupe) }}
+                        </div>
+                        <label>Login</label>
+                        <div class="form-group">
+                            {{ form_widget(form.login, { 'attr': { 'onkeyup': 'checkname()'  } } ) }}
+                            <span id="name_status"></span>
+                        </div>
+                        <label>Mot de passe</label>
+                        <div class="form-group">
+                            {{ form_widget(form.password) }}
+                        </div>
+
+                        <label>Etat</label>
+                        <div class="form-group">
+                            {{ form_widget(form.etat) }}
+                        </div>
+
+                        <div>
+                            {{ form_rest(form) }}
+                            <input type="hidden" name="idEtud" value={{ oldUser }} >
+                        </div>
+
+                        {{ form_end(form) }}
+
+                        <script type="text/javascript">
+                            <!-- filtrer la liste des groupe selon la classe séléctionnée -->
+                            (function ($) {
+                                $('#etudiant_classe').change(function () {
+                                    var idClasse = $(this).val();
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "{{ url('groupe_list_ajax_call') }}?classe_id=" + idClasse,
+                                        success: function (data) {
+                                            // Remove current options
+                                            $('#etudiant_groupe').html('');
+                                            $.each(data, function (k, v) {
+                                                $('#etudiant_groupe').append('<option value="' + v + '">' + k + '</option>');
+                                            });
+                                        }
+                                    });
+                                    return false;
+                                });
+                            })(jQuery);
+                        </script>
+
+                        {% endblock %}
+
+
+                        {% block footer %}
+
+                            <!-- START CORE JAVASCRIPT -->
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/jquery/dist/jquery.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/tether/dist/js/tether.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/switchery/dist/switchery.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/screenfull.js/dist/screenfull.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/classie/classie.js') }}"></script>
+                            <!-- END CORE JAVASCRIPT -->
+
+                            <!-- START PAGE PLUGINS -->
+
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/moment/min/moment.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/flatpickr/dist/flatpickr.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/jQuery.print/jQuery.print.js') }}"></script>
+                            <!-- END PAGE PLUGINS -->
+
+
+                            <!-- START GLOBAL JAVASCRIPT -->
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/js/site.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/js/site-settings.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/js/global/userlist.js') }}"></script>
+                            <!-- END THEME LAYOUT JAVASCRIPT -->
+
+                        {% endblock %}

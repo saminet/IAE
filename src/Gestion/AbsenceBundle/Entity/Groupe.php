@@ -24,21 +24,22 @@ class Groupe
     /**
      * @var string
      *
-     * @ORM\Column(name="Intitule", type="string", length=255, unique=true)
+     * @ORM\Column(name="Intitule", type="string", length=255)
      */
     private $intitule;
 
-    public function __toString()
-    {
-        return $this->intitule;
-    }
-
-
     /**
      *@ORM\ManyToOne(targetEntity="Gestion\AbsenceBundle\Entity\Classe")
-     *@ORM\joinColumn(onDelete="SET NULL")
+     *@ORM\JoinColumn(onDelete="SET NULL")
      */
     private $classe;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nombre", type="integer", length=255)
+     */
+    private $nombre;
 
     /**
      * Get id
@@ -74,6 +75,11 @@ class Groupe
         return $this->intitule;
     }
 
+    public function __toString()
+    {
+        return $this->intitule;
+    }
+
     /**
      * Set classe
      *
@@ -96,5 +102,29 @@ class Groupe
     public function getClasse()
     {
         return $this->classe;
+    }
+
+    /**
+     * Set nombre
+     *
+     * @param integer $nombre
+     *
+     * @return Groupe
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return integer
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
     }
 }

@@ -37,7 +37,7 @@ class DefaultController extends Controller
         $preinscrit1->setSexe('Masculain');
         $preinscrit1->setAdresse('Paris');
         $preinscrit1->setTel('123456');
-        $preinscrit1->setEmail('david2000@gmail.com');
+        $preinscrit1->setEmail('Khaldi001@gmail.com');
         $preinscrit1->setDiplome('Metrise');
         $preinscrit1->setEtablissement('Sorbon');
         $preinscrit1->setAnneeObtention(new \DateTime("2011-07-23 06:12:33"));
@@ -221,6 +221,8 @@ class DefaultController extends Controller
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $donnee = $form->getData();
+            $etat = $donnee->getEtat();
+            //var_dump($etat);die('HELLO');
             $username = $donnee->getLogin();
             //var_dump($username);die('Hello');
             $password = $donnee->getPassword();
@@ -305,15 +307,23 @@ class DefaultController extends Controller
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
             $donnee = $form->getData();
+            $etat = $donnee->getEtat();
             $username = $donnee->getLogin();
             $password = $donnee->getPassword();
             $email = $donnee->getEmail();
             $roles = 'ROLE_ETUDIANT';
-            //var_dump($username,$Old_usr,$roles,$password,$email,$roles);die('Hello');
+            //var_dump($username,$Old_usr,$roles,$password,$email,$roles,$etat);die('Hello');
             $userManager = $this->get('fos_user.user_manager');
             $user = $userManager->findUserByUsername($Old_usr);
-            if ($user instanceof User) {
-                throw new HttpException(409, 'Login déjà utilisé');
+
+            if ($etat=='Inactif') {
+                $user->setUsername($username);
+                $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
+                $user->setPassword($hash);
+                $user->setEmail($email);
+                $user->setEnabled(false);
+                $user->setRoles(array($roles));
+                $userManager->updateUser($user);
             }
             else{
                 $user->setUsername($username);
@@ -327,9 +337,6 @@ class DefaultController extends Controller
                 // Inutile de persister ici, Doctrine connait déjà notre annonce
                 $em->flush();
             }
-
-            $request->getSession()->getFlashBag()->add('notice', 'Les données de l\'étudiant'.$etudiant->getId().' est bien modifiée.');
-
             return $this->redirectToRoute('listEtudiant', array('id' => $etudiant->getId()));
         }
 
@@ -609,36 +616,4 @@ class DefaultController extends Controller
         $em->flush();
         return new RedirectResponse($this->get('router')->generate('listParent'));
     }
-
-    public function ajaxGetGroupeAction(Request $request) {
-        // Get the classe ID
-        $id = $request->query->get('classe_id');
-        $result = array();
-        // Return a list of groups, based on the selected class
-        $repo = $this->getDoctrine()->getEntityManager()->getRepository('GestionAbsenceBundle:Groupe');
-        $groupe = $repo->findBy(array('classe' => $id), array('intitule' => 'asc'));
-        foreach ($groupe as $group) {
-            $result[$group->getIntitule()] = $group->getId();
-        }
-        return new JsonResponse($result);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

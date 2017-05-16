@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width">
     <title>Gestion Universitaire</title>
 
+    <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+    <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/jquery/dist/jquery.min.js') }}"></script>
+
     <script type="text/javascript">
         //<![CDATA[
         try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag2:1,mirage2:0,oracle:0,paths:{cloudflare:"/cdn-cgi/nexp/dok3v=1613a3a185/"},atok:"de2f1d2ca7a4618e2e35af9620d39dfd",petok:"6951daf743559100a5a9336c6b2eb20686d18235-1494240511-1800",zone:"themesadmin.com",rocket:"0",apps:{"ga_key":{"ua":"UA-92643213-2","ga_bs":"2"}}}];!function(a,b){a=document.createElement("script"),b=document.getElementsByTagName("script")[0],a.async=!0,a.src="../../../../../ajax.cloudflare.com/cdn-cgi/nexp/dok3v%3d85b614c0f6/cloudflare.min.js",b.parentNode.insertBefore(a,b)}()}}catch(e){};
@@ -29,7 +32,17 @@
     <link id="site-color" rel="stylesheet" href="{{ asset('templates/assets/layouts/layout-icon-menu/css/color/light/color-default.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/switchery/dist/switchery.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/perfect-scrollbar/css/perfect-scrollbar.min.css') }}"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" type="text/css" href='https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css'/>
+
+    <!-- BEGIN selectize -->
+    <script src="{{ asset('bundles/gestionue/js/selectize.js') }}" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/gestionue/dist/css/selectize.default.css') }}" />
+    <script src="{{ asset('bundles/gestionue/js/index.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/membre/javascripts/test_form.js') }}" type="text/javascript"></script>
+    <!-- END selectize -->
+
+    {% block header %} {% endblock %}
+
 
     <link rel="stylesheet" href="{{ asset('templates/assets/global/css/components.min.css') }}"/>
 
@@ -51,6 +64,8 @@
         (function(b){(function(a){"__CF"in b&&"DJS"in b.__CF?b.__CF.DJS.push(a):"addEventListener"in b?b.addEventListener("load",a,!1):b.attachEvent("onload",a)})(function(){"FB"in b&&"Event"in FB&&"subscribe"in FB.Event&&(FB.Event.subscribe("edge.create",function(a){_gaq.push(["_trackSocial","facebook","like",a])}),FB.Event.subscribe("edge.remove",function(a){_gaq.push(["_trackSocial","facebook","unlike",a])}),FB.Event.subscribe("message.send",function(a){_gaq.push(["_trackSocial","facebook","send",a])}));"twttr"in b&&"events"in twttr&&"bind"in twttr.events&&twttr.events.bind("tweet",function(a){if(a){var b;if(a.target&&a.target.nodeName=="IFRAME")a:{if(a=a.target.src){a=a.split("#")[0].match(/[^?=&]+=([^&]*)?/g);b=0;for(var c;c=a[b];++b)if(c.indexOf("url")===0){b=unescape(c.split("=")[1]);break a}}b=void 0}_gaq.push(["_trackSocial","twitter","tweet",b])}})})})(window);
         /* ]]> */
     </script>
+
+    {% block javascripts %}{% endblock %}
 </head>
 
 <body>
@@ -369,23 +384,21 @@
             </div>
         </div>
         {% block menuHeader %} {% endblock %}
-        {% block menu %} {% endblock %}
+
     </header>
 
-</div>
-</div>
+    <div  class="container">
 
+        <div>
+            {% block menu %} {% endblock %}
+        </div>
 
-
-{% block body %}{% endblock %}
+        {% block body %}{% endblock %}
+    </div>
 
     <footer id="footer">
-
     </footer>
-
 </div>
-
-<script type="text/javascript" src="{{ asset('templates/assets/global/plugins/jquery/dist/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/tether/dist/js/tether.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js') }}"></script>
@@ -394,14 +407,29 @@
 <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/classie/classie.js') }}"></script>
 
 
+{% block footer %}{% endblock %}
 
+<!-- START PAGE PLUGINS -->
+<script type="text/javascript"
+        src="{{ asset('templates/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+<script type="text/javascript"
+        src="{{ asset('templates/assets/global/plugins/datatables/media/js/dataTables.bootstrap4.min.js') }}"></script>
+<script type="text/javascript"
+        src="{{ asset('templates/assets/global/plugins/datatables-responsive/js/dataTables.responsive.js') }}"></script>
+<script type="text/javascript"
+        src="{{ asset('templates/assets/global/plugins/datatables-responsive/js/responsive.bootstrap4.js') }}"></script>
+<script type="text/javascript"
+        src="{{ asset('templates/assets/global/plugins/datatables-scroller/js/dataTables.scroller.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('templates/assets/global/plugins/moment/min/moment.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('templates/assets/global/plugins/flatpickr/dist/flatpickr.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('templates/assets/global/plugins/jQuery.print/jQuery.print.js') }}"></script>
+<!-- END PAGE PLUGINS -->
 
 <script type="text/javascript" src="{{ asset('templates/assets/global/js/site.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('templates/assets/global/js/site-settings.min.js') }}"></script>
 
-
 <script type="text/javascript" src="{{ asset('templates/assets/global/js/global/userlist.js') }}"></script>
-
 
 <script type="text/javascript" src="{{ asset('templates/assets/layouts/layout-icon-menu/js/layout.min.js') }}"></script>
 
