@@ -42,7 +42,8 @@ class EtudiantType extends AbstractType
             ->add('diplome',ChoiceType::class, array('placeholder'=>'Diplome de l\'étudiant','choices' => array('Bac'=>'Bac','Bac + 1'=>'Bac + 1','Bac + 2'=>'Bac + 2','Bac + 3'=>'Bac + 3','Bac + 4/5'=>'Bac + 4/5'),'attr' => array('class'=>'form-control')))
             ->add('etablissement',TextType::class, array('attr' => array('placeholder'=>'Etablissement de l\'étudiant','class'=>'form-control')))
             ->add('anneeObtention',DateType::class, array(
-                'years' => range(1950, date('Y'))))
+                // render as a single text box
+                'widget' => 'single_text'))
 
             ->add('classe', EntityType::class, array(
                 'required' => true,

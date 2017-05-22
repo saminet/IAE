@@ -17,7 +17,6 @@
             alert(this.value);
         };
     </script>
-
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
 
     <script>
@@ -37,7 +36,7 @@
 
 {% block body %}
     <br>
-    <h3>Ajouter une matière / <a href="{{path('listMatiere')}}">Liste des matière</a></h3>
+    <h3>Ajouter un groupe / <a href="{{ path('listGroupe') }}">Liste des groupes</a></h3>
     <div>
         <div class="content content-product-edit datatable-width">
             <div class="nav-tab-horizontal">
@@ -45,47 +44,31 @@
                 <div class="tab-content">
                     <div>
                         <div class="row">
-                            <form action="{{ path('ValiderModification', { 'id': matieres.id }) }}" method="POST" id="MyForm">
+                            {{ form_start(form,{'attr':{'action':path('AjoutGroupe')}}) }}
                                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
                                     <br>
-                                    <label for="class_selectbox">Intitulé de la matière:</label>
+                                    <label>Nom de la classe:</label>
                                     <div class="form-group">
-                                        <input type="text" value="{{matieres.nomMatiere}}" class="form-control" id="usr" name="nomMatiere" required>
+                                        {{ form_widget(form.classe) }}
                                     </div>
 
-                                    <label for="groupe_list">Coefficient:</label>
+                                    <label>Groupe:</label>
                                     <div class="form-group">
-                                        <input input type="number" step="0.01" value="{{matieres.coefficient}}" class="form-control" id="coef" name="coefficient" onkeyup="testnumber()" required>
+                                        {{ form_widget(form.intitule) }}
                                     </div>
 
-                                    <label for="etudiant_list">Credit:</label>
+                                    <label>Nombre:</label>
                                     <div class="control-group">
-                                        <input input type="number" value="{{matieres.credit}}" step="0.01" class="form-control" id="credit" name="credit" onkeyup="testnumber()" required>
-                                    </div>
-                                    <br>
-                                    <label for="etudiant_list">Classe:</label>
-                                    <div class="control-group">
-                                        <select name="classe" class="form-control" required>
-                                            <option value=""> {{matieres.classe}}</option>
-                                            {% if classe is not empty %}
-                                                {% for clas in classe %}
-                                                    <option value="{{clas.intitule}}">{{clas.intitule}}</option>
-                                                {% endfor %}
-                                            {% endif %}
-                                        </select>
+                                        {{ form_widget(form.nombre) }}
                                     </div>
                                     <br>
                                     <div class="control-group">
-                                        <input type="hidden" value="{{matieres.id}}" name="idMatiere">
-                                        <input type="submit" value="Sauvegarder" type="button" class="btn btn-success">
-                                        <input type="reset" value="Annuler" class="btn btn-danger">
+                                        {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
                                     </div>
+                                    {{ form_end(form) }}
                                     <br><br>
                                 </div>
-                            </form>
                         </div></div></div></div></div></div>
-    </div>
-
 {% endblock %}
 
 

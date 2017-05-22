@@ -1,26 +1,28 @@
 {% extends "::layoutAdmin.html.twig" %}
 
 {% block javascripts %}
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
-    <script type="text/javascript" charset="utf-8">
-        $(document).ready(function() {
-            $('#example').DataTable( {
-                columnDefs: [ {
-                    targets: [ 0 ],
-                    orderData: [ 0, 1 ]
-                }, {
-                    targets: [ 1 ],
-                    orderData: [ 1, 0 ]
-                }, {
-                    targets: [ 4 ],
-                    orderData: [ 4, 0 ]
-                } ]
-            } );
-        } );
-    </script>
+       <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
+       <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+       <script type="text/javascript" charset="utf-8">
+           $(document).ready(function() {
+               $('#example').DataTable( {
+                   columnDefs: [ {
+                       targets: [ 0 ],
+                       orderData: [ 0, 1 ]
+                   }, {
+                       targets: [ 1 ],
+                       orderData: [ 1, 0 ]
+                   }, {
+                       targets: [ 4 ],
+                       orderData: [ 4, 0 ]
+                   } ]
+               } );
+           } );
+       </script>
 
-{% endblock %}
+       <link rel="stylesheet" type="text/css" href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'/>
 
+   {% endblock %}
 
 {% block body %}
 
@@ -35,7 +37,7 @@
             <th>LieuNaissance</th>
             <th>Ville</th>
             <th>Sexe</th>
-            <th>&nbsp;&nbsp;&nbsp;<a href="{{path('ajouter_Etudiant')}}">+Nouveau Etudiant</a></th>
+            <th><a href="{{path('ajouter_Etudiant')}}">+Nouveau Etudiant</a></th>
         </tr>
         </thead>
         <tbody>
@@ -47,7 +49,34 @@
                 <td>{{ etd.lieuNaissance }}</td>
                 <td>{{ etd.ville }}</td>
                 <td>{{ etd.sexe }}</td>
-                <td><a href="{{ path('modifier_Etudiant',{'id':etd.id,'username':etd.login}) }}"><button class="btn btn-primary">Modifier</button></a><a href="{{ path('supprimerEtudiant',{'id':etd.id,'username':etd.login}) }}"><button class="btn btn-danger" onclick="if(window.confirm('Voulez-vous vraiment supprimer ?')){return true;}else{return false;}">Supprimer</button></a></td>
+                <td>
+
+                    <div class="btn-toolbar" role="toolbar">
+
+                        <div class="btn-group">
+
+                            <a href="{{ path('infosEtudiant', { 'id': etd.id }) }}">
+                                <button type="button" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </a>
+
+                            <a href="{{ path('modifier_Etudiant',{'id':etd.id,'username':etd.login}) }}">
+                                <button type="button" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
+                            </a>
+
+                            <a href="{{ path('supprimerEtudiant',{'id':etd.id,'username':etd.login}) }}">
+                                <button type="button" class="btn btn-default" onclick="if(window.confirm('Voulez-vous vraiment supprimer ?'))
+                                {return true;}else{return false;}">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button></a>
+                        </div>
+                    </div>
+
+
+                </td>
             </tr>
         {% else %}
             <p>Aucune préinscrit n'a été trouvée.</p>

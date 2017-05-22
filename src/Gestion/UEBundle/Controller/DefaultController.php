@@ -31,56 +31,37 @@ class DefaultController extends Controller
         );
     }
 
-    public function AjouterUEAction()
-    {   $filieres=null;
-        $niveaux= $this->getDoctrine()->getEntityManager()->getRepository('GestionNiveauBundle:Niveau')->findAll();
-        $matiere= $this->getDoctrine()->getEntityManager()->getRepository('GestionMatiereBundle:Matiere')->findAll();
-        return $this->render('GestionUEBundle:Default:ajouter.html.twig', array('niveau'=>$niveaux, 'matiere'=>$matiere,
-            'filiere'=>$filieres
-        ));
-
-    }
-
-    public function validerUEAction(Request $request)
+    public function AjouterUEAction(Request $request)
     {
         $em = $this->container->get('doctrine')->getEntityManager();
-        $unites= $em->getRepository('GestionUEBundle:UE')->findAll();
-        //on crée un nouvelle unité
+        //$filieres=null;
+        //$niveaux= $this->getDoctrine()->getEntityManager()->getRepository('GestionNiveauBundle:Niveau')->findAll();
+        //$matiere= $this->getDoctrine()->getEntityManager()->getRepository('GestionMatiereBundle:Matiere')->findAll();
         $unite = new UE();
-        $nomUnite=$request->get('nomUnite');
-        $niveau=$request->get('NameNiveau');
-        $coef='';
-        $credit='';
-        $matiere= array();
-
-        $matiere=$request->get('matieres');
-
-        if(!is_null($matiere)){
-            foreach($matiere as $matiere) {
-                $matiere=$request->get('matieres');
-                $credit=$request->get('Credit');
-                $coef=$request->get('Coef');
-               }
+        //on recupere le formulaire
+        $form = $this->createForm(UEType::class, $unite);
+        $formView = $form->createView();
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $donnee = $form->getData();
+            $intitule = $donnee->getIntitule();
+            $niveau = $donnee->getNiveau();
+            $filiere = $donnee->getFiliere();
+            $matieres = $donnee->getMatieres();
+            var_dump($intitule,$niveau,$niveau,$filiere,$matieres);die('Hello');
+            //$user->setRoles(array($roles));
+            // Inutile de persister ici, Doctrine connait déjà notre unité d'enseignement
+            $em->flush();
+            return $this->redirectToRoute('Liste_UE');
         }
-
-        var_dump($nomUnite,$niveau,$matiere,$coef,$credit);die('hello !!');
-
-        $em = $this->getDoctrine()->getManager();
-
-        $unite->setIntitule($nomUnite);
-        $unite->addMatiere($matiere);
-        $unite->setCoeffUnite($coef);
-        $unite->setCreditUnite($credit);
-        //$unite->setIdNiveau($niveau);
-        $em->persist($unite);
-        $em->flush();
-        //on rend la vue
-        return $this->render('GestionUEBundle:Default:listeUE.html.twig',array('unite' => $unites));
+        return $this->render('GestionUEBundle:Default:ajouter.html.twig', array('unite' => $unite, 'form'   => $formView));
     }
 
     public function modifierUEAction($id, Request $request)
     {
         $em = $this->container->get('doctrine')->getEntityManager();
+        //$filieres=null;
+        //$niveaux= $this->getDoctrine()->getEntityManager()->getRepository('GestionNiveauBundle:Niveau')->findAll();
+        //$matiere= $this->getDoctrine()->getEntityManager()->getRepository('GestionMatiereBundle:Matiere')->findAll();
         $ue= $em->getRepository('GestionUEBundle:UE')->find($id);
         if (null === $ue) {
             throw new NotFoundHttpException("L'unité d'id ".$id." n'existe pas.");
@@ -97,9 +78,7 @@ class DefaultController extends Controller
         }
 
         return $this->render('GestionUEBundle:Default:modifierUE.html.twig', array(
-            'unite' => $ue,
-            'form'   => $formView,
-        ));
+            'unite' => $ue, 'form'   => $formView));
     }
 
     public function supprimerUEAction($id)

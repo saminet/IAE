@@ -1,28 +1,76 @@
-{% extends '::layoutAdmin.html.twig' %}
+{% extends "::layoutAdmin.html.twig" %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                columnDefs: [ {
+                    targets: [ 0 ],
+                    orderData: [ 0, 1 ]
+                }, {
+                    targets: [ 1 ],
+                    orderData: [ 1, 0 ]
+                }, {
+                    targets: [ 4 ],
+                    orderData: [ 4, 0 ]
+                } ]
+            } );
+        } );
+    </script>
+
+    <link rel="stylesheet" type="text/css" href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'/>
+
+{% endblock %}
 
 {% block body %}
-    <h1>Liste des unités d'enseignements :</h1>
-    <a href="{{path('Unites')}}"><button class="btn btn-success">Ajouter UE</button></a>
-    <table class="table">
+
+    <h2>Liste des Unités d'enseignament :</h2>
+
+    <table class="table"  cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
         <thead>
         <tr>
             <th>Intitulé</th>
             <th>Coefficient</th>
             <th>Credit d'unité</th>
             <th>Niveau</th>
+            <th>Filiere</th>
             <th>Matiere</th>
+            <th><a href="{{path('AjoutUnites')}}">+Nouvelle UE</a></th>
         </tr>
         </thead>
-        {% for ue in unites %}
         <tbody>
-        <tr>
-            <td>{{ ue.intitule }}</td>
-            <td>{{ ue.coeffUnite }}</td>
-            <td>{{ ue.creditUnite }}</td>
-            <td>{{ ue.niveau.nomNiveau }}</td>
-            <td>{% for matiere in ue.matieres %}- {{matiere.nomMatiere}}<br>{% endfor %}</td>
-            <td><a href="{{path('modifier_UE',{'id':ue.id})}}"><button class="btn btn-primary">Modifier</button></a><a href="{{ path('supprimer_UE', { 'id' : ue.id }) }}"><button class="btn btn-danger">Supprimer</button></a>
-        </tr>
+        {% for ue in unites %}
+            <tr>
+                <td>{{ ue.intitule }}</td>
+                <td>{{ ue.coeffUnite }}</td>
+                <td>{{ ue.creditUnite }}</td>
+                <td>{{ ue.niveau }}</td>
+                <td>{{ ue.filiere }}</td>
+                <td>{% for matiere in ue.matieres %}- {{matiere.nomMatiere}}<br>{% endfor %}</td>
+                <td>
+                    <div class="btn-toolbar" role="toolbar">
+
+                        <div class="btn-group">
+
+                            <a href="{{path('modifierUE',{'id':ue.id})}}">
+                                <button type="button" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
+                            </a>
+
+                            <a href="{{ path('supprimerUE', { 'id' : ue.id }) }}">
+                                <button type="button" class="btn btn-default" onclick="if(window.confirm('Voulez-vous vraiment supprimer ?'))
+                                {return true;}else{return false;}">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button></a>
+                        </div>
+                    </div>
+
+
+                </td>
+            </tr>
         {% else %}
             <p>Aucune Unité n'a été trouvée.</p>
         {% endfor %}
@@ -30,5 +78,3 @@
     </table>
 
 {% endblock %}
-
-

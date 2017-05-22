@@ -19,9 +19,13 @@
         } );
     </script>
 
+    <link rel="stylesheet" type="text/css" href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'/>
+
 {% endblock %}
 
+
 {% block body %}
+
     <h1>Liste des enseignants :</h1>
     <table class="table"  cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
     <thead>
@@ -32,7 +36,7 @@
     <th>LieuNaissance</th>
     <th>Ville</th>
     <th>Sexe</th>
-    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{path('ajouter_Enseignant')}}">+Nouveau Enseignant</a></th>
+    <th><a href="{{path('ajouter_Enseignant')}}">+Nouveau Enseignant</a></th>
     </tr>
     </thead>
         <tbody>
@@ -44,7 +48,31 @@
             <td>{{ ens.lieuxNaissance }}</td>
             <td>{{ ens.ville }}</td>
             <td>{{ ens.sexe }}</td>
-            <td><a href="{{ path('modifier_Enseignant',{'id':ens.id, 'username':ens.login }) }}"><button class="btn btn-success">Modifier</button></a><a href="{{ path('supprimerEnseignant',{'id':ens.id,'username':ens.login }) }}"><button class="btn btn-danger">Supprimer</button></a>
+            <td>
+                <div class="btn-toolbar" role="toolbar">
+                    <div class="btn-group">
+                        <a href="{{ path('infos_Enseignant',{ 'id': ens.id }) }}">
+                            <button type="button" class="btn btn-default">
+                                <span class="	glyphicon glyphicon-search"></span>
+                            </button>
+                        </a>
+
+                        <a href="{{ path('modifier_Enseignant',{'id':ens.id, 'username':ens.login }) }}">
+                            <button type="button" class="btn btn-default">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                        </a>
+
+                        <a href="{{ path('supprimerEnseignant',{'id':ens.id,'username':ens.login }) }}">
+                            <button type="button" class="btn btn-default" onclick="if(window.confirm('Voulez-vous vraiment supprimer ?'))
+                                {return true;}else{return false;}">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button></a>
+                    </div>
+                </div>
+
+
+            </td>
         </tr>
 {% else %}
     <p>Aucun enseignant n'a été trouvé.</p>

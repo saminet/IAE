@@ -23,7 +23,7 @@ class DefaultController extends Controller
         $matiere= $this->getDoctrine()->getEntityManager()->getRepository('GestionMatiereBundle:Matiere')->findAll();
         $user = $this->getUser();
         return $this->render('GestionMatiereBundle:Default:listMatiere.html.twig', array(
-            'user' => $user,'matieres'=>$matiere ));
+            'user' => $user,'matieres'=>$matiere));
     }
 
     public function ajoutMatiereAction(Request $request)

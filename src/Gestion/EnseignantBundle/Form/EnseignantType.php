@@ -33,7 +33,8 @@ class EnseignantType extends AbstractType
             ->add('adresse',TextareaType::class, array('attr' => array('class'=>'form-control','placeholder'=>'Adresse de l\'enseignant')))
             ->add('email',emailType::class, array('attr' => array('class'=>'form-control','placeholder'=>'Email de l\'enseignant')))
             ->add('dateNaissance',DateType::class, array(
-                'years' => range(1950, date('Y'))))
+                // render as a single text box
+                'widget' => 'single_text'))
             ->add('ville',TextType::class, array('attr' => array('class'=>'form-control','placeholder'=>'Ville de l\'enseignant')))
             ->add('lieuxNaissance',TextType::class, array('attr' => array('class'=>'form-control','placeholder'=>'Lieux de Naissance d\'enseignant')))
             ->add('nationalite',TextType::class, array('attr' => array('class'=>'form-control','placeholder'=>'Nationalité de l\'enseignant')))
@@ -42,6 +43,9 @@ class EnseignantType extends AbstractType
             ->add('rib',TextType::class, array('attr' => array('class'=>'form-control','placeholder'=>'Numéro de RIB')))
             ->add('login',TextType::class, array('label' => 'Nom d\'utilisateur', 'attr' => array('class'=>'form-control','placeholder'=>'Nom d\'utilisateur')))
             ->add('password',PasswordType::class, array('label' => 'Mot de Passe', 'attr' => array('class'=>'form-control','placeholder'=>'Mot de Passe')))
+            ->add('etat',ChoiceType::class, array('placeholder'=>'Choisir son état','choices' => array('Actif'=>'Actif', 'Inactif'=>'Inactif'),
+                'expanded' => true,
+                'multiple' => false))
             ->add('submit',SubmitType::class, array('attr' => array('class'=>'btn btn-success')));
     }
 

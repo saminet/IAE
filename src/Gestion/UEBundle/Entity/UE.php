@@ -45,7 +45,9 @@ class UE
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="Gestion\NiveauBundle\Entity\Niveau", cascade={"persist"})
+     * @var string
+     *
+     * @ORM\Column(name="niveau", type="string", length=255)
      */
     private $Niveau;
 
@@ -151,36 +153,6 @@ class UE
         return $this->intitule;
     }
 
-
-    /**
-     * Set Niveau
-     *
-     * @param \Gestion\NiveauBundle\Entity\Niveau $Niveau
-     *
-     * @return UE
-     */
-    public function setNiveau(\Gestion\NiveauBundle\Entity\Niveau $Niveau = null)
-    {
-        $this->Niveau = $Niveau;
-
-        return $this;
-    }
-
-    /**
-     * Get Niveau
-     *
-     * @return \Gestion\NiveauBundle\Entity\Niveau
-     */
-    public function getNiveau()
-    {
-        return $this->Niveau;
-    }
-
-    public function __toString()
-    {
-        return $this->Niveau;
-    }
-
     /**
      * Add matiere
      *
@@ -213,6 +185,30 @@ class UE
     public function getMatieres()
     {
         return $this->matieres;
+    }
+
+    /**
+     * Set niveau
+     *
+     * @param string $niveau
+     *
+     * @return UE
+     */
+    public function setNiveau($niveau)
+    {
+        $this->Niveau = $niveau;
+
+        return $this;
+    }
+
+    /**
+     * Get niveau
+     *
+     * @return string
+     */
+    public function getNiveau()
+    {
+        return $this->Niveau;
     }
 
     /**

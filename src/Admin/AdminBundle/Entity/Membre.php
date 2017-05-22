@@ -1,16 +1,16 @@
 <?php
 
-namespace Gestion\EnseignantBundle\Entity;
+namespace Admin\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Enseignant
+ * Membre
  *
- * @ORM\Table(name="enseignant")
- * @ORM\Entity(repositoryClass="Gestion\EnseignantBundle\Repository\EnseignantRepository")
+ * @ORM\Table(name="membre")
+ * @ORM\Entity(repositoryClass="Admin\AdminBundle\Repository\MembreRepository")
  */
-class Enseignant
+class Membre
 {
     /**
      * @var int
@@ -34,6 +34,13 @@ class Enseignant
      * @ORM\Column(name="prenom", type="string", length=255)
      */
     private $prenom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="date_naissance", type="string", length=255)
+     */
+    private $dateNaissance;
 
     /**
      * @var string
@@ -64,13 +71,6 @@ class Enseignant
     private $email;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_naissance", type="date")
-     */
-    private $dateNaissance;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="lieux_naissance", type="string", length=255)
@@ -90,6 +90,13 @@ class Enseignant
      * @ORM\Column(name="login", type="string", length=255)
      */
     private $login;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="role", type="string", length=255)
+     */
+    private $role;
 
     /**
      * @var string
@@ -258,30 +265,6 @@ class Enseignant
     }
 
     /**
-     * Set dateNaissance
-     *
-     * @param \DateTime $dateNaissance
-     *
-     * @return Enseignant
-     */
-    public function setDateNaissance($dateNaissance)
-    {
-        $this->dateNaissance = $dateNaissance;
-
-        return $this;
-    }
-
-    /**
-     * Get dateNaissance
-     *
-     * @return \DateTime
-     */
-    public function getDateNaissance()
-    {
-        return $this->dateNaissance;
-    }
-
-    /**
      * Set lieuxNaissance
      *
      * @param string $lieuxNaissance
@@ -327,6 +310,30 @@ class Enseignant
     public function getNationalite()
     {
         return $this->nationalite;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     *
+     * @return Enseignant
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
     }
 
     /**
@@ -450,27 +457,27 @@ class Enseignant
     }
 
     /**
-     * Set password
+     * Set role
      *
-     * @param string $password
+     * @param string $role
      *
      * @return Enseignant
      */
-    public function setPassword($password)
+    public function setRole($role)
     {
-        $this->password = $password;
+        $this->role = $role;
 
         return $this;
     }
 
     /**
-     * Get password
+     * Get role
      *
      * @return string
      */
-    public function getPassword()
+    public function getRole()
     {
-        return $this->password;
+        return $this->role;
     }
 
     /**
@@ -478,7 +485,7 @@ class Enseignant
      *
      * @param string $etat
      *
-     * @return Enseignant
+     * @return Membre
      */
     public function setEtat($etat)
     {
@@ -496,4 +503,29 @@ class Enseignant
     {
         return $this->etat;
     }
+
+    /**
+     * Set dateNaissance
+     *
+     * @param string $dateNaissance
+     *
+     * @return Membre
+     */
+    public function setDateNaissance($dateNaissance)
+    {
+        $this->dateNaissance = $dateNaissance;
+
+        return $this;
+    }
+
+    /**
+     * Get dateNaissance
+     *
+     * @return string
+     */
+    public function getDateNaissance()
+    {
+        return $this->dateNaissance;
+    }
+
 }

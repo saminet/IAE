@@ -6,19 +6,15 @@ Liste_UE:
     path:     /Unite_Enseignement/liste
     defaults: { _controller: GestionUEBundle:Default:list }
 
-Unites:
+AjoutUnites:
     path:     /Unite_Enseignement/new
     defaults: { _controller: GestionUEBundle:Default:AjouterUE }
 
-Valider_Ajout:
-    path: /Unite_Enseignement/valider
-    defaults: { _controller: GestionUEBundle:Default:validerUE }
-
-modifier_UE:
+modifierUE:
     path: /Unite_Enseignement/modifier/{id}
     defaults: { _controller: GestionUEBundle:Default:modifierUE }
 
-supprimer_UE:
+supprimerUE:
     path: /Unite_Enseignement/supprimer/{id}
     defaults: { _controller: GestionUEBundle:Default:supprimerUE }
 

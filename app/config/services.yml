@@ -12,3 +12,9 @@ services:
         class: Snilius\Twig\SortByFieldExtension
         tags:
             - { name: twig.extension }
+    redirect.after.login:
+        class: User\UserBundle\Redirection\AfterLoginRedirection
+        arguments: ["@router"]
+    redirect.after.logout:
+        class: User\UserBundle\Redirection\AfterLogoutRedirection
+        arguments: ["@router", "@security.token_storage"]

@@ -1,0 +1,74 @@
+{% extends '::layoutAdmin.html.twig' %}
+
+{% block header %}
+
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/font-awesome/css/font-awesome.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables/media/css/dataTables.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables-scroller/css/scroller.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/flatpickr/dist/flatpickr.min.css') }}"/>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script type="text/javascript">
+        document.getElementById('contrat').onchange = function(){
+            alert(this.value);
+        };
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+
+    <script>
+        function testnumber() {
+            //pour bien dire au javascript que c'est un nombre et pas une chaîne de caractères
+            var coef = parseInt(document.getElementById('coef').value);
+            var credit = parseInt(document.getElementById('credit').value);
+//Tu peux utiliser parseFloat() à la place de ParseInt() si la valeur peut être un nombre à virgule.
+            if (coef < 0 || credit < 0) {
+//dire à l'utilisateur qu'il a mal remplis
+                alert("Attention, une valeur négative est inséré !")
+            }
+        }
+    </script>
+
+{% endblock %}
+
+{% block body %}
+    <br>
+    <h3>Modifier un groupe / <a href="{{ path('listGroupe') }}">Liste des groupes</a></h3>
+    <div>
+        <div class="content content-product-edit datatable-width">
+            <div class="nav-tab-horizontal">
+                <div class="divider15"></div>
+                <div class="tab-content">
+                    <div>
+                        <div class="row">
+                            {{ form_start(form,{'attr':{'action':path('ModifierGroupe', { 'id': groupe.id })}}) }}
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                <br>
+                                <label>Nom de la classe:</label>
+                                <div class="form-group">
+                                    {{ form_widget(form.classe) }}
+                                </div>
+
+                                <label>Groupe:</label>
+                                <div class="form-group">
+                                    {{ form_widget(form.intitule) }}
+                                </div>
+
+                                <label>Nombre:</label>
+                                <div class="control-group">
+                                    {{ form_widget(form.nombre) }}
+                                </div>
+                                <br>
+                                <div class="control-group">
+                                    {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
+                                </div>
+                                {{ form_end(form) }}
+                                <br><br>
+                            </div>
+                        </div></div></div></div></div></div>
+{% endblock %}
+
+

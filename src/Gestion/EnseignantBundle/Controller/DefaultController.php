@@ -56,6 +56,7 @@ class DefaultController extends Controller
             if($form->isValid()){
 
                 $donnee = $form->getData();
+                $etat = $donnee->getEtat();
                 $username = $donnee->getLogin();
                 $password = $donnee->getPassword();
                 $email = $donnee->getEmail();
@@ -64,14 +65,26 @@ class DefaultController extends Controller
                 //créer un compte pour l'enseignant
                 $userManager = $this->get('fos_user.user_manager');
                 $user = $userManager->createUser();
-                $user->setUsername($username);
-                $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
-                $user->setPassword($hash);
-                $user->setEmail($email);
-                $user->setEnabled(true);
-                $user->setRoles(array($roles));
-                $userManager->updateUser($user, false);
-                $this->getDoctrine()->getManager()->flush();
+                if ($etat=='Inactif') {
+                    $user->setUsername($username);
+                    $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
+                    $user->setPassword($hash);
+                    $user->setEmail($email);
+                    $user->setRoles(array($roles));
+                    $user->setEnabled(false);
+                    $userManager->updateUser($user);
+                    $this->getDoctrine()->getManager()->flush();
+                }
+                else{
+                    $user->setUsername($username);
+                    $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
+                    $user->setPassword($hash);
+                    $user->setEmail($email);
+                    $user->setRoles(array($roles));
+                    $user->setEnabled(true);
+                    $userManager->updateUser($user);
+                    $this->getDoctrine()->getManager()->flush();
+                }
 
                 $em->persist($enseignant);
                 $em->flush();
@@ -140,6 +153,7 @@ class DefaultController extends Controller
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
             $donnee = $form->getData();
+            $etat = $donnee->getEtat();
             $username = $donnee->getLogin();
             $password = $donnee->getPassword();
             $email = $donnee->getEmail();
@@ -147,15 +161,26 @@ class DefaultController extends Controller
             //ajout des paramètres username et password dans la table 'fos_user'
             $userManager = $this->get('fos_user.user_manager');
             $usr = $userManager->findUserByUsername($Old_usr);
-            $usr->setUsername($username);
-            $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
-            $usr->setPassword($hash);
-            $usr->setEmail($email);
-            $usr->setEnabled(true);
-            $userManager->updateUser($usr);
 
-            // Inutile de persister ici, Doctrine connait déjà notre annonce
-            $em->flush();
+            if ($etat=='Inactif') {
+                $usr->setUsername($username);
+                $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
+                $usr->setPassword($hash);
+                $usr->setEmail($email);
+                $usr->setEnabled(false);
+                $userManager->updateUser($usr);
+            }
+            else{
+                $usr->setUsername($username);
+                $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
+                $usr->setPassword($hash);
+                $usr->setEmail($email);
+                $usr->setEnabled(true);
+                $userManager->updateUser($usr);
+
+                // Inutile de persister ici, Doctrine connait déjà notre annonce
+                $em->flush();
+            }
 
             return $this->redirectToRoute('Liste_enseignant', array('id' => $enseignant->getId()));
         }

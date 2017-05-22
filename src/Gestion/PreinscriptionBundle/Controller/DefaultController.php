@@ -232,18 +232,29 @@ class DefaultController extends Controller
             //var_dump($username,$password,$email,$roles);die('Hello');
             $userManager = $this->get('fos_user.user_manager');
             $user = $userManager->createUser();
-            $user->setUsername($username);
-            $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
-            $user->setPassword($hash);
-            $user->setEmail($email);
-            $user->setEnabled(true);
-            $user->setRoles(array($roles));
-            $userManager->updateUser($user);
-
+            if ($etat=='Inactif') {
+                $user->setUsername($username);
+                $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
+                $user->setPassword($hash);
+                $user->setEmail($email);
+                $user->setEnabled(false);
+                $user->setRoles(array($roles));
+                $userManager->updateUser($user);
+            }
+            else{
+                $user->setUsername($username);
+                $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
+                $user->setPassword($hash);
+                $user->setEmail($email);
+                $user->setEnabled(true);
+                $user->setRoles(array($roles));
+                $userManager->updateUser($user);
+                }
             //var_dump(array($donnee->getClasse()));die('Hello');
 
             $em->persist($etudiant);
             $em->flush();
+
             return $this->redirect($this->generateUrl('listEtudiant'));
         }
         //on rend la vue
@@ -325,18 +336,17 @@ class DefaultController extends Controller
                 $user->setRoles(array($roles));
                 $userManager->updateUser($user);
             }
-            else{
+            else {
                 $user->setUsername($username);
-                $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
+                $hash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 13]);
                 $user->setPassword($hash);
                 $user->setEmail($email);
                 $user->setEnabled(true);
                 $user->setRoles(array($roles));
                 $userManager->updateUser($user);
-
+            }
                 // Inutile de persister ici, Doctrine connait déjà notre annonce
                 $em->flush();
-            }
             return $this->redirectToRoute('listEtudiant', array('id' => $etudiant->getId()));
         }
 
@@ -520,6 +530,7 @@ class DefaultController extends Controller
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $donnee = $form->getData();
+            $etat = $donnee->getEtat();
             $username = $donnee->getLogin();
             //var_dump($username);die('Hello');
             $password = $donnee->getPassword();
@@ -529,14 +540,24 @@ class DefaultController extends Controller
             //var_dump($username,$password,$email,$roles);die('Hello');
             $userManager = $this->get('fos_user.user_manager');
             $user = $userManager->createUser();
-            $user->setUsername($username);
-            $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
-            $user->setPassword($hash);
-            $user->setEmail($email);
-            $user->setEnabled(true);
-            $user->setRoles(array($roles));
-            $userManager->updateUser($user);
-
+            if ($etat=='Inactif') {
+                $user->setUsername($username);
+                $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
+                $user->setPassword($hash);
+                $user->setEmail($email);
+                $user->setEnabled(false);
+                $user->setRoles(array($roles));
+                $userManager->updateUser($user);
+            }
+            else{
+                $user->setUsername($username);
+                $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
+                $user->setPassword($hash);
+                $user->setEmail($email);
+                $user->setEnabled(true);
+                $user->setRoles(array($roles));
+                $userManager->updateUser($user);
+            }
             $em->persist($parent);
             $em->flush();
             return $this->redirect($this->generateUrl('listParent'));
@@ -564,6 +585,7 @@ class DefaultController extends Controller
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
             $donnee = $form->getData();
+            $etat = $donnee->getEtat();
             $username = $donnee->getLogin();
             $password = $donnee->getPassword();
             $email = $donnee->getEmail();
@@ -571,22 +593,26 @@ class DefaultController extends Controller
             //var_dump($username,$Old_usr,$password,$email,$roles);die('Hello');
             $userManager = $this->get('fos_user.user_manager');
             $user = $userManager->findUserByUsername($Old_usr);
-            if ($user instanceof User) {
-                throw new HttpException(409, 'Login déjà utilisé');
-            }
-            else{
+            if ($etat=='Inactif') {
                 $user->setUsername($username);
                 $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
+                $user->setPassword($hash);
+                $user->setEmail($email);
+                $user->setEnabled(false);
+                $user->setRoles(array($roles));
+                $userManager->updateUser($user);
+            }
+            else {
+                $user->setUsername($username);
+                $hash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 13]);
                 $user->setPassword($hash);
                 $user->setEmail($email);
                 $user->setEnabled(true);
                 $user->setRoles(array($roles));
                 $userManager->updateUser($user);
-
-                // Inutile de persister ici, Doctrine connait déjà notre annonce
-                $em->flush();
             }
-
+                // Inutile de persister ici, Doctrine connait déjà les donées
+                $em->flush();
             return $this->redirectToRoute('listParent', array('id' => $parent->getId()));
         }
 

@@ -54,14 +54,23 @@ class UEType extends AbstractType
                 ),
             ))
 
-            ->add('matieres', EntityType::class, [
-                'class'        => 'GestionMatiereBundle:Matiere',
+            ->add('matieres', EntityType::class, array(
+                'required' => true,
+                'class' => 'GestionMatiereBundle:Matiere',
+                'placeholder' => '-- Choix des matieres --',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        // ->join('u.niveau','n')
+                        ->orderBy('u.nomMatiere', 'ASC');
+                },
                 'choice_label' => 'nomMatiere',
-                'label'        => 'Choix du matieres',
-                'expanded'     => true,
-                'multiple'     => true,
-            ])
-            ->add('Enregistrer',SubmitType::class, array('attr' => array('class'=>'btn btn-success')));
+                'attr' => array(
+                    'class'     => 'form-control',
+                    'expanded'     => true,
+                    'multiple'     => true,
+                ),
+            ))
+            ->add('submit',SubmitType::class, array('attr' => array('class'=>'btn btn-success')));
 
 
 

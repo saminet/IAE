@@ -13,12 +13,6 @@
 {% block javascripts %}
 
     <script type="text/javascript">
-    document.getElementById('contrat').onchange = function(){
-    alert(this.value);
-    };
-    </script>
-
-    <script type="text/javascript">
         function checkname()
         {
             var name=document.getElementById( "etudiant_login" ).value;
@@ -120,7 +114,7 @@
 {% endblock %}
 
  {% block body %}
-<h3>Ajouter un étudiant</h3>
+<h3>Ajouter un étudiant / <a href="{{path('listEtudiant')}}">Liste des étudiants</a> </h3>
 <div class="content content-product-edit datatable-width">
     <div class="nav-tab-horizontal">
         <div class="divider15"></div>
@@ -220,7 +214,14 @@
                         <div class="form-group">
                             {{ form_widget(form.etat) }}
                         </div>
+                        <br>
+                        <div class="control-group">
+                            {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
+                        </div>
                         {{ form_end(form) }}
+                        <br><br>
+                    </div>
+                </div></div></div></div></div></div>
 
                         <script type="text/javascript">
                             <!-- filtrer la liste des groupe selon la classe séléctionnée -->
