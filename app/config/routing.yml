@@ -1,3 +1,7 @@
+gestion_entreprise:
+    resource: "@GestionEntrepriseBundle/Resources/config/routing.yml"
+    prefix:   /
+
 gestion_note:
     resource: "@GestionNoteBundle/Resources/config/routing.yml"
     prefix:   /

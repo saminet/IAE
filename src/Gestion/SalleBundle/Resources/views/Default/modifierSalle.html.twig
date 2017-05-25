@@ -1,35 +1,95 @@
-{% extends '::base.html.twig' %}
+{% extends '::layoutAdmin.html.twig' %}
 
-{% block body %}
+{% block header %}
 
-    {{ form_start(form,{'attr':{'action':path('modifier_Salle',{ 'id': salle.id })}}) }}
-
-    <div class="form-group">
-        <label for="gestion_preinscriptionbundle_salle_nomSalle">{{ form_label(form.nomSalle) }}</label>
-        {{ form_widget(form.nomSalle) }}
-    </div>
-
-    <div class="form-group">
-        <label for="gestion_preinscriptionbundle_salle_etat">{{ form_label(form.etat) }}</label>
-        {{ form_widget(form.etat) }}
-    </div>
-
-    <div class="form-group">
-        <label for="gestion_preinscriptionbundle_salle_nbrMaxChaises">{{ form_label(form.nbrMaxChaises) }}</label>
-        {{ form_widget(form.nbrMaxChaises) }}
-    </div>
-
-    <div class="form-group">
-        <label for="gestion_preinscriptionbundle_salle_etage">{{ form_label(form.etage) }}</label>
-        {{ form_widget(form.etage) }}
-    </div>
-
-
-    <div>
-        {{ form_rest(form) }}
-    </div>
-
-    {{ form_end(form) }}
-
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/font-awesome/css/font-awesome.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables/media/css/dataTables.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables-scroller/css/scroller.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/flatpickr/dist/flatpickr.min.css') }}"/>
 
 {% endblock %}
+
+{% block javascripts %}
+    <script>
+        function testnumber() {
+            //pour bien dire au javascript que c'est un nombre et pas une chaîne de caractères
+            var cc = parseInt(document.getElementById('gestion_sallebundle_salle_nbrMaxChaises').value);
+            var etage = parseInt(document.getElementById('gestion_sallebundle_salle_etage').value);
+//Tu peux utiliser parseFloat() à la place de ParseInt() si la valeur peut être un nombre à virgule.
+            if (cc < 0 || etage < 0) {
+//dire à l'utilisateur qu'il a mal remplis
+                alert("Attention, une valeur négative est inséré !")
+            }
+        }
+    </script>
+
+{% endblock %}
+
+ {% block body %}
+     <h3>Ajouter une Salle / <a href="{{ path('list_Salles') }}">Liste des salles</a> </h3>
+     <div class="content content-product-edit datatable-width">
+         <div class="nav-tab-horizontal">
+             <div class="divider15"></div>
+             <div class="tab-content">
+                 <div>
+                     <div class="row">
+                         {{ form_start(form,{'attr':{'action':path('modifier_Salle',{ 'id': salle.id })}}) }}
+                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                             <br>
+                             <label for="salle_nomSalle">Intitulé de la salle</label>
+                             <!-- select Class -->
+                             <div class="form-group">
+                                 {{ form_widget(form.nomSalle) }}
+                             </div>
+                             <label for="groupe_list">Etat:</label>
+                             <div class="form-group">
+                                 {{ form_widget(form.etat) }}
+                             </div>
+                         </div><br>
+                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                             <label for="etudiant_list">Nombre de Chaise:</label>
+                             <div class="control-group">
+                                 {{ form_widget(form.nbrMaxChaises, {'attr': {'onkeyup': 'testnumber();'}}) }}
+                             </div><br>
+                             <label for="groupe_list">Etage:</label>
+                             <div class="form-group">
+                                 {{ form_widget(form.etage, {'attr': {'onkeyup': 'testnumber();'}}) }}
+                             </div><br>
+                             <div class="control-group">
+                                 {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
+                             </div><br>
+                             {{ form_end(form) }}
+                             <br><br>
+                         </div>
+                     </div></div></div></div></div></div>
+ {% endblock %}
+
+
+                        {% block footer %}
+
+                            <!-- START CORE JAVASCRIPT -->
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/jquery/dist/jquery.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/tether/dist/js/tether.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/switchery/dist/switchery.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/screenfull.js/dist/screenfull.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/classie/classie.js') }}"></script>
+                            <!-- END CORE JAVASCRIPT -->
+
+                            <!-- START PAGE PLUGINS -->
+
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/moment/min/moment.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/flatpickr/dist/flatpickr.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/jQuery.print/jQuery.print.js') }}"></script>
+                            <!-- END PAGE PLUGINS -->
+
+
+                            <!-- START GLOBAL JAVASCRIPT -->
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/js/site.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/js/site-settings.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/js/global/userlist.js') }}"></script>
+                            <!-- END THEME LAYOUT JAVASCRIPT -->
+
+                        {% endblock %}

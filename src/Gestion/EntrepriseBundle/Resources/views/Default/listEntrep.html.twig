@@ -1,0 +1,73 @@
+{% extends "::layoutAdmin.html.twig" %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'/>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                columnDefs: [ {
+                    targets: [ 0 ],
+                    orderData: [ 0, 1 ]
+                }, {
+                    targets: [ 1 ],
+                    orderData: [ 1, 0 ]
+                }, {
+                    targets: [ 3 ],
+                    orderData: [ 3, 0 ]
+                } ]
+            } );
+        } );
+    </script>
+
+{% endblock %}
+
+
+{% block body %}
+
+                <h2>Liste des entreprises :</h2>
+
+                <table class="table"  cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom Société</th>
+                        <th>Raison Sociale</th>
+                        <th>Adresse</th>
+                        <th><a href="{{path('ajouter_entreprise')}}">+Nouvelle Entreprise</a></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for ent in entreprise %}
+                    <tr>
+                        <td>{{ ent.id }}</td>
+                        <td>{{ ent.nomEntrep }}</td>
+                        <td>{{ ent.raisonSoc }}</td>
+                        <td>{{ ent.adresseEntrep }}</td>
+                        <td>
+                            <div class="btn-toolbar" role="toolbar">
+                                <div class="btn-group">
+                                    <a href="{{ path('modifier_entreprise',{'id':ent.id}) }}">
+                                        <button type="button" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </button>
+                                    </a>
+                                    <a href="{{ path('supprimer_entreprise',{'id':ent.id}) }}">
+                                        <button type="button" class="btn btn-default" onclick="if(window.confirm('Voulez-vous vraiment supprimer ?'))
+                                {return true;}else{return false;}">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button></a>
+                                </div>
+                            </div>
+
+
+
+                        </td>
+                    </tr>
+                    {% else %}
+                        <p>Aucune entreprise n'a été trouvée.</p>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            {% endblock %}

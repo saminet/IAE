@@ -2,6 +2,8 @@
 
 {% block javascripts %}
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/css/Responsive_Table_Style.css') }}"/>
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function() {
             $('#example').DataTable( {
@@ -22,32 +24,49 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Liste des salles :</h1>
-    <table class="table"  cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
+    <h3>Liste des salles</h3>
+    <div id="no-more-tables">
+    <table class="table-vertical" id="example">
         <thead>
         <tr>
             <th>Nom Salle</th>
             <th>Etat</th>
             <th>Nombre Max. de chaises</th>
             <th>Etage</th>
-            <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{path('ajouter_Salle')}}">+Nouvelle Salle</a></th>
+            <th><a href="{{path('ajouter_Salle')}}">+Nouvelle Salle</a></th>
         </tr>
         </thead>
         <tbody>
         {% for sal in salle %}
         <tr>
-            <td>{{ sal.nomSalle }}</td>
-            <td>{{ sal.etat }}</td>
-            <td>{{ sal.nbrMaxChaises }}</td>
-            <td>{{ sal.etage }}</td>
-            <td><a href="{{ path('modifier_Salle',{ 'id': sal.id }) }}"><button class="btn btn-primary">Modifier</button></a><a href="{{ path('suprimer_Salle',{'id':sal.id}) }}"><button class="btn btn-danger">Supprimer</button></a>
+            <td data-title="Intitulé">{{ sal.nomSalle }}</td>
+            <td data-title="Etat">{{ sal.etat }}</td>
+            <td data-title="Nombre de Chaises">{{ sal.nbrMaxChaises }}</td>
+            <td data-title="Etage">{{ sal.etage }}</td>
+            <td data-title="Action">
+
+                <div class="btn-toolbar" role="toolbar">
+
+                    <div class="btn-group">
+
+                        <a href="{{ path('modifier_Salle',{ 'id': sal.id }) }}">
+                            <button type="button" class="btn btn-default">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                        </a>
+
+                        <a href="{{ path('suprimer_Salle', { 'id': sal.id }) }}">
+                            <button type="button" class="btn btn-default" onclick="if(window.confirm('Voulez-vous vraiment supprimer ?'))
+                                {return true;}else{return false;}">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button></a>
+                    </div>
+                </div>
         </tr>
         {% else %}
-            <p>Aucune salle n'a été trouvée.</p>
+            <p>Aucune Salle n'a été trouvée.</p>
         {% endfor %}
         </tbody>
     </table>
-
+    </div>
 {% endblock %}
-
-

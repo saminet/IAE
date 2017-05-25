@@ -21,14 +21,15 @@
        </script>
 
        <link rel="stylesheet" type="text/css" href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'/>
+       <link rel="stylesheet" href="{{ asset('templates/assets/global/css/Responsive_Table_Style.css') }}"/>
 
    {% endblock %}
 
 {% block body %}
 
     <h2>Liste des étudiants :</h2>
-
-    <table class="table"  cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
+    <div id="no-more-tables">
+    <table class="table-vertical" id="example">
         <thead>
         <tr>
             <th>Nom</th>
@@ -43,13 +44,13 @@
         <tbody>
         {% for etd in etudiants %}
             <tr>
-                <td><a href="{{ path('infosEtudiant', { 'id': etd.id }) }}">{{ etd.nom }}</a></td>
-                <td>{{ etd.prenom }}</td>
-                <td>{{ etd.dateNaissance|date("m/d/Y", false) }}</td>
-                <td>{{ etd.lieuNaissance }}</td>
-                <td>{{ etd.ville }}</td>
-                <td>{{ etd.sexe }}</td>
-                <td>
+                <td data-title="Nom"><a href="{{ path('infosEtudiant', { 'id': etd.id }) }}">{{ etd.nom }}</a></td>
+                <td data-title="Prénom">{{ etd.prenom }}</td>
+                <td data-title="Date de Naissance">{{ etd.dateNaissance|date("m/d/Y", false) }}</td>
+                <td data-title="Lieu de Naissance">{{ etd.lieuNaissance }}</td>
+                <td data-title="Ville">{{ etd.ville }}</td>
+                <td data-title="Sexe">{{ etd.sexe }}</td>
+                <td data-title="Action">
 
                     <div class="btn-toolbar" role="toolbar">
 
@@ -83,5 +84,5 @@
         {% endfor %}
         </tbody>
     </table>
-
+    </div>
 {% endblock %}

@@ -1,0 +1,19 @@
+gestion_entreprise_homepage:
+    path:     /Entreprises/liste
+    defaults: { _controller: GestionEntrepriseBundle:Default:listEntrep }
+
+liste_entreprise:
+    path:     /Entreprises
+    defaults: { _controller: GestionEntrepriseBundle:Default:listEntrep }
+
+ajouter_entreprise:
+    path:     /Entreprises/ajouter
+    defaults: { _controller: GestionEntrepriseBundle:Default:ajoutEntrep }
+
+modifier_entreprise:
+    path:     /Entreprises/modifier/{id}
+    defaults: { _controller: GestionEntrepriseBundle:Default:editEntrep }
+
+supprimer_entreprise:
+       path:     /Entreprises/supprimer/{id}
+       defaults: { _controller: GestionEntrepriseBundle:Default:suppEntrep }

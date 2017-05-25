@@ -1,5 +1,14 @@
 {% extends '::layoutAdmin.html.twig' %}
 {% block javascripts %}
+<script>
+    function same()
+    {
+        var a=document.getElementById( "gestion_uebundle_ue_niveau" ).value;
+        var b=document.getElementById( "gestion_uebundle_ue_filiere" ).value;
+        var c=document.getElementById( "select_matieres" ).value;
+        document.getElementById( "classe" ).value= b;
+    }
+</script>
 {% endblock %}
 {% block body %}
 
@@ -14,7 +23,7 @@
     </div>
 
     <div class="form-group">
-        {{ form_widget(form.filiere) }}
+        {{ form_widget(form.filiere, { 'attr': { 'onkeyup': 'same();'  } } ) }}
     </div>
 
     <div class="form-group">
@@ -22,6 +31,7 @@
     </div>
 
     <div class="control-group">
+        <input type="text" name="classe" id="classe" >
         {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
     </div>
 

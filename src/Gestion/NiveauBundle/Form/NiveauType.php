@@ -38,7 +38,7 @@ class NiveauType extends AbstractType
             ))
 
             // ->add('nomFiliere', 'entity', array('label' => 'nomFiliere','class' => 'GestionFiliereBundle:Filiere','expanded' => false,'multiple' => false))
-            ->add('Enregistrer',SubmitType::class, array('attr' => array('class'=>'btn btn-success')));
+            ->add('submit',SubmitType::class, array('attr' => array('class'=>'btn btn-success')));
 
     }
 
