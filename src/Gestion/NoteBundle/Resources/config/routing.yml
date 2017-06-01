@@ -1,0 +1,51 @@
+gestion_note_homepage:
+    path:     /
+    defaults: { _controller: GestionNoteBundle:Default:index }
+
+list_note:
+    path:     /note/liste
+    defaults: { _controller: GestionNoteBundle:Default:listeNote }
+
+ajout_note:
+    path:     /note/ajouter
+    defaults: { _controller: GestionNoteBundle:Default:ajouterNote }
+
+Valider_Note:
+    path:     /note/verifier/{id}
+    defaults: { _controller: GestionNoteBundle:Default:verifierNote }
+
+modifier_Note:
+    path: /note/modifier/{id}
+    defaults: { _controller: GestionNoteBundle:Default:modifierNote }
+
+Valider_Modif_Note:
+    path: /note/valider/{id}
+    defaults: { _controller: GestionNoteBundle:Default:validerModifNote }
+
+Supprimer_Note:
+    path: /note/delete/{id}
+    defaults: { _controller: GestionNoteBundle:Default:deleteNote }
+
+Chercher_Note:
+    path: /note/search/{id}
+    defaults: { _controller: GestionNoteBundle:Default:searchNote }
+
+FilterNote:
+    path: /note/find
+    defaults: { _controller: GestionNoteBundle:Default:filterNote }
+
+Imprimer_Releve:
+    path: /note/print
+    defaults: { _controller: GestionNoteBundle:Default:imprimerReleve }
+
+groupe_list_ajax_call:
+    path:     /ajax/groupe_list
+    defaults: { _controller: GestionNoteBundle:Default:ajaxGetGroupe }
+
+etudiant_list_ajax_call:
+    path:     /ajax/etudiant_list
+    defaults: { _controller: GestionNoteBundle:Default:ajaxGetEtudiant }
+
+note_etudiant_list_ajax_call:
+    path:     /ajax/note_etudiant_list
+    defaults: { _controller: GestionNoteBundle:Default:ajaxGetNoteEtudiant }

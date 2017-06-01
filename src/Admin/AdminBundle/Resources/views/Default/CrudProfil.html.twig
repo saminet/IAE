@@ -1,0 +1,87 @@
+{% extends "::layoutAdmin.html.twig" %}
+{% block body %}
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-11" style="background-color:lavender;">
+                            <form action="{{path('AddProfil')}}" method="POST" id="MyForm">
+                                <br>
+                                <div class="form-group">
+                                    <label for="usr">Nom de profil:</label>
+                                    <input type="text" class="form-control" id="usr" name="nomProfil" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="usr">Poste:</label>
+                                    <input type="text" class="form-control" id="usr" name="poste" required>
+                                </div>
+                                <!-- parcour de la table module pour l'affichage des module present dans la table -->
+                                <div class="form-group">
+                                    <label for="usr">Module:</label>
+                                    {% for modules in module %}
+                                        <br>
+                                        <label><input name="nomModule[]" type="checkbox" value={{modules.nomModule}} >{{modules.nomModule}}</label>
+                                        &nbsp &nbsp <label><input name="{{modules.nomModule}}[]" type="checkbox" value="Ajouter" >Ajouter</label>
+                                        |<label><input name="{{modules.nomModule}}[]" type="checkbox" value="Modifier" >Modifier</label>
+                                        |<label><input name="{{modules.nomModule}}[]" type="checkbox" value="Supprimer" >Supprimer</label>
+                                    {% endfor %}
+                                    <br>
+                                </div>
+                                <center><input type="submit" value="Submit" type="button" class="btn btn-success"></center>
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <br><br><br>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom Profil</th>
+                        <th>Nom Poste</th>
+                        <th>Module</th>
+                        <th>Droit d'acces</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for acce in acces %}
+                            <tr>
+                                <td style="background-color: #D90115;color: #FFFFFF;">{{acce.profil.id}}</td>
+                                <td style="background-color: #D90115;color: #FFFFFF;">{{acce.profil.nomProfil}}</td>
+                                <td style="background-color: #D90115;color: #FFFFFF;">{{acce.profil.posteProfil}}</td>
+                                <td style="background-color: #D90115;color: #FFFFFF;">{{acce.module.nomModule}}</td>
+                                <td style="background-color: #D90115;color: #FFFFFF;">
+                                    {% for liaison in liaisons %}
+                                        {% if liaison.acces.id == acce.id %}
+                                            {{liaison.droitAcces.nomDroit}}
+                                        {% endif %}
+                                    {% endfor %}</td>
+
+                                <td style="background-color: #D90115;color: #FFFFFF;"><a href="{{ path('modifierProfil', { 'id': acce.id }) }}"><button type="button" class="btn btn-success">Modifier</button></a><a href="{{ path('deleteProfil', { 'id': acce.id })}}"><button type="button" class="btn btn-danger">Supprimer</button></a>
+                            </tr>
+
+                        {% else %}
+                            <tr>
+                                <td>{{acce.profil.id}}</td>
+                                <td>{{acce.profil.nomProfil}}</td>
+                                <td>{{acce.profil.posteProfil}}</td>
+                                <td>{{acce.module.nomModule}}</td>
+                                <td>
+                                    {% for liaison in liaisons %}
+                                        {% if liaison.acces.id == acce.id %}
+                                            {{liaison.droitAcces.nomDroit}}
+                                        {% endif %}
+                                    {% endfor %}</td>
+
+                                <td><a href="{{ path('modifierProfil', { 'id': acce.id }) }}"><button type="button" class="btn btn-success">Modifier</button></a><a href="{{ path('deleteProfil', { 'id': acce.id })}}"><button type="button" class="btn btn-danger">Supprimer</button></a>
+                            </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="navigation">
+                    {{ knp_pagination_render(acces) }}
+                </div>
+{% endblock %}

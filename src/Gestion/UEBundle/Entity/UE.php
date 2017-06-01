@@ -51,17 +51,6 @@ class UE
      */
     private $Niveau;
 
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Gestion\MatiereBundle\Entity\Matiere")
-     */
-    protected $matieres;
-
-    public function __construct()
-    {
-        $this->matieres = new ArrayCollection();
-    }
-
     /**
      * @var string
      *
@@ -71,6 +60,38 @@ class UE
 
 
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Gestion\MatiereBundle\Entity\Matiere", cascade={"persist"})
+     */
+    private $matieres;
+
+
+    public function __construct()
+    {
+        $this->matieres = new ArrayCollection();
+    }
+
+    public function addMatiere(Matiere $matiere)
+    {
+        $this->matieres[] = $matiere;
+
+        return $this;
+    }
+
+    public function removeMatiere(Matiere $matiere)
+    {
+        $this->matieres->removeElement($matiere);
+    }
+
+    public function getMatieres()
+    {
+        return $this->matieres;
+    }
+    
+    
+    
+    
+    
     /**
      * Get id
      *
@@ -151,40 +172,6 @@ class UE
     public function getIntitule()
     {
         return $this->intitule;
-    }
-
-    /**
-     * Add matiere
-     *
-     * @param \Gestion\MatiereBundle\Entity\Matiere $matiere
-     *
-     * @return UE
-     */
-    public function addMatiere(\Gestion\MatiereBundle\Entity\Matiere $matiere)
-    {
-        $this->matieres[] = $matiere;
-
-        return $this;
-    }
-
-    /**
-     * Remove matiere
-     *
-     * @param \Gestion\MatiereBundle\Entity\Matiere $matiere
-     */
-    public function removeMatiere(\Gestion\MatiereBundle\Entity\Matiere $matiere)
-    {
-        $this->matieres->removeElement($matiere);
-    }
-
-    /**
-     * Get matieres
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getMatieres()
-    {
-        return $this->matieres;
     }
 
     /**

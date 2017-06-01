@@ -1,0 +1,59 @@
+{% extends '::layoutAdmin.html.twig' %}
+
+{% block header %}
+
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/font-awesome/css/font-awesome.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables/media/css/dataTables.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables-scroller/css/scroller.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/flatpickr/dist/flatpickr.min.css') }}"/>
+
+{% endblock %}
+
+
+{% block body %}
+    <h1>Nouvele Classe  / <a href="{{ path('listClasse') }}">Liste des Classes</a></h1>
+    <div>
+        <div class="content content-product-edit datatable-width">
+            <div class="nav-tab-horizontal">
+                <div class="divider15"></div>
+                <div class="tab-content">
+                    <div>
+                        <div class="row">
+                            <form action="{{ path('ValiderAjoutClasse') }}" method="POST" id="MyForm">
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                    <br>
+                                    <label for="class_selectbox">Niveau</label>
+                                    <div class="control-group">
+                                    <select name="niveau" class="form-control" required>
+                                        <option value="">Choisir le Niveau...</option>
+                                        {% if niveau is not empty %}
+                                            {% for niv in niveau %}
+                                                <option value="{{niv.nomNiveau}}">{{niv.nomNiveau}}</option>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </select>
+                                    </div>
+                                    <br>
+                                    <label for="etudiant_list">Filière:</label>
+                                    <div class="control-group">
+                                        <select name="filiere" class="form-control" required>
+                                            <option value="">Choisir la Filière...</option>
+                                            {% if filiere is not empty %}
+                                                {% for fil in filiere %}
+                                                    <option value="{{fil.intitule}}">{{fil.intitule}}</option>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </select>
+                                    </div>
+                                    <br>
+                                    <div class="control-group">
+                                        <input type="submit" value="Enregistrer" type="button" class="btn btn-success">
+                                    </div>
+                                    <br><br>
+                                </div>
+                            </form>
+                        </div></div></div></div></div></div>
+{% endblock %}
+
+

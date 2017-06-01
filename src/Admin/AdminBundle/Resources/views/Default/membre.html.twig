@@ -1,0 +1,94 @@
+{% extends "::layoutAdmin.html.twig" %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                columnDefs: [ {
+                    targets: [ 0 ],
+                    orderData: [ 0, 1 ]
+                }, {
+                    targets: [ 1 ],
+                    orderData: [ 1, 0 ]
+                }, {
+                    targets: [ 5 ],
+                    orderData: [ 5, 0 ]
+                } ]
+            } );
+        } );
+    </script>
+
+    <link rel="stylesheet" type="text/css" href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'/>
+
+{% endblock %}
+
+{% block body %}
+
+    <style type="text/css">
+        @media screen and (max-width: 640px) {
+            table,
+            tbody,
+            tr,
+            td {
+                display: block;
+                width: auto!important;
+                /* parceque tu as mis des style inline grrr */
+            }
+        }
+        .img-wrap:hover img {
+            transform: scale(1.3);
+        }
+        .img-wrap img {
+            display: block;
+            transition: all 0.3s ease 0s;
+            width: 100%;
+        }
+    </style>
+
+
+    <h3>Quelle type d'utilisateur voulez vous ajouter ?</h3>
+        <table style="text-align: center;" cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
+            <tbody>
+                <tr>
+                <tr>
+                    <td>
+                        <div class="img-wrap">
+                        <a href="{{path('Ajout_Personnel')}}">
+                                <img src="{{ asset('templates/assets/global/image/personel.png') }}"/>
+                            <br>Personnel
+                        </a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="img-wrap">
+                        <a href="{{path('ajouter_Enseignant')}}">
+                            <img src="{{ asset('templates/assets/global/image/teachers.png') }}">
+                            <br>Enseignant
+                        </a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="img-wrap">
+                        <a href="{{path('ajouter_Etudiant')}}">
+                            <img src="{{ asset('templates/assets/global/image/etudiant.png') }}">
+                            <br>Etudiant
+                        </a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="img-wrap">
+                        <a href="{{path('ajouter_Parent')}}">
+                            <img src="{{ asset('templates/assets/global/image/parents.png') }}">
+                            <br>Parent
+                        </a>
+                        </div>
+                    </td>
+                </tr>
+                </tr>
+            </tbody>
+        </table>
+{% endblock %}
+
+

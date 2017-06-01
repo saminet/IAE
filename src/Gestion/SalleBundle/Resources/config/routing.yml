@@ -1,5 +1,5 @@
 gestion_salle_homepage:
-    path:     /salles
+    path:     /salles/list
     defaults: { _controller: GestionSalleBundle:Default:listSalles }
 
 list_Salles:

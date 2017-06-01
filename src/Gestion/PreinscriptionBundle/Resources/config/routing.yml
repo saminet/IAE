@@ -39,6 +39,14 @@ infosEtudiant:
     path:     /etudiant/infos/{id}
     defaults: { _controller: GestionPreinscriptionBundle:Default:infosEtudiant }
 
+profilEtudiant:
+    path:     /etudiant/profil
+    defaults: { _controller: GestionPreinscriptionBundle:Default:profilEtudiant }
+
+modifierProfilEtudiant:
+    path:     /etudiant/profil/edit/{id}
+    defaults: { _controller: GestionPreinscriptionBundle:Default:EditProfilEtudiant }
+
 supprimerEtudiant:
     path:     /etudiant/supprimer/{id}
     defaults: { _controller: GestionPreinscriptionBundle:Default:supprimerEtudiant }
@@ -71,6 +79,14 @@ modifier_Parent:
 supprimerParent:
     path:     /parent/supprimer/{id}
     defaults: { _controller: GestionPreinscriptionBundle:Default:supprimerParent }
+
+profilParent:
+    path:     /parent/profil
+    defaults: { _controller: GestionPreinscriptionBundle:Default:profilParent }
+
+modifierProfilParent:
+    path:     /parent/profil/edit/{id}
+    defaults: { _controller: GestionPreinscriptionBundle:Default:EditProfilParent }
 
 
 myapplication_contact:

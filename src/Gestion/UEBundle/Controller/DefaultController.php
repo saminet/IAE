@@ -46,14 +46,14 @@ class DefaultController extends Controller
             $intitule = $donnee->getIntitule();
             $niveau = $donnee->getNiveau();
             $filiere = $donnee->getFiliere();
-            $matieres = $donnee->getMatieres();
-            var_dump($intitule,$niveau,$niveau,$filiere,$matieres);die('Hello');
+            //$matieres = $unite->getMatieres();
+            var_dump($intitule);die('Hello');
             //$user->setRoles(array($roles));
             // Inutile de persister ici, Doctrine connait déjà notre unité d'enseignement
             $em->flush();
             return $this->redirectToRoute('Liste_UE');
         }
-        return $this->render('GestionUEBundle:Default:ajouter.html.twig', array('unite' => $unite, 'form'   => $formView));
+        return $this->render('GestionUEBundle:Default:ajouter.html.twig', array('unite' => $unite, 'form' => $formView));
     }
 
     public function modifierUEAction($id, Request $request)

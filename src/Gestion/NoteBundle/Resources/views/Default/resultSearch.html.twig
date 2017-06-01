@@ -1,0 +1,66 @@
+{% extends '::layoutAdmin.html.twig' %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                columnDefs: [ {
+                    targets: [ 0 ],
+                    orderData: [ 0, 1 ]
+                }, {
+                    targets: [ 1 ],
+                    orderData: [ 1, 0 ]
+                }, {
+                    targets: [ 4 ],
+                    orderData: [ 4, 0 ]
+                } ]
+            } );
+        } );
+    </script>
+
+    <link rel="stylesheet" type="text/css" href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'/>
+
+{% endblock %}
+
+{% block body %}
+    <a href="{{path('list_note')}}">Revenir à la liste des notes</a>
+
+    <table class="table">
+        <tr>
+        <tr><th>Liste des notes de Mr/Mme</th><th>{{ nomPrenom }}</th></tr>
+        <tr><th>Type de Semestre</th><th>{{ semestre }}</th></tr>
+        <tr><th>Classe</th><th>{{ note.classes }}</th></tr>
+        <tr><th>Groupe</th><th>{{ groupe }}</th></tr>
+        <tr>
+    </table>
+
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Matière</th>
+                <th>Controle Continue</th>
+                <th>Devoir Surveillé</th>
+                <th>Examen</th>
+                <th>Etat</th>
+                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('Imprimer_Releve',{'idEtud':idEtud, 'nomPrenom':nomPrenom, 'semestre':semestre, 'classe':classe, 'groupe':groupe }) }}">Imprimer</a></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for etud in EtudiantID %}
+                <tr>
+                    <td>{{ etud.matiere }}</td>
+                    <td>{{ etud.cc }}</td>
+                    <td>{{ etud.ds }}</td>
+                    <td>{{ etud.examen }}</td>
+                    <td>{{ etud.etat }}</td>
+                </tr>
+            {% else %}
+                <p>Aucune note n'a été trouvée.</p>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

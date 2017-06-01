@@ -1,0 +1,45 @@
+
+    <div>
+        <table>
+            <tr>
+            <tr><td><b>Liste des notes de Mr/Mme :</b></td><td>{{ nomPrenom }}</td></tr>
+            <tr><td><b>Type de Semestre :</b></td><td>{{ semestre }}</td></tr>
+            <tr><td><b>Classe :</b></td><td>{{ classe }}</td></tr>
+            <tr><td><b>Groupe :</b></td><td>{{ groupe }}</td></tr>
+            <tr>
+        </table>
+        <br>
+
+        <table class="table"  cellpadding="5" cellspacing="1" border="1" class="display" width="100%">
+            <thead>
+            <tr>
+                <th>Matière</th>
+                <th>Controle Continue</th>
+                <th>Devoir Surveillé</th>
+                <th>Examen</th>
+                <th>Moyenne</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for etud in EtudiantID %}
+                <tr>
+                    <td>{{ etud.matiere }}</td>
+                    <td>{{ etud.cc }}</td>
+                    <td>{{ etud.ds }}</td>
+                    <td>{{ etud.examen }}</td>
+                    <td>{{ ((etud.cc + etud.ds) + etud.examen * 2) / 4 }}</td>
+                </tr>
+            {% else %}
+                <p>Aucune note n'a été trouvée.</p>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <div>
+    <a href="javascript:window.print()">Imprimer</a>
+    </div>
+    <br>
+    <div>
+        <a href="{{ path('list_note') }}">Retour</a>
+    </div>
