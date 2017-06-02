@@ -7,7 +7,9 @@ use Gestion\PreinscriptionBundle\Entity\Parents;
 use Gestion\NiveauBundle\Entity\Niveau;
 use Gestion\FiliereBundle\Entity\Filiere;
 use Gestion\PreinscriptionBundle\Form\EtudiantType;
+use Gestion\PreinscriptionBundle\Form\EtudiantEditType;
 use Gestion\PreinscriptionBundle\Form\ParentsType;
+use Gestion\PreinscriptionBundle\Form\ParentsEditType;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -205,6 +207,77 @@ class DefaultController extends Controller
         );
     }
 
+    public function profilEtudiantAction(Request $request)
+    {
+        $user = $this->getUser();
+        $userManager = $this->get('fos_user.user_manager');
+        $usr = $userManager->findUserByUsername($user);
+        $login = $usr->getUsername();
+
+        //var_dump($selectedIdEtudiant, $Semestre);die('Hello');
+        $repository1=$this->getDoctrine()->getRepository('GestionPreinscriptionBundle:Etudiant');
+        $SelectedEtud=$repository1->createQueryBuilder('e')->where('e.login = :idEtudiant')->setParameter('idEtudiant', $login)->getQuery()->getResult();
+        //var_dump($SelectedEtud);die('Hello');
+        return $this->render('GestionPreinscriptionBundle:Default:profilEtudiant.html.twig', array(
+            'user' => $user, 'etudiant' => $SelectedEtud));
+    }
+
+    public function profilParentAction(Request $request)
+    {
+
+        $user = $this->getUser();
+        $userManager = $this->get('fos_user.user_manager');
+        $usr = $userManager->findUserByUsername($user);
+        $login = $usr->getUsername();
+
+        //var_dump($selectedIdEtudiant, $Semestre);die('Hello');
+        $repository1=$this->getDoctrine()->getRepository('GestionPreinscriptionBundle:Parents');
+        $SelectedParent=$repository1->createQueryBuilder('e')->where('e.login = :idParent')->setParameter('idParent', $login)->getQuery()->getResult();
+        //var_dump($SelectedEtud);die('Hello');
+        return $this->render('GestionPreinscriptionBundle:Default:profilParent.html.twig', array(
+            'user' => $user, 'parents' => $SelectedParent));
+    }
+
+    public function EditProfilParentAction($id, Request $request)
+    {
+        $users = $this->getUser();
+        $Old_user=$request->get('username');
+        $Old_usr=$request->get('idEtud');
+        //var_dump($Old_user);die('Hello');
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $parent= $em->getRepository('GestionPreinscriptionBundle:Parents')->find($id);
+        if (null === $parent) {
+            throw new NotFoundHttpException("Le parent d'id ".$id." n'existe pas.");
+        }
+        //on recupere le formulaire
+        $form = $this->createForm(ParentsEditType::class, $parent);
+        //on génère le html du formulaire crée
+        $formView = $form->createView();
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+
+            $donnee = $form->getData();
+            $username = $donnee->getLogin();
+            $password = $donnee->getPassword();
+            $email = $donnee->getEmail();
+            $roles = 'ROLE_PARENTS';
+            //var_dump($username,$Old_usr,$password,$email,$roles);die('Hello');
+            $userManager = $this->get('fos_user.user_manager');
+            $user = $userManager->findUserByUsername($Old_usr);
+                $user->setUsername($username);
+                $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
+                $user->setPassword($hash);
+                $user->setEmail($email);
+                $user->setRoles(array($roles));
+                $userManager->updateUser($user);
+
+            // Inutile de persister ici, Doctrine connait déjà les donées
+            $em->flush();
+            return $this->redirectToRoute('DashboardParent', array('user' => $Old_user));
+        }
+        return $this->render('GestionPreinscriptionBundle:Default:modifierProfilParent.html.twig', array(
+            'parent' => $parent, 'form' => $formView, 'oldUser' => $Old_user, 'user' => $Old_user));
+    }
+
     public function ajouterEtudiantAction(Request $request)
     {
         $groupe=null;
@@ -353,6 +426,51 @@ class DefaultController extends Controller
         return $this->render('GestionPreinscriptionBundle:Default:modifierEtudiant.html.twig', array(
             'etudiant' => $etudiant,
             'form' => $formView, 'oldUser' => $Old_user,
+        ));
+    }
+
+    public function EditProfilEtudiantAction($id, Request $request)
+    {
+        $Classe=$request->get('classe');
+        $Groupe=$request->get('groupe');
+        $usr = $this->getUser();
+        $Old_user=$request->get('username');
+        $Old_usr=$request->get('idEtud');
+        //var_dump($Old_user);die('Hello');
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $etudiant= $em->getRepository('GestionPreinscriptionBundle:Etudiant')->find($id);
+        if (null === $etudiant) {
+            throw new NotFoundHttpException("L'étudiant d'id ".$id." n'existe pas.");
+        }
+        //on recupere le formulaire
+        $form = $this->createForm(EtudiantEditType::class, $etudiant);
+        //on génère le html du formulaire crée
+        $formView = $form->createView();
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+
+            $donnee = $form->getData();
+            $etat = $donnee->getEtat();
+            $username = $donnee->getLogin();
+            $password = $donnee->getPassword();
+            $email = $donnee->getEmail();
+            $roles = 'ROLE_ETUDIANT';
+            //var_dump($username,$Old_usr,$roles,$password,$email,$roles,$etat);die('Hello');
+            $userManager = $this->get('fos_user.user_manager');
+            $user = $userManager->findUserByUsername($usr);
+                $user->setUsername($username);
+                $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
+                $user->setPassword($hash);
+                $user->setEmail($email);
+                $user->setEnabled(false);
+                $user->setRoles(array($roles));
+                $userManager->updateUser($user);
+            // Inutile de persister ici, Doctrine connait déjà notre annonce
+            $em->flush();
+            return $this->redirectToRoute('DashboardEtudiant', array('user' => $usr));
+        }
+
+        return $this->render('GestionPreinscriptionBundle:Default:modifierProfilEtudiant.html.twig', array('user' => $usr,
+            'etudiant' => $etudiant, 'form' => $formView, 'oldUser' => $Old_user, 'classe' => $Classe, 'groupe' => $Groupe
         ));
     }
 
@@ -613,12 +731,11 @@ class DefaultController extends Controller
             }
                 // Inutile de persister ici, Doctrine connait déjà les donées
                 $em->flush();
-            return $this->redirectToRoute('listParent', array('id' => $parent->getId()));
+            return $this->redirectToRoute('listParent', array('id' => $parent->getId(),  'user' => $Old_user));
         }
 
-        return $this->render('GestionPreinscriptionBundle:Default:modifierParent.html.twig', array(
-            'parent' => $parent,
-            'form' => $formView, 'oldUser' => $Old_user,
+        return $this->render('GestionPreinscriptionBundle:Default:modifierParent.html.twig', array( 'user' => $Old_user,
+            'parent' => $parent, 'form' => $formView, 'oldUser' => $Old_user,
         ));
     }
 

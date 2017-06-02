@@ -1,0 +1,73 @@
+{% extends "::layoutAdmin.html.twig" %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            $('#examples').DataTable( {
+                columnDefs: [ {
+                    targets: [ 0 ],
+                    orderData: [ 0, 1 ]
+                }, {
+                    targets: [ 1 ],
+                    orderData: [ 1, 0 ]
+                }, {
+                    targets: [ 2 ],
+                    orderData: [ 2, 0 ]
+                } ]
+            } );
+        } );
+    </script>
+
+    <link rel="stylesheet" type="text/css" href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'/>
+
+{% endblock %}
+
+{% block body %}
+    <h1>Liste des classes :</h1>
+    <div>
+        <table class="table"  cellpadding="0" cellspacing="0" border="0" class="display" id="examples" width="100%">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom Classe</th>
+                <th><a href="{{path('AjoutClasse')}}">+Nouvelle Classe</a></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for classe in classes %}
+                <tr>
+                    <td>{{classe.id}}</td>
+                    <td>{{classe.intitule}}</td>
+
+                    <td>
+                        <div class="btn-toolbar" role="toolbar">
+
+                            <div class="btn-group">
+
+                                <a href="{{ path('ModifierClasse', { 'id': classe.id }) }}">
+                                    <button type="button" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </button>
+                                </a>
+
+                                <a href="{{ path('deleteClasse',{'id':classe.id}) }}">
+                                    <button type="button" class="btn btn-default" onclick="if(window.confirm('Voulez-vous vraiment supprimer ?'))
+                                {return true;}else{return false;}">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </a>
+
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+

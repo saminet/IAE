@@ -1,5 +1,5 @@
 gestion_enseignant_homepage:
-    path:     /enseignant
+    path:     /enseignant/list
     defaults: { _controller: GestionEnseignantBundle:Default:listEnseignant }
 
 Liste_enseignant:
@@ -21,3 +21,11 @@ modifier_Enseignant:
 supprimerEnseignant:
     path: /enseignant/delete/{id}
     defaults: { _controller: GestionEnseignantBundle:Default:supprimerEnseignant }
+
+profilEnseignant:
+    path:     /enseignant/profil
+    defaults: { _controller: GestionEnseignantBundle:Default:profilEnseignant }
+
+modifierProfilEnseignant:
+    path:     /enseignant/profil/edit/{id}
+    defaults: { _controller: GestionEnseignantBundle:Default:EditProfilEnseignant }

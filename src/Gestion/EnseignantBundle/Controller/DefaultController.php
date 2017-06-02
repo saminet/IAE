@@ -4,6 +4,7 @@ namespace Gestion\EnseignantBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Gestion\EnseignantBundle\Form\EnseignantType;
+use Gestion\EnseignantBundle\Form\EnseignantEditType;
 use Gestion\EnseignantBundle\Entity\Enseignant;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -36,6 +37,66 @@ class DefaultController extends Controller
             array(
                 'enseignant' => $enseignants
             ));
+    }
+
+    public function profilEnseignantAction(Request $request)
+    {
+
+        $user = $this->getUser();
+        $userManager = $this->get('fos_user.user_manager');
+        $user = $userManager->findUserByUsername($user);
+        $login = $user->getUsername();
+
+        //var_dump($selectedIdEtudiant, $Semestre);die('Hello');
+        $repository1=$this->getDoctrine()->getRepository('GestionEnseignantBundle:Enseignant');
+        $SelectedEns=$repository1->createQueryBuilder('e')->where('e.login = :idEnseignant')->setParameter('idEnseignant', $login)->getQuery()->getResult();
+        //var_dump($SelectedEns);die('Hello');
+        return $this->render('GestionEnseignantBundle:Default:profilEnseignant.html.twig', array(
+            'user' => $user, 'enseignant' => $SelectedEns));
+    }
+
+    public function EditProfilEnseignantAction($id, Request $request)
+    {
+        $Old_user=$request->get('username');
+        $Old_usr=$request->get('idEns');
+
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $enseignant= $em->getRepository('GestionEnseignantBundle:Enseignant')->find($id);
+        if (null === $enseignant) {
+            throw new NotFoundHttpException("L'enseignant d'id ".$id." n'existe pas.");
+        }
+        //on recupere le formulaire
+        $form = $this->createForm(EnseignantEditType::class, $enseignant);
+        //on génère le html du formulaire crée
+        $formView = $form->createView();
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+
+            $donnee = $form->getData();
+            $etat = $donnee->getEtat();
+            $username = $donnee->getLogin();
+            $password = $donnee->getPassword();
+            $email = $donnee->getEmail();
+            //var_dump($username,$Old_usr,$password,$email,$Old_user);die('Hello');
+            //ajout des paramètres username et password dans la table 'fos_user'
+            $userManager = $this->get('fos_user.user_manager');
+            $usr = $userManager->findUserByUsername($Old_usr);
+
+                $usr->setUsername($username);
+                $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
+                $usr->setPassword($hash);
+                $usr->setEmail($email);
+                $userManager->updateUser($usr);
+
+                // Inutile de persister ici, Doctrine connait déjà notre annonce
+                $em->flush();
+
+            return $this->redirectToRoute('DashboardEnseignant', array('id' => $enseignant->getId()));
+        }
+        $user = $this->getUser();
+        return $this->render('GestionEnseignantBundle:Default:modifierProfilEnseignant.html.twig', array(
+            'enseignant' => $enseignant,
+            'form'   => $formView, 'oldUser' => $Old_user, 'user' => $user
+        ));
     }
 
     public function ajouterEnseignantAction(Request $request)

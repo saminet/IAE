@@ -1,0 +1,137 @@
+{% extends '::layoutAdmin.html.twig' %}
+{% block header %}
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/font-awesome/css/font-awesome.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables/media/css/dataTables.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables-scroller/css/scroller.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/flatpickr/dist/flatpickr.min.css') }}"/>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script type="text/javascript">
+        document.getElementById('contrat').onchange = function(){
+            alert(this.value);
+        };
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+
+    <script>
+        function testnumber() {
+            //pour bien dire au javascript que c'est un nombre et pas une chaîne de caractères
+            var cc = parseInt(document.getElementById('cc').value);
+            var ds = parseInt(document.getElementById('ds').value);
+            var exam = parseInt(document.getElementById('exam').value);
+//Tu peux utiliser parseFloat() à la place de ParseInt() si la valeur peut être un nombre à virgule.
+            if (cc < 0 || ds < 0 || exam < 0) {
+//dire à l'utilisateur qu'il a mal remplis
+                alert("Attention, une valeur négative est inséré !")
+            }
+        }
+    </script>
+
+{% endblock %}
+
+{% block body %}
+    <h3>Modifier le note en <b><span style='color: blue;'>{{ notes.matiere }}
+            </span></b> pour l'étudiant(e) : <b><span style='color: blue;'>{{ notes.etudiant.nom }} {{ notes.etudiant.prenom }}</span></b>
+    </h3><br>
+    <a href="{{path('list_note')}}">Revenir à la liste des notes</a>
+
+    <div id="wrapper"><br>
+    <div class="demo">
+    <form action="{{ path('Valider_Modif_Note',{'id':notes.id}) }}" method="post" id="myFormNiveau" class="form-inline">
+        <!-- saisir note cc -->
+        <div class="control-group">
+            <label for="cc">Note C.C</label>
+            <input type="number" step="0.01" name="cc" value="{{ notes.cc }}" placeholder="&nbsp;&nbsp;&nbsp;Controle Continue" id="cc" onkeyup="testnumber()" required>
+        </div>
+        <br>
+        <!-- saisir note ds -->
+        <div class="control-group">
+            <label for="ds">Note D.S</label>
+            <input type="number" step="0.01" name="ds" value="{{ notes.ds }}" placeholder="&nbsp;&nbsp;&nbsp;devoir Surveillé" id="ds" onkeyup="testnumber()" required>
+        </div>
+        <br>
+        <!-- saisir note examen -->
+        <div class="control-group">
+            <label for="exam">Examen</label>
+            <input type="number" step="0.01" name="exam" value="{{ notes.examen }}" placeholder="&nbsp;&nbsp;&nbsp;&nbsp;Examen Principal" id="exam" onkeyup="testnumber()" required>
+        </div>
+
+        <br>
+        <input type="submit" value="Enregistrer" type="button" class="btn btn-success">
+    </form>
+    </div>
+    </div>
+
+
+    <!-- filtrer la liste des groupe selon la classe séléctionnée -->
+    <script type="text/javascript">
+        (function($) {
+            $('#class_selectbox').change(function(){
+                var idClasse = $(this).val();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('groupe_list_ajax_call') }}?classe_id=" + idClasse,
+                    success: function(data) {
+                        // Remove current options
+                        $('#groupe_list').html('');
+                        $.each(data, function(k, v) {
+                            $('#groupe_list').append('<option value="' + v + '">' + k + '</option>');
+                        });
+                    }
+                });
+                return false;
+            });
+        })(jQuery);
+    </script>
+
+    <!-- filtrer la liste des étudiants selon la classe séléctionnée -->
+    <script type="text/javascript">
+        (function($) {
+            $('#groupe_list').change(function(){
+                var idGroupe = $(this).val();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('etudiant_list_ajax_call') }}?groupe_id=" + idGroupe,
+                    success: function(data) {
+                        // Remove current options
+                        $('#etudiant_list').html('');
+                        $.each(data, function(k, v) {
+                            $('#etudiant_list').append('<option value="' + v + '">' + k + '</option>');
+                        });
+                    }
+                });
+                return false;
+            });
+        })(jQuery);
+    </script>
+
+    <!-- script permettant la séléction multiple des matières -->
+
+    <script>
+        var eventHandler = function(name) {
+            return function() {
+                console.log(name, arguments);
+                $('#log').append('<div><span class="name">' + name + '</span></div>');
+            };
+        };
+        var $select = $('#select-matieres').selectize({
+            create          : false,
+            plugins: ['remove_button'],
+            onChange        : eventHandler('onChange'),
+            onItemAdd       : eventHandler('onItemAdd'),
+            onItemRemove    : eventHandler('onItemRemove'),
+            onOptionAdd     : eventHandler('onOptionAdd'),
+            onOptionRemove  : eventHandler('onOptionRemove'),
+            onDropdownOpen  : eventHandler('onDropdownOpen'),
+            onDropdownClose : eventHandler('onDropdownClose'),
+            onFocus         : eventHandler('onFocus'),
+            onBlur          : eventHandler('onBlur'),
+            onInitialize    : eventHandler('onInitialize'),
+        });
+    </script>
+
+{% endblock %}

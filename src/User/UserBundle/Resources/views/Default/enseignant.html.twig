@@ -1,0 +1,358 @@
+{% extends 'layoutEnseignant.html.twig' %}
+
+{% block body %}
+
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="userlist-box content text-xs-center">
+            <div class="image-userlist">
+
+            </div>
+            <h5 class="name-userlist">Gestion Membre</h5>
+            <div class="border-userlist"></div>
+            <a href="{{path('Add_Membre')}}" class="closeUserlist"><h6 class="post-userlist">nouveau membre</h6></a>
+            <div id="userlistNav" class="overlay-userlistNav info-userlist">
+                <div data-plugin="custom-scroll" data-height="100%">
+                    <a href="javascript:void(0)" class="closeUserlist">&times;</a>
+                    <div class="overlay-content-userlistNav">
+                        <div class="user-overlay-img">
+
+                        </div>
+                        <div class="hover-user-box">
+                            <div class="user-box">
+                                <div class="user-inner-box">
+                                    <div class="image-userlist">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-userlist">
+                            <div class="row text-xs-left edit-form-userlist">
+                                <div class="col-md-12">
+
+                                </div>
+                                <div class="divider15"></div>
+                                <div class="col-md-12">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{path('Add_Membre')}}"><img src="{{ asset('templates/assets/global/image/personnels.png') }}"/></a>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="userlist-box content text-xs-center">
+            <div class="image-userlist">
+
+            </div>
+            <h5 class="name-userlist">Gestion Classe</h5>
+            <div class="border-userlist"></div>
+            <a href="{{path('AjoutClasse')}}" class="closeUserlist"><h6 class="post-userlist">nouvelle classe</h6></a>
+            <div id="userlistNav" class="overlay-userlistNav info-userlist">
+                <div data-plugin="custom-scroll" data-height="100%">
+                    <a href="javascript:void(0)" class="closeUserlist">&times;</a>
+                    <div class="overlay-content-userlistNav">
+                        <div class="user-overlay-img">
+
+                        </div>
+                        <div class="hover-user-box">
+                            <div class="user-box">
+                                <div class="user-inner-box">
+                                    <div class="image-userlist">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-userlist">
+                            <div class="row text-xs-left edit-form-userlist">
+                                <div class="col-md-12">
+
+                                </div>
+                                <div class="divider15"></div>
+                                <div class="col-md-12">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{path('listClasse')}}"><img src="{{ asset('templates/assets/global/image/classes.jpg') }}"></a>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="userlist-box content text-xs-center">
+            <div class="image-userlist">
+
+            </div>
+            <h5 class="name-userlist">Gestion Groupe</h5>
+            <div class="border-userlist"></div>
+            <a href="{{path('AjoutGroupe')}}" class="closeUserlist"><h6 class="post-userlist">nouveau groupe</h6></a>
+            <div id="userlistNav" class="overlay-userlistNav info-userlist">
+                <div data-plugin="custom-scroll" data-height="100%">
+                    <a href="javascript:void(0)" class="closeUserlist">&times;</a>
+                    <div class="overlay-content-userlistNav">
+                        <div class="user-overlay-img">
+
+                        </div>
+                        <div class="hover-user-box">
+                            <div class="user-box">
+                                <div class="user-inner-box">
+                                    <div class="image-userlist">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-userlist">
+                            <div class="row text-xs-left edit-form-userlist">
+                                <div class="col-md-12">
+
+                                </div>
+                                <div class="divider15"></div>
+                                <div class="col-md-12">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{path('listGroupe')}}"><img src="{{ asset('templates/assets/global/image/Group.jpg') }}"/></a>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="userlist-box content text-xs-center">
+            <div class="image-userlist">
+
+            </div>
+            <h5 class="name-userlist">Gestion Matières</h5>
+            <div class="border-userlist"></div>
+            <a href="{{path('listMatiere')}}" class="closeUserlist"><h6 class="post-userlist">ajouter une matière</h6></a>
+            <div id="userlistNav" class="overlay-userlistNav info-userlist">
+                <div data-plugin="custom-scroll" data-height="100%">
+                    <a href="javascript:void(0)" class="closeUserlist">&times;</a>
+                    <div class="overlay-content-userlistNav">
+                        <div class="user-overlay-img">
+
+                        </div>
+                        <div class="hover-user-box">
+                            <div class="user-box">
+                                <div class="user-inner-box">
+                                    <div class="image-userlist">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-userlist">
+                            <div class="row text-xs-left edit-form-userlist">
+                                <div class="col-md-12">
+
+                                </div>
+                                <div class="divider15"></div>
+                                <div class="col-md-12">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{path('AjoutMatiere')}}"><img src="{{ asset('templates/assets/global/image/matières.png') }}"/></a>
+        </div>
+        <br><br>
+    </div>
+    <br><br><br>
+
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="userlist-box content text-xs-center">
+            <div class="image-userlist">
+            </div>
+            <h5 class="name-userlist">Gestion Note</h5>
+            <div class="border-userlist"></div>
+            <a href="{{path('ajout_note')}}" class="closeUserlist"><h6 class="post-userlist">nouvelle note</h6></a>
+            <div id="userlistNav" class="overlay-userlistNav info-userlist">
+                <div data-plugin="custom-scroll" data-height="100%">
+                    <a href="javascript:void(0)" class="closeUserlist">&times;</a>
+                    <div class="overlay-content-userlistNav">
+                        <div class="user-overlay-img">
+
+                        </div>
+                        <div class="hover-user-box">
+                            <div class="user-box">
+                                <div class="user-inner-box">
+                                    <div class="image-userlist">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-userlist">
+                            <div class="row text-xs-left edit-form-userlist">
+                                <div class="col-md-12">
+
+                                </div>
+                                <div class="divider15"></div>
+                                <div class="col-md-12">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{path('list_note')}}"><img src="{{ asset('templates/assets/global/image/notes.png') }}"/></a>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="userlist-box content text-xs-center">
+            <div class="image-userlist">
+            </div>
+            <h5 class="name-userlist">Gestion Salle</h5>
+            <div class="border-userlist"></div>
+            <a href="{{path('ajouter_Salle')}}" class="closeUserlist"><h6 class="post-userlist">nouvelle Salle</h6></a>
+            <div id="userlistNav" class="overlay-userlistNav info-userlist">
+                <div data-plugin="custom-scroll" data-height="100%">
+                    <a href="javascript:void(0)" class="closeUserlist">&times;</a>
+                    <div class="overlay-content-userlistNav">
+                        <div class="user-overlay-img">
+
+                        </div>
+                        <div class="hover-user-box">
+                            <div class="user-box">
+                                <div class="user-inner-box">
+                                    <div class="image-userlist">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-userlist">
+                            <div class="row text-xs-left edit-form-userlist">
+                                <div class="col-md-12">
+
+                                </div>
+                                <div class="divider15"></div>
+                                <div class="col-md-12">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{path('list_Salles')}}"><img src="{{ asset('templates/assets/global/image/salle.jpg') }}"/></a>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="userlist-box content text-xs-center">
+            <div class="image-userlist">
+            </div>
+            <h5 class="name-userlist">Gestion Filière</h5>
+            <div class="border-userlist"></div>
+            <a href="{{path('ajouter_filieres')}}" class="closeUserlist"><h6 class="post-userlist">nouvelle Filière</h6></a>
+            <div id="userlistNav" class="overlay-userlistNav info-userlist">
+                <div data-plugin="custom-scroll" data-height="100%">
+                    <a href="javascript:void(0)" class="closeUserlist">&times;</a>
+                    <div class="overlay-content-userlistNav">
+                        <div class="user-overlay-img">
+
+                        </div>
+                        <div class="hover-user-box">
+                            <div class="user-box">
+                                <div class="user-inner-box">
+                                    <div class="image-userlist">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-userlist">
+                            <div class="row text-xs-left edit-form-userlist">
+                                <div class="col-md-12">
+
+                                </div>
+                                <div class="divider15"></div>
+                                <div class="col-md-12">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{path('liste_filieres')}}"><img src="{{ asset('templates/assets/global/image/filières.jpg') }}"/></a>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="userlist-box content text-xs-center">
+            <div class="image-userlist">
+            </div>
+            <h5 class="name-userlist">Gestion Preinscrit</h5>
+            <div class="border-userlist"></div>
+            <a href="{{path('Liste_preinscrits')}}" class="closeUserlist"><h6 class="post-userlist">Consulter la liste</h6></a>
+            <div id="userlistNav" class="overlay-userlistNav info-userlist">
+                <div data-plugin="custom-scroll" data-height="100%">
+                    <a href="javascript:void(0)" class="closeUserlist">&times;</a>
+                    <div class="overlay-content-userlistNav">
+                        <div class="user-overlay-img">
+
+                        </div>
+                        <div class="hover-user-box">
+                            <div class="user-box">
+                                <div class="user-inner-box">
+                                    <div class="image-userlist">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-userlist">
+                            <div class="row text-xs-left edit-form-userlist">
+                                <div class="col-md-12">
+
+                                </div>
+                                <div class="divider15"></div>
+                                <div class="col-md-12">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{path('Liste_preinscrits')}}"><img src="{{ asset('templates/assets/global/image/Pré-inscription.png') }}"/></a>
+        </div>
+    </div>
+
+    <br><br><br><br><br><br><br><br>
+
+{% endblock %}
+

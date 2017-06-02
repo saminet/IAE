@@ -1,876 +1,358 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'layoutEtudiant.html.twig' %}
 
-<!-- Mirrored from backend.themesadmin.com/backend/admin_icon_menu/default/admin_default/userlist.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 08 May 2017 10:52:08 GMT -->
-<head>
-    <meta charset="utf-8">
-    <meta name="description" content="bootstrap default admin template">
-    <meta name="viewport" content="width=device-width">
-    <title>Gestion Universitaire</title>
+{% block body %}
 
-    <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
-    <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/jquery/dist/jquery.min.js') }}"></script>
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="userlist-box content text-xs-center">
+            <div class="image-userlist">
 
-    <script type="text/javascript">
-        //<![CDATA[
-        try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag2:1,mirage2:0,oracle:0,paths:{cloudflare:"/cdn-cgi/nexp/dok3v=1613a3a185/"},atok:"de2f1d2ca7a4618e2e35af9620d39dfd",petok:"6951daf743559100a5a9336c6b2eb20686d18235-1494240511-1800",zone:"themesadmin.com",rocket:"0",apps:{"ga_key":{"ua":"UA-92643213-2","ga_bs":"2"}}}];!function(a,b){a=document.createElement("script"),b=document.getElementsByTagName("script")[0],a.async=!0,a.src="../../../../../ajax.cloudflare.com/cdn-cgi/nexp/dok3v%3d85b614c0f6/cloudflare.min.js",b.parentNode.insertBefore(a,b)}()}}catch(e){};
-        //]]>
-    </script>
-    <link href="//fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css" />
-    <!-- END LAYOUT FIRST STYLES -->
-    <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
-    <link rel="shortcut icon" href="http://backend.themesadmin.com/backend/assets/favicon/favicon.ico" type="image/x-icon"/>
-    <link rel="apple-touch-icon" href="{{ asset('templates/assets/favicon/apple-touch-icon.png') }}"/>
-    <link rel="apple-touch-icon" sizes="{{ asset('templates/assets/favicon/apple-touch-icon-57x57.png') }}"/>
-    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('templates/assets/favicon/apple-touch-icon-72x72.png') }}"/>
-    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('templates/assets/favicon/apple-touch-icon-76x76.png') }}"/>
-    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('templates/assets/favicon/apple-touch-icon-114x114.png') }}"/>
-    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('templates/assets/favicon/apple-touch-icon-120x120.png') }}"/>
-    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('templates/assets/favicon/apple-touch-icon-144x144.png') }}"/>
-    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('templates/assets/favicon/apple-touch-icon-152x152.png') }}"/>
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('templates/assets/favicon/apple-touch-icon-180x180.png') }}"/>
-
-    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/bootstrap/dist/css/bootstrap.min.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('templates/assets/icons_fonts/elegant_font/elegant.min.css') }}"/>
-    <link id="site-color" rel="stylesheet" href="{{ asset('templates/assets/layouts/layout-icon-menu/css/color/light/color-default.min.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/switchery/dist/switchery.min.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/perfect-scrollbar/css/perfect-scrollbar.min.css') }}"/>
-    <link rel="stylesheet" type="text/css" href='https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css'/>
-
-
-
-    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/fullcalendar/dist/fullcalendar.min.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/font-awesome/css/font-awesome.min.css') }}"/>
-
-
-    <!-- BEGIN selectize -->
-    <script src="{{ asset('bundles/gestionue/js/selectize.js') }}" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/gestionue/dist/css/selectize.default.css') }}" />
-    <script src="{{ asset('bundles/gestionue/js/index.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('bundles/membre/javascripts/test_form.js') }}" type="text/javascript"></script>
-    <!-- END selectize -->
-
-    {% block header %} {% endblock %}
-
-
-    <link rel="stylesheet" href="{{ asset('templates/assets/global/css/components.min.css') }}"/>
-
-
-    <link rel="stylesheet" href="{{ asset('templates/assets/layouts/layout-icon-menu/css/layout.min.css') }}"/>
-
-
-
-    {% block javascripts %}
-        <script type="text/javascript">
-            /* <![CDATA[ */
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-92643213-2']);
-            _gaq.push(['_trackPageview']);
-
-            (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-
-            (function(b){(function(a){"__CF"in b&&"DJS"in b.__CF?b.__CF.DJS.push(a):"addEventListener"in b?b.addEventListener("load",a,!1):b.attachEvent("onload",a)})(function(){"FB"in b&&"Event"in FB&&"subscribe"in FB.Event&&(FB.Event.subscribe("edge.create",function(a){_gaq.push(["_trackSocial","facebook","like",a])}),FB.Event.subscribe("edge.remove",function(a){_gaq.push(["_trackSocial","facebook","unlike",a])}),FB.Event.subscribe("message.send",function(a){_gaq.push(["_trackSocial","facebook","send",a])}));"twttr"in b&&"events"in twttr&&"bind"in twttr.events&&twttr.events.bind("tweet",function(a){if(a){var b;if(a.target&&a.target.nodeName=="IFRAME")a:{if(a=a.target.src){a=a.split("#")[0].match(/[^?=&]+=([^&]*)?/g);b=0;for(var c;c=a[b];++b)if(c.indexOf("url")===0){b=unescape(c.split("=")[1]);break a}}b=void 0}_gaq.push(["_trackSocial","twitter","tweet",b])}})})})(window);
-            /* ]]> */
-        </script>
-    {% endblock %}
-</head>
-
-<body onload = "on_load()">
-<div class="loader-overlay">
-    <div class="loader-preview-area">
-        <div class="spinners">
-            <div class="loader">
-                <div class="rotating-plane"></div>
             </div>
-        </div>
-    </div>
-</div>
+            <h5 class="name-userlist">Gestion Membre</h5>
+            <div class="border-userlist"></div>
+            <a href="{{path('Add_Membre')}}" class="closeUserlist"><h6 class="post-userlist">nouveau membre</h6></a>
+            <div id="userlistNav" class="overlay-userlistNav info-userlist">
+                <div data-plugin="custom-scroll" data-height="100%">
+                    <a href="javascript:void(0)" class="closeUserlist">&times;</a>
+                    <div class="overlay-content-userlistNav">
+                        <div class="user-overlay-img">
 
-<div class="wrapper">
-
-    <header id="header">
-
-        <div class="header-width">
-            <div class="col-xl-9">
-                <div class="logo float-xs-left">
-                    <a href="#"><img src="{{ asset('templates/assets/global/image/web-logo.png') }}" alt="logo"></a>
-                </div>
-            </div>
-            <div class="col-xl-3 header-right">
-                <div class="header-inner-right">
-                    <div class="float-default searchbox">
-                        <div class="right-icon">
-                            <a href="javascript:void(0)">
-                                <i class="icon_search"></i>
-                            </a>
                         </div>
-                    </div>
-                    <div class="float-default mail">
-                        <div class="right-icon">
-                            <a href="javascript:void(0)" data-toggle="dropdown" data-open="true" aria-expanded="true">
-                                <i class="icon_mail_alt"></i>
-                                <span>10</span>
-                            </a>
-                            <div class="dropdown-menu messagetoggle" role="menu">
-                                <div class="nav-tab-horizontal">
-                                    <ul class="nav nav-tabs" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" data-toggle="tab" href="#messages" role="tab">Message</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" data-toggle="tab" href="#resendmessage" role="tab">Resend</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="tab-content">
-                                    <div class="tab-pane active" id="messages" role="tabpanel" data-plugin="custom-scroll" data-height="320">
-                                        <ul class="userMessagedrop">
-                                            <li>
-                                                <a href="#">
-                                                    <div class="media">
-                                                        <div class="media-left float-xs-left">
-                                                            <span class="label label-primary"><i class="icon_plus"></i></span>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h6>New tasks added</h6>
-                                                            <p>Dummy text of the printing and typesetting industry.</p>
-                                                            <div class="meta-tag text-nowrap">
-                                                                <time datetime="2016-12-10T20:27:48+07:00" class="text-muted">5 mins
-                                                                </time>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <div class="media">
-                                                        <div class="media-left float-xs-left">
-                                                            <span class="label label-success"><i class="icon_lock"></i></span>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h6>Successfully</h6>
-                                                            <p>Dummy text of the printing and typesetting industry.</p>
-                                                            <div class="meta-tag text-nowrap">
-                                                                <time datetime="2016-12-10T20:27:48+07:00" class="text-muted">5 mins
-                                                                </time>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <div class="media">
-                                                        <div class="media-left float-xs-left">
-                                                            <span class="label label-danger"><i class="icon_info_alt"></i></span>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h6>Warnind</h6>
-                                                            <p>Dummy text of the printing and typesetting industry.</p>
-                                                            <div class="meta-tag text-nowrap">
-                                                                <time datetime="2016-12-10T20:27:48+07:00" class="text-muted">5 mins
-                                                                </time>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <div class="media">
-                                                        <div class="media-left float-xs-left">
-                                                            <span class="label label-info"><i class="icon_plus"></i></span>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h6>Add new friend</h6>
-                                                            <p>Dummy text of the printing and typesetting industry.</p>
-                                                            <div class="meta-tag text-nowrap">
-                                                                <time datetime="2016-12-10T20:27:48+07:00" class="text-muted">5 mins
-                                                                </time>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        </ul>
+                        <div class="hover-user-box">
+                            <div class="user-box">
+                                <div class="user-inner-box">
+                                    <div class="image-userlist">
+
                                     </div>
-                                    <div class="tab-pane" id="resendmessage" role="tabpanel" data-plugin="custom-scroll" data-height="320">
-                                        <ul class="userMessagedrop">
-                                            <li>
-                                                <a href="#">
-                                                    <div class="media">
-                                                        <div class="media-left float-xs-left">
-                                                            <span class="label label-primary"><i class="icon_profile"></i></span>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h6>5 new members joi...</h6>
-                                                            <p>Dummy text of the printing and typesetting industry.</p>
-                                                            <div class="meta-tag text-nowrap">
-                                                                <time datetime="2016-12-10T20:27:48+07:00" class="text-muted">2 mins
-                                                                </time>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <div class="media">
-                                                        <div class="media-left float-xs-left">
-                                                            <span class="label label-success"><i class="icon_key"></i></span>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h6>You changed...</h6>
-                                                            <p>Dummy text of the printing and typesetting industry.</p>
-                                                            <div class="meta-tag text-nowrap">
-                                                                <time datetime="2016-12-10T20:27:48+07:00" class="text-muted">5 mins
-                                                                </time>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <div class="media">
-                                                        <div class="media-left float-xs-left">
-                                                            <span class="label label-danger"><i class="icon_close"></i></span>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h6>5 members removed</h6>
-                                                            <p>Dummy text of the printing and typesetting industry.</p>
-                                                            <div class="meta-tag text-nowrap">
-                                                                <time datetime="2016-12-10T20:27:48+07:00" class="text-muted">15 mins
-                                                                </time>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <div class="media">
-                                                        <div class="media-left float-xs-left">
-                                                            <span class="label label-info"><i class="icon_plus"></i></span>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h6>Update available</h6>
-                                                            <p>Dummy text of the printing and typesetting industry.</p>
-                                                            <div class="meta-tag text-nowrap">
-                                                                <time datetime="2016-12-10T20:27:48+07:00" class="text-muted">5 mins
-                                                                </time>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="float-default chat">
-                        <div class="right-icon">
-                            <a href="javascript:void(0)" data-toggle="dropdown" data-open="true" data-animation="slideOutUp" aria-expanded="false">
-                                <i class="icon_chat_alt"></i>
-                                <span>8</span>
-                            </a>
-                            <ul class="dropdown-menu userChat" data-plugin="custom-scroll" data-height="310">
-                                <li>
-                                    <a href="#">
-                                        <div class="media">
-                                            <div class="media-left float-xs-left">
-                                                <img src="{{ asset('assets/global/image/image1-profile.jpg') }}" alt="message"/>
-                                            </div>
-                                            <div class="media-body">
-                                                <h5>Judy Fowler</h5>
-                                                <p>Dummy text of the printing...</p>
-                                                <div class="meta-tag text-nowrap">
-                                                    <time datetime="2016-12-10T20:27:48+07:00" class="text-muted">5 mins
-                                                    </time>
-                                                </div>
-                                                <div class="status online"></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="media">
-                                            <div class="media-left float-xs-left">
-                                                <img src="{{ asset('assets/global/image/image2-profile.jpg') }}" alt="message"/>
-                                            </div>
-                                            <div class="media-body">
-                                                <h5>Judy Fowler</h5>
-                                                <p>Dummy text of the printing...</p>
-                                                <div class="meta-tag text-nowrap">
-                                                    <time datetime="2016-12-10T20:27:48+07:00" class="text-muted">2
-                                                        hours
-                                                    </time>
-                                                </div>
-                                                <div class="status offline"></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="media">
-                                            <div class="media-left float-xs-left">
-                                                <img src="{{ asset('assets/global/image/image3-profile.jpg') }}" alt="message"/>
-                                            </div>
-                                            <div class="media-body">
-                                                <h5>Judy Fowler</h5>
-                                                <div class="meta-tag text-nowrap">
-                                                    <time datetime="2016-12-10T20:27:48+07:00" class="text-muted">20 Oct
-                                                    </time>
-                                                </div>
-                                                <div class="status offline"></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="media">
-                                            <div class="media-left float-xs-left">
-                                                <img src="{{ asset('assets/global/image/image4-profile.jpg') }}" alt="message"/>
-                                            </div>
-                                            <div class="media-body">
-                                                <h5>Judy Fowler</h5>
-                                                <p>Dummy text of the printing...</p>
-                                                <div class="meta-tag text-nowrap">
-                                                    <time datetime="2016-12-10T20:27:48+07:00" class="text-muted">20 Oct
-                                                    </time>
-                                                </div>
-                                                <div class="status online"></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="float-default chat">
-                        <div class="right-icon">
-                            <a href="#" data-plugin="fullscreen">
-                                <i class="arrow_expand"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="user-dropdown">
-                        <div class="btn-group">
-                            <a href="#" class="user-header dropdown-toggle" data-toggle="dropdown" data-animation="slideOutUp" aria-haspopup="true" aria-expanded="false">
-                                <img src="{{ asset('templates/assets/global/image/user.jpg') }}" alt="Profile image"/>
-                            </a>
-                            <div class="dropdown-menu drop-profile">
-                                <div class="userProfile">
-                                    <img src="{{ asset('templates/assets/global/image/user.jpg') }}" alt="Profile image"/>
-                                    <h5>Miler Hussey</h5>
-                                    <p>milerhussey@yahoo.com</p>
+                        <div class="detail-userlist">
+                            <div class="row text-xs-left edit-form-userlist">
+                                <div class="col-md-12">
+
                                 </div>
-                                <div class="dropdown-divider"></div>
-                                <a class="btn left-spacing link-btn" href="#" role="button">Link</a>
-                                <a class="btn left-second-spacing link-btn" href="#" role="button">Link 2</a>
-                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                                    <a class="btn btn-primary float-xs-right right-spacing" href="{{ path('fos_user_security_logout') }}"
-                                       role="button">Logout
-                                        <i class="icon-key"></i> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                                    </a>
-                                {% else %}
-                                    <a href="{{ path('fos_user_security_login') }}">
-                                        <i class="icon-key"></i>{{ 'layout.login'|trans({}, 'FOSUserBundle') }}
-                                    </a>
-                                {% endif %}
+                                <div class="divider15"></div>
+                                <div class="col-md-12">
+
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div id="header-icon">
-            <div class="header-width">
-                <div class="col-xl-12">
-                    <div class="menucontainer">
-                        <div class="overlapblackbg"></div>
-                        <a id="navtoggle" class="animated-arrow"><span></span></a>
-                        <nav id="nav" class="topmenu" role="navigation">
-                            <div class="sidebar-search">
-                                <input id="live-search-box" type="search" class="form-control input-sm" placeholder="Search...">
-                                <a href="javascript:void(0)"><i class="search-close icon_search"></i></a>
-                            </div>
-                            <ul class="menu-list live-search-list">
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <span class="icon_desktop header-icon" aria-hidden="true"></span>Dashboard
-                                    </a>
-                                </li>
-                                <nav id="nav-mega">
-                                    <ul class="menu-list">
-                                        <li class="dropdown dropdown-mega-item">
-                                            <a href="javascript:void(0)" data-toggle="dropdown" data-open="true" aria-haspopup="true" aria-expanded="false">
-                                                <span class="icon_ul header-icon" aria-hidden="true"></span><span class="mega-title">Ressource Humaine</span>
-                                                <span class="arrow_carrot-down header-arrow-down" aria-hidden="true"></span>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-mega-menu">
-                                                <div class="mega-menu-container">
-                                                    <div class="row">
-                                                        <div class="col-xl-2 col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                                            <div class="mega-menu-title">
-                                                                <span>Gestion Comptes</span>
-                                                            </div>
-                                                            <ul>
-                                                                <li>
-                                                                    <a href="{{ path('CrudProfil') }}">
-                                                                        <span class="icon_user_female" aria-hidden="true"></span>Mon profil
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="divider-xs-megamenu-spacing"></div>
-                                                        <div class="col-xl-2 col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                                            <div class="mega-menu-title">
-                                                                <span>Gestion Absences et retards</span>
-                                                            </div>
-                                                            <ul>
-                                                                <li>
-                                                                    <a href="{{ path('listeabsencesetudiants') }}">
-                                                                        <span class="icon_creditcard" aria-hidden="true"></span>Feuille d'appel étudiants
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="divider-md-spacing"></div>
-                                                        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                                                            <div class="mega-menu-title">
-                                                                <span>Trombinoscope</span>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                                    <ul>
-                                                                        <li>
-                                                                            <a href="{{ path('listEtudiant') }}">
-                                                                                <span class="icon_pencil-edit" aria-hidden="true"></span>Trombinoscope de l'équipe pédagogique
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="{{ path('listEtudiant') }}">
-                                                                                <span class="icon_drawer_alt" aria-hidden="true"></span>Trombinoscope des étudiants
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="{{ path('Liste_enseignant') }}">
-                                                                                <span class="icon_info_alt" aria-hidden="true"></span>Trombinoscope des enseignants
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                            <img src="../../../assets/global/image/tabimg.png" alt="" class="tabimage"/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </nav>
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <span class="icon_puzzle header-icon" aria-hidden="true"></span>Stage
-                                    </a>
-                                    <ul class="dropNav">
-                                        <li>
-                                            <a href="{{ path('CrudProfil') }}">Gestion entreprise</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ path('CrudProfil') }}">Gestion stagaires</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <span class="icon_table header-icon" aria-hidden="true"></span>Module scolarité
-                                    </a>
-                                    <ul class="dropNav">
-                                        <li>
-                                            <a href="{{ path('listMatiere') }}">Liste des Matiéres</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ path('Liste_Niveau') }}">Liste des U.E</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ path('releveEtudiant') }}">Mes notes</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ path('releveEtudiant') }}">Cahier de texte</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ path('releveEtudiant') }}">Liste session principale</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ path('releveEtudiant') }}">Liste session de rattrapage</a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                            </ul>
-                        </nav>
-                        <nav id="nav-mega">
-                            <ul class="menu-list">
-                                <li class="dropdown dropdown-mega-item">
-                                    <a href="javascript:void(0)" data-toggle="dropdown" data-open="true" aria-haspopup="true" aria-expanded="false">
-                                        <span class="icon_ul header-icon" aria-hidden="true"></span><span class="mega-title">Vie Scolaire</span>
-                                        <span class="arrow_carrot-down header-arrow-down" aria-hidden="true"></span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-mega-menu">
-                                        <div class="mega-menu-container">
-                                            <div class="row">
-                                                <div class="col-xl-2 col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                                    <div class="mega-menu-title">
-                                                        <span>Emploi du temps</span>
-                                                    </div>
-                                                    <ul>
-                                                        <li>
-                                                            <a href="{{ path('listeSalle') }}">
-                                                                <span class="icon_document_alt" aria-hidden="true"></span>Emploi du temps
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ path('listeSalle') }}">
-                                                                <span class="icon_menu-square_alt2" aria-hidden="true"></span>Emploi du temps des examns
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="divider-xs-megamenu-spacing"></div>
-                                                <div class="col-xl-2 col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                                    <div class="mega-menu-title">
-                                                        <span>Classe / Groupe</span>
-                                                    </div>
-                                                    <ul>
-                                                        <li>
-                                                            <a href="{{ path('listClasse') }}">
-                                                                <span class="icon_tags_alt" aria-hidden="true"></span>Liste des groupes
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="divider-md-spacing"></div>
-                                                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="mega-menu-title">
-                                                        <span>Communication</span>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                            <ul>
-                                                                <li>
-                                                                    <a href="{{ path('listClasse') }}">
-                                                                        <span class="icon_pencil-edit" aria-hidden="true"></span>Messagerie
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="{{ path('listClasse') }}">
-                                                                        <span class="icon_drawer_alt" aria-hidden="true"></span>Agenda
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="{{ path('listClasse') }}">
-                                                                        <span class="icon_info_alt" aria-hidden="true"></span>Liste des évenements
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <img src="../../../assets/global/image/tabimg.png" alt="" class="tabimage"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </nav>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </header><br><br>
-    <div class="search-overlay">
-        <div class="float-default search">
-            <div class="search_bg"></div>
-            <div class="right-icon search_box">
-                <div class="search-div">
-                    <input type="text" class="search_input">
-                    <label class="search-input-label">
-                        <span class="input-label-title">Search</span>
-                    </label>
-                </div>
-                <div class="divider50"></div>
-                <div class="search-result">
-                    <div class="search-item">
-                        <div class="search-image float-xs-left">
-                            <img src="../../../assets/global/image/guitar.jpg" alt="search-image">
-                        </div>
-                        <div class="search-info float-xs-right">
-                            <h3 class="title">Search here</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse faucibus diam quis arcu
-                                lobortis sagittis. Etiam eu ornare mi. Interdum et malesuada fames ac ante ipsum primis in
-                                faucibus.</p>
-                        </div>
-                    </div>
-                    <div class="divider15"></div>
-                    <div class="search-item">
-                        <div class="search-info search-full float-xs-right">
-                            <h3 class="title">Admin templates</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse faucibus diam quis arcu
-                                lobortis sagittis. Etiam eu ornare mi. Interdum et malesuada fames ac ante ipsum primis in
-                                faucibus.</p>
-                        </div>
-                    </div>
-                    <div class="divider15"></div>
-                    <div class="search-item">
-                        <div class="search-image float-xs-left">
-                            <img src="../../../assets/global/image/book-flower.jpg" alt="search-image">
-                        </div>
-                        <div class="search-info float-xs-right">
-                            <h3 class="title">Books</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse faucibus diam quis arcu
-                                lobortis sagittis. Etiam eu ornare mi. Interdum et malesuada fames ac ante ipsum primis in
-                                faucibus.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="search_close icon_close"></div>
+            <a href="{{path('Add_Membre')}}"><img src="{{ asset('templates/assets/global/image/personnels.png') }}"/></a>
         </div>
     </div>
 
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="userlist-box content text-xs-center">
+            <div class="image-userlist">
 
-    <section id="main" class="container-fluid">
-        <div class="row">
+            </div>
+            <h5 class="name-userlist">Gestion Classe</h5>
+            <div class="border-userlist"></div>
+            <a href="{{path('AjoutClasse')}}" class="closeUserlist"><h6 class="post-userlist">nouvelle classe</h6></a>
+            <div id="userlistNav" class="overlay-userlistNav info-userlist">
+                <div data-plugin="custom-scroll" data-height="100%">
+                    <a href="javascript:void(0)" class="closeUserlist">&times;</a>
+                    <div class="overlay-content-userlistNav">
+                        <div class="user-overlay-img">
 
-            <section id="content-wrapper">
-                <div class="site-content-title">
-                    <h2 class="float-xs-left content-title-main">&nbsp;&nbsp;&nbsp;&nbsp;Espace Admin</h2>
-
-                    <ol class="breadcrumb float-xs-right">
-                        <li class="breadcrumb-item">
-                            <span class="fs1" aria-hidden="true" data-icon=""></span>
-                            <a href="{{ path('DashboardAdmin') }}">Home</a>
-                        </li>
-
-                    </ol>
-
-                </div>
-
-                <div class="content userlist-content">
-                    <form class="search_form">
-                        <div class="input-group search_field">
-                            <span class="input-group-addon"></span>
                         </div>
-                    </form>
-                    <div class="row">
+                        <div class="hover-user-box">
+                            <div class="user-box">
+                                <div class="user-inner-box">
+                                    <div class="image-userlist">
 
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="userlist-box content text-xs-center">
-                                <div class="image-userlist">
-
-                                </div>
-                                <h5 class="name-userlist">Root James</h5>
-                                <div class="border-userlist"></div>
-                                <h6 class="post-userlist">WordPress Developer</h6>
-                                <h6 class="post-userlist">rootjames@gmail.com</h6>
-                                <div id="userlistNav" class="overlay-userlistNav info-userlist">
-                                    <div data-plugin="custom-scroll" data-height="100%">
-                                        <a href="javascript:void(0)" class="closeUserlist">&times;</a>
-                                        <div class="overlay-content-userlistNav">
-                                            <div class="user-overlay-img">
-
-                                            </div>
-                                            <div class="hover-user-box">
-                                                <div class="user-box">
-                                                    <div class="user-inner-box">
-                                                        <div class="image-userlist">
-
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="detail-userlist">
-                                                <div class="row text-xs-left edit-form-userlist">
-                                                    <div class="col-md-12">
-
-                                                    </div>
-                                                    <div class="divider15"></div>
-                                                    <div class="col-md-12">
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
+
                                 </div>
-                                <a class="btn btn-primary site-btn openUserlist">View Profile</a>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="userlist-box content text-xs-center">
-                                <div class="image-userlist">
+                        <div class="detail-userlist">
+                            <div class="row text-xs-left edit-form-userlist">
+                                <div class="col-md-12">
 
                                 </div>
-                                <h5 class="name-userlist">Suzie Andrew</h5>
-                                <div class="border-userlist"></div>
-                                <h6 class="post-userlist">Graphics Designer</h6>
-                                <h6 class="post-userlist">suzieandrew@gmail.com</h6>
-                                <a class="btn btn-primary site-btn openUserlist">View Profile</a>
+                                <div class="divider15"></div>
+                                <div class="col-md-12">
+
+                                </div>
+
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="userlist-box content text-xs-center">
-                                <div class="image-userlist">
-
-                                </div>
-                                <h5 class="name-userlist">Kane Rock</h5>
-                                <div class="border-userlist"></div>
-                                <h6 class="post-userlist">Web Designer</h6>
-                                <h6 class="post-userlist">kanerock@gmail.com</h6>
-                                <a class="btn btn-primary site-btn openUserlist">View Profile</a>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="userlist-box content text-xs-center">
-                                <div class="image-userlist">
-
-                                </div>
-                                <h5 class="name-userlist">Kane Rock</h5>
-                                <div class="border-userlist"></div>
-                                <h6 class="post-userlist">Web Designer</h6>
-                                <h6 class="post-userlist">kanerock@gmail.com</h6>
-                                <a class="btn btn-primary site-btn openUserlist">View Profile</a>
-                            </div><br><br><br><br><br><br><br><br>
-                        </div>
-                        <br><br><br><br><br><br><br><br>
-
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="userlist-box content text-xs-center">
-                                <div class="image-userlist">
-
-                                </div>
-                                <h5 class="name-userlist">Shane Butler</h5>
-                                <div class="border-userlist"></div>
-                                <h6 class="post-userlist">ASP.net</h6>
-                                <h6 class="post-userlist">shanebutler@gmail.com</h6>
-                                <a class="btn btn-primary site-btn openUserlist">View Profile</a>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="userlist-box content text-xs-center">
-                                <div class="image-userlist">
-
-                                </div>
-                                <h5 class="name-userlist">Martin Taylor</h5>
-                                <div class="border-userlist"></div>
-                                <h6 class="post-userlist">ios Developer</h6>
-                                <h6 class="post-userlist">martintaylor@gmail.com</h6>
-                                <a class="btn btn-primary site-btn openUserlist">View Profile</a>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="userlist-box content text-xs-center">
-                                <div class="image-userlist">
-
-                                </div>
-                                <h5 class="name-userlist">James Ross</h5>
-                                <div class="border-userlist"></div>
-                                <h6 class="post-userlist">DataBase Administrator</h6>
-                                <h6 class="post-userlist">jamesross@gmail.com</h6>
-                                <a class="btn btn-primary site-btn openUserlist">View Profile</a>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="userlist-box content text-xs-center">
-                                <div class="image-userlist">
-
-                                </div>
-                                <h5 class="name-userlist">Michael Gilly</h5>
-                                <div class="border-userlist"></div>
-                                <h6 class="post-userlist">Web/Graphics Designer</h6>
-                                <h6 class="post-userlist">michaelgilly@gmail.com</h6>
-                                <a class="btn btn-primary site-btn openUserlist">View Profile</a>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        </div><br><br><br><br><br><br><br><br>
-
                     </div>
                 </div>
-            </section>
-
+            </div>
+            <a href="{{path('listClasse')}}"><img src="{{ asset('templates/assets/global/image/classes.jpg') }}"></a>
         </div>
-    </section>
+    </div>
 
-</div>
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="userlist-box content text-xs-center">
+            <div class="image-userlist">
 
+            </div>
+            <h5 class="name-userlist">Gestion Groupe</h5>
+            <div class="border-userlist"></div>
+            <a href="{{path('AjoutGroupe')}}" class="closeUserlist"><h6 class="post-userlist">nouveau groupe</h6></a>
+            <div id="userlistNav" class="overlay-userlistNav info-userlist">
+                <div data-plugin="custom-scroll" data-height="100%">
+                    <a href="javascript:void(0)" class="closeUserlist">&times;</a>
+                    <div class="overlay-content-userlistNav">
+                        <div class="user-overlay-img">
 
-<script type="text/javascript" src="{{ asset('templates/assets/global/plugins/tether/dist/js/tether.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('templates/assets/global/plugins/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('templates/assets/global/plugins/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('templates/assets/global/plugins/switchery/dist/switchery.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('templates/assets/global/plugins/screenfull.js/dist/screenfull.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('templates/assets/global/plugins/classie/classie.js') }}"></script>
+                        </div>
+                        <div class="hover-user-box">
+                            <div class="user-box">
+                                <div class="user-inner-box">
+                                    <div class="image-userlist">
 
+                                    </div>
 
-{% block footer %}{% endblock %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-userlist">
+                            <div class="row text-xs-left edit-form-userlist">
+                                <div class="col-md-12">
 
-<!-- START PAGE PLUGINS -->
-<script type="text/javascript"
-        src="{{ asset('templates/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}"></script>
-<script type="text/javascript"
-        src="{{ asset('templates/assets/global/plugins/datatables/media/js/dataTables.bootstrap4.min.js') }}"></script>
-<script type="text/javascript"
-        src="{{ asset('templates/assets/global/plugins/datatables-responsive/js/dataTables.responsive.js') }}"></script>
-<script type="text/javascript"
-        src="{{ asset('templates/assets/global/plugins/datatables-responsive/js/responsive.bootstrap4.js') }}"></script>
-<script type="text/javascript"
-        src="{{ asset('templates/assets/global/plugins/datatables-scroller/js/dataTables.scroller.js') }}"></script>
+                                </div>
+                                <div class="divider15"></div>
+                                <div class="col-md-12">
 
-<script type="text/javascript" src="{{ asset('templates/assets/global/plugins/moment/min/moment.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('templates/assets/global/plugins/flatpickr/dist/flatpickr.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('templates/assets/global/plugins/jQuery.print/jQuery.print.js') }}"></script>
-<!-- END PAGE PLUGINS -->
+                                </div>
 
-<script type="text/javascript" src="{{ asset('templates/assets/global/js/site.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('templates/assets/global/js/site-settings.min.js') }}"></script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{path('listGroupe')}}"><img src="{{ asset('templates/assets/global/image/Group.jpg') }}"/></a>
+        </div>
+    </div>
 
-<script type="text/javascript" src="{{ asset('templates/assets/global/js/global/userlist.js') }}"></script>
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="userlist-box content text-xs-center">
+            <div class="image-userlist">
 
-<script type="text/javascript" src="{{ asset('templates/assets/layouts/layout-icon-menu/js/layout.min.js') }}"></script>
+            </div>
+            <h5 class="name-userlist">Gestion Matières</h5>
+            <div class="border-userlist"></div>
+            <a href="{{path('listMatiere')}}" class="closeUserlist"><h6 class="post-userlist">ajouter une matière</h6></a>
+            <div id="userlistNav" class="overlay-userlistNav info-userlist">
+                <div data-plugin="custom-scroll" data-height="100%">
+                    <a href="javascript:void(0)" class="closeUserlist">&times;</a>
+                    <div class="overlay-content-userlistNav">
+                        <div class="user-overlay-img">
 
-</body>
+                        </div>
+                        <div class="hover-user-box">
+                            <div class="user-box">
+                                <div class="user-inner-box">
+                                    <div class="image-userlist">
 
-<!-- Mirrored from backend.themesadmin.com/backend/admin_icon_menu/default/admin_default/userlist.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 08 May 2017 10:52:14 GMT -->
-</html>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-userlist">
+                            <div class="row text-xs-left edit-form-userlist">
+                                <div class="col-md-12">
+
+                                </div>
+                                <div class="divider15"></div>
+                                <div class="col-md-12">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{path('AjoutMatiere')}}"><img src="{{ asset('templates/assets/global/image/matières.png') }}"/></a>
+        </div>
+        <br><br>
+    </div>
+    <br><br><br>
+
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="userlist-box content text-xs-center">
+            <div class="image-userlist">
+            </div>
+            <h5 class="name-userlist">Gestion Note</h5>
+            <div class="border-userlist"></div>
+            <a href="{{path('ajout_note')}}" class="closeUserlist"><h6 class="post-userlist">nouvelle note</h6></a>
+            <div id="userlistNav" class="overlay-userlistNav info-userlist">
+                <div data-plugin="custom-scroll" data-height="100%">
+                    <a href="javascript:void(0)" class="closeUserlist">&times;</a>
+                    <div class="overlay-content-userlistNav">
+                        <div class="user-overlay-img">
+
+                        </div>
+                        <div class="hover-user-box">
+                            <div class="user-box">
+                                <div class="user-inner-box">
+                                    <div class="image-userlist">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-userlist">
+                            <div class="row text-xs-left edit-form-userlist">
+                                <div class="col-md-12">
+
+                                </div>
+                                <div class="divider15"></div>
+                                <div class="col-md-12">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{path('list_note')}}"><img src="{{ asset('templates/assets/global/image/notes.png') }}"/></a>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="userlist-box content text-xs-center">
+            <div class="image-userlist">
+            </div>
+            <h5 class="name-userlist">Gestion Salle</h5>
+            <div class="border-userlist"></div>
+            <a href="{{path('ajouter_Salle')}}" class="closeUserlist"><h6 class="post-userlist">nouvelle Salle</h6></a>
+            <div id="userlistNav" class="overlay-userlistNav info-userlist">
+                <div data-plugin="custom-scroll" data-height="100%">
+                    <a href="javascript:void(0)" class="closeUserlist">&times;</a>
+                    <div class="overlay-content-userlistNav">
+                        <div class="user-overlay-img">
+
+                        </div>
+                        <div class="hover-user-box">
+                            <div class="user-box">
+                                <div class="user-inner-box">
+                                    <div class="image-userlist">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-userlist">
+                            <div class="row text-xs-left edit-form-userlist">
+                                <div class="col-md-12">
+
+                                </div>
+                                <div class="divider15"></div>
+                                <div class="col-md-12">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{path('list_Salles')}}"><img src="{{ asset('templates/assets/global/image/salle.jpg') }}"/></a>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="userlist-box content text-xs-center">
+            <div class="image-userlist">
+            </div>
+            <h5 class="name-userlist">Gestion Filière</h5>
+            <div class="border-userlist"></div>
+            <a href="{{path('ajouter_filieres')}}" class="closeUserlist"><h6 class="post-userlist">nouvelle Filière</h6></a>
+            <div id="userlistNav" class="overlay-userlistNav info-userlist">
+                <div data-plugin="custom-scroll" data-height="100%">
+                    <a href="javascript:void(0)" class="closeUserlist">&times;</a>
+                    <div class="overlay-content-userlistNav">
+                        <div class="user-overlay-img">
+
+                        </div>
+                        <div class="hover-user-box">
+                            <div class="user-box">
+                                <div class="user-inner-box">
+                                    <div class="image-userlist">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-userlist">
+                            <div class="row text-xs-left edit-form-userlist">
+                                <div class="col-md-12">
+
+                                </div>
+                                <div class="divider15"></div>
+                                <div class="col-md-12">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{path('liste_filieres')}}"><img src="{{ asset('templates/assets/global/image/filières.jpg') }}"/></a>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="userlist-box content text-xs-center">
+            <div class="image-userlist">
+            </div>
+            <h5 class="name-userlist">Gestion Preinscrit</h5>
+            <div class="border-userlist"></div>
+            <a href="{{path('Liste_preinscrits')}}" class="closeUserlist"><h6 class="post-userlist">Consulter la liste</h6></a>
+            <div id="userlistNav" class="overlay-userlistNav info-userlist">
+                <div data-plugin="custom-scroll" data-height="100%">
+                    <a href="javascript:void(0)" class="closeUserlist">&times;</a>
+                    <div class="overlay-content-userlistNav">
+                        <div class="user-overlay-img">
+
+                        </div>
+                        <div class="hover-user-box">
+                            <div class="user-box">
+                                <div class="user-inner-box">
+                                    <div class="image-userlist">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-userlist">
+                            <div class="row text-xs-left edit-form-userlist">
+                                <div class="col-md-12">
+
+                                </div>
+                                <div class="divider15"></div>
+                                <div class="col-md-12">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{path('Liste_preinscrits')}}"><img src="{{ asset('templates/assets/global/image/Pré-inscription.png') }}"/></a>
+        </div>
+    </div>
+
+    <br><br><br><br><br><br><br><br>
+
+{% endblock %}
+

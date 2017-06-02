@@ -1,5 +1,5 @@
 listMatiere:
-    path:     /matieres
+    path:     /matieres/liste
     defaults: { _controller: GestionMatiereBundle:Default:listMatiere }
 
 AjoutMatiere:
@@ -11,14 +11,14 @@ ValiderAjoutMatiere:
     defaults: { _controller: GestionMatiereBundle:Default:validerAjoutMatiere }
 
 modifierMatiere:
-    path:     /modifierMatiere/{id}
+    path:     /matieres/edit/{id}
     defaults: { _controller: GestionMatiereBundle:Default:modifierMatiere }
 
 ValiderModification:
-    path:     /ValiderModification/{id}
+    path:     /matieres/valider/{id}
     defaults: { _controller: GestionMatiereBundle:Default:ValiderModification }
 
 deleteMatiere:
-    path:     /deleteMatiere/{id}
+    path:     /matieres/delete/{id}
     defaults: { _controller: GestionMatiereBundle:Default:deleteMatiere }
 

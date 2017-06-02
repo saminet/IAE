@@ -1,0 +1,35 @@
+user_user_homepage:
+    path:     /
+    defaults: { _controller: UserUserBundle:Default:index }
+
+user_test_homepage:
+    path:     /user
+    defaults: { _controller: UserUserBundle:Default:showUser }
+
+user_index:
+    path:     /users
+    defaults: { _controller: UserUserBundle:Default:role }
+
+edit_user:
+    path:     /user/edit/{id}
+    defaults: { _controller: UserUserBundle:Default:edit }
+
+DashboardAdmin:
+    path:     /Dashboard
+    defaults: { _controller: UserUserBundle:Default:dashboardAdmin }
+
+DashboardPersonnel:
+    path:     /DashboardPersonnel
+    defaults: { _controller: UserUserBundle:Default:dashboardPersonnel}
+
+DashboardEnseignant:
+    path:     /DashboardEnseignant
+    defaults: { _controller: UserUserBundle:Default:dashboardEnseignant }
+
+DashboardEtudiant:
+    path:     /DashboardEtudiant
+    defaults: { _controller: UserUserBundle:Default:dashboardEtudiant }
+
+DashboardParent:
+    path:     /DashboardParent
+    defaults: { _controller: UserUserBundle:Default:dashboardParent }

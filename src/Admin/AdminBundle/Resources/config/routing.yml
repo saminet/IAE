@@ -1,0 +1,202 @@
+admin_admin_homepage:
+    path:     /
+    defaults: { _controller: AdminAdminBundle:Default:index }
+
+Add_Membre:
+    path:     /membre/new
+    defaults: { _controller: AdminAdminBundle:Default:addMembre }
+
+liste_Membre:
+    path:     /personnel/liste
+    defaults: { _controller: AdminAdminBundle:Default:listMembre }
+
+infos_Membre:
+    path:     /personnel/infos/{id}
+    defaults: { _controller: AdminAdminBundle:Default:infosMembre }
+
+Ajout_Personnel:
+    path:     /personnel/ajouter
+    defaults: { _controller: AdminAdminBundle:Default:ajoutPersonnel }
+
+Valider_Membre:
+    path:     /membre/valider
+    defaults: { _controller: AdminAdminBundle:Default:validerMembre }
+
+modifier_Membre:
+    path:     /personnel/edit/{id}
+    defaults: { _controller: AdminAdminBundle:Default:editMembre }
+
+ValiderEditMembre:
+    path:     /personnel/edit/valider/{id}
+    defaults: { _controller: AdminAdminBundle:Default:validerEditMembre }
+
+DeletetMembre:
+    path:     /personnel/delete/{id}
+    defaults: { _controller: AdminAdminBundle:Default:deleteMembre }
+
+profilMembre:
+    path:     /personnel/profil
+    defaults: { _controller: AdminAdminBundle:Default:profilMembre }
+
+modifierProfilMembre:
+    path:     /personnel/profil/edit/{id}
+    defaults: { _controller: AdminAdminBundle:Default:modifierProfilMembre }
+
+validerModifProfilMembre:
+    path:     /personnel/profil/valider/{id}
+    defaults: { _controller: AdminAdminBundle:Default:validerModifProfilMembre }
+
+verifLogin:
+    path:     /verifLogin
+    defaults: { _controller: AdminAdminBundle:Default:verifLogin}
+
+verifEmail:
+    path:     /verifEmail
+    defaults: { _controller: AdminAdminBundle:Default:verifEmail}
+
+listProfil:
+    path:     /profil/liste
+    defaults: { _controller: AdminAdminBundle:Default:listProfil }
+
+listeProfil:
+    path:     /profil/list
+    defaults: { _controller: AdminAdminBundle:Default:listeProfil }
+
+AjoutProfil:
+    path:     /profil/newProfil
+    defaults: { _controller: AdminAdminBundle:Default:newProfil }
+
+ValiderProfil:
+    path:     /profil/add
+    defaults: { _controller: AdminAdminBundle:Default:AddProfils }
+
+GestionProfilAdmin:
+    path:     /profils
+    defaults: { _controller: AdminAdminBundle:Default:gestionProfil }
+
+AddProfil:
+    path:     /AddProfil
+    defaults: { _controller: AdminAdminBundle:Default:AddProfil }
+
+modifierProfil:
+    path:     /modifierProfil/{id}
+    defaults: { _controller: AdminAdminBundle:Default:modifierProfil }
+
+validerModification:
+    path:     /validerModification
+    defaults: { _controller: AdminAdminBundle:Default:validerModification }
+
+deleteProfil:
+    path:     /deleteProfil/{id}
+    defaults: { _controller: AdminAdminBundle:Default:DeleteProfil }
+
+CrudProfil:
+    path:     /CrudProfil
+    defaults: { _controller: AdminAdminBundle:Default:CrudProfil }
+    
+
+er_pviescolaire_homepage:
+    path:     /indexviescolare
+    defaults: { _controller: AdminAdminBundle:Default:index }
+
+infoSondage:
+    path:     /infoSondage
+    defaults: { _controller: AdminAdminBundle:Default:infoSondage }
+
+agenda:
+    path:     /agenda
+    defaults: { _controller: AdminAdminBundle:Default:agenda }
+
+gererMatiere:
+    path:     /gererMatiere
+    defaults: { _controller: AdminAdminBundle:Default:gererMatiere }
+
+rechercheAvance:
+    path:     /rechercheAvance
+    defaults: { _controller: AdminAdminBundle:Default:rechercheAvance }
+
+gererClasse:
+    path:     /gererClasse
+    defaults: { _controller: AdminAdminBundle:Default:gererClasse }
+
+gererSalle:
+    path:     /gererSalle
+    defaults: { _controller: AdminAdminBundle:Default:gererSalle }
+
+listeMatiere:
+    path:     /listeMatiere
+    defaults: { _controller: AdminAdminBundle:Default:listeMatiere }
+
+listeSalle:
+    path:     /listeSalle
+    defaults: { _controller: AdminAdminBundle:Default:listeSalle }
+
+listePersonnel:
+    path:     /listePersonnel
+    defaults: { _controller: AdminAdminBundle:Default:listePersonnel }
+
+planingSalle:
+    path:     /planingSalle
+    defaults: { _controller: AdminAdminBundle:Default:planingSalle }
+
+EDTProfesseur:
+    path:     /EDTProfesseur
+    defaults: { _controller: AdminAdminBundle:Default:EDTProfesseur }
+
+planingProf:
+    path:     /planingProf
+    defaults: { _controller: AdminAdminBundle:Default:planingProf }
+
+table_datatables_managed:
+        path:     /indexviescolare
+        defaults: { _controller: AdminAdminBundle:Default:listProf }
+
+viescolaireGrilleabsences:
+        path:     /Grilleabsences
+        defaults: { _controller: AdminAdminBundle:Default:ajoutabs }
+
+listeabsencesenseignants:
+        path:     /ListeAbsence
+        defaults: { _controller: AdminAdminBundle:Default:listeabsenseignants }
+        
+listeabsencesetudiants:
+                path:     /ListeAbsenceetudiants
+                defaults: { _controller: AdminAdminBundle:Default:listeabsensetudiants }
+suiviabsences:
+                path:     /suiviabsences
+                defaults: { _controller: AdminAdminBundle:Default:suiviabsensetudiants }
+
+competencesajoutevaluation:
+                path:     /AjoutEvaluation
+                defaults: { _controller: AdminAdminBundle:Default:ajoutevaluation }
+competenceslistevaluation:
+                path:     /listeevaluation
+                defaults: { _controller: AdminAdminBundle:Default:listeevaluation }
+competencescahierdestext:
+                path:     /cahierdestext
+                defaults: { _controller: AdminAdminBundle:Default:cahierdestext }
+
+ressourceslisteetudiants:
+                path:     /listsetudiants
+                defaults: { _controller: AdminAdminBundle:Default:listsetudiants }
+ressourcesrelvedesnotes:
+                path:     /relvedesnotesetudiants
+                defaults: { _controller: AdminAdminBundle:Default:relvedesnotes }
+ressourcesTrombinoscopeetudiants:
+                path:     /Trombinoscopeetudiants
+                defaults: { _controller: AdminAdminBundle:Default:Trombinoscopeetudiants }
+ressourcesTrombinoscopeadmin:
+                path:     /Trombinoscopeadmin
+                defaults: { _controller: AdminAdminBundle:Default:Trombinoscopeadmin }
+ressourcesemploitemps:
+                path:     /ressourcesemploitemps
+                defaults: { _controller: AdminAdminBundle:Default:ressourcesemploitemps }
+ressourceplanning:
+                path:     /ressourceplanning
+                defaults: { _controller: AdminAdminBundle:Default:ressourceplanning }
+ressourceplanningclasses:
+                path:     /ressourceplanningclasses
+                defaults: { _controller: AdminAdminBundle:Default:ressourceplanningclasses }
+
+
+

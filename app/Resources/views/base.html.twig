@@ -45,10 +45,9 @@
 
 
     <!-- BEGIN selectize -->
-    <script src="{{ asset('bundles/gestionue/js/selectize.js') }}" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/gestionue/dist/css/selectize.default.css') }}" />
-    <script src="{{ asset('bundles/gestionue/js/index.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('bundles/membre/javascripts/test_form.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('templates/assets/global/js/selectize.js') }}" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('templates/assets/global/css/selectize.default.css') }}" />
+    <script src="{{ asset('templates/assets/global/js/index.js') }}" type="text/javascript"></script>
     <!-- END selectize -->
 
     {% block header %} {% endblock %}
@@ -367,20 +366,27 @@
                     <div class="user-dropdown">
                         <div class="btn-group">
                             <a href="#" class="user-header dropdown-toggle" data-toggle="dropdown" data-animation="slideOutUp" aria-haspopup="true" aria-expanded="false">
-                                <img src="{{ asset('templates/assets/global/image/user.jpg') }}" alt="Profile image"/>
+                                <img src="{{ asset('templates/assets/global/image/profilIcon.png') }}" alt="Profile image"/>
                             </a>
                             <div class="dropdown-menu drop-profile">
                                 <div class="userProfile">
-                                    <img src="{{ asset('templates/assets/global/image/user.jpg') }}" alt="Profile image"/>
-                                    <h5>Miler Hussey</h5>
-                                    <p>milerhussey@yahoo.com</p>
+                                    <img src="{{ asset('templates/assets/global/image/profilIcon.png') }}" alt="Profile image"/>
+                                    <p>{{ user }}</p>
                                 </div>
                                 <div class="dropdown-divider"></div>
-                                <a class="btn left-spacing link-btn" href="#" role="button">Link</a>
-                                <a class="btn left-second-spacing link-btn" href="#" role="button">Link 2</a>
+                                {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN') %}
+                                <a class="btn left-spacing link-btn" href="{{ path('profilMembre') }}" role="button">
+                                    {% elseif is_granted('ROLE_ENSEIGNANT') %}
+                                    <a class="btn left-spacing link-btn" href="{{ path('profilEnseignant') }}" role="button">
+                                    {% elseif is_granted('ROLE_ETUDIANT') %}
+                                    <a class="btn left-spacing link-btn" href="{{ path('profilEtudiant') }}" role="button">
+                                            {% else %}
+                                            <a class="btn left-spacing link-btn" href="{{ path('profilParent') }}" role="button">
+                                {% endif %}
+                                Mon Profil</a>
                                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                     <a class="btn btn-primary float-xs-right right-spacing" href="{{ path('fos_user_security_logout') }}"
-                                       role="button">Logout
+                                       role="button">
                                         <i class="icon-key"></i> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                                     </a>
                                 {% else %}

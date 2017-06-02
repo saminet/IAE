@@ -1,5 +1,5 @@
 gestion_ue_homepage:
-    path:     /Unite_Enseignement
+    path:     /Unite_Enseignement/list
     defaults: { _controller: GestionUEBundle:Default:index }
 
 Liste_UE:

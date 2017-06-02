@@ -1,0 +1,191 @@
+{% extends '::layoutAdmin.html.twig' %}
+
+{% block header %}
+
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/font-awesome/css/font-awesome.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables/media/css/dataTables.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables-scroller/css/scroller.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/flatpickr/dist/flatpickr.min.css') }}"/>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script type="text/javascript">
+        document.getElementById('contrat').onchange = function(){
+            alert(this.value);
+        };
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        jQuery(document).ready(function() {
+            $('.js-datepicker').datepicker({format: 'yyyy-mm-dd'});
+        });
+    </script>
+
+    <script>
+        function testnumber() {
+            //pour bien dire au javascript que c'est un nombre et pas une chaîne de caractères
+            var cc = parseInt(document.getElementById('gestion_notebundle_note_cc').value);
+            var ds = parseInt(document.getElementById('gestion_notebundle_note_ds').value);
+            var exam = parseInt(document.getElementById('gestion_notebundle_note_examen').value);
+//Tu peux utiliser parseFloat() à la place de ParseInt() si la valeur peut être un nombre à virgule.
+            if (cc < 0 || ds < 0 || exam < 0) {
+//dire à l'utilisateur qu'il a mal remplis
+                alert("Attention, une valeur négative est inséré !")
+            }
+        }
+    </script>
+
+{% endblock %}
+
+ {% block body %}
+     <h3>Ajouter une nouvelle note / <a href="{{path('list_note')}}">Liste des notes</a> </h3>
+     <div class="content content-product-edit datatable-width">
+         <div class="nav-tab-horizontal">
+             <div class="divider15"></div>
+             <div class="tab-content">
+                 <div>
+                     <div class="row">
+                         {{ form_start(form,{'attr':{'action':path('ajout_note')}}) }}
+                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                             <label for="etudiant_nom">Classe</label>
+                             <div class="form-group">
+                                 {{ form_widget(form.classes) }}
+                             </div>
+                             <label>Groupe</label>
+                             <div class="form-group">
+                                 {{ form_widget(form.groupe) }}
+                             </div>
+                             <label>Etudiant</label>
+                             <div class="form-group">
+                                 {{ form_widget(form.etudiant) }}
+                             </div>
+                             <label>Semestre</label>
+                             <div class="form-group">
+                                 {{ form_widget(form.semestre) }}
+                             </div>
+                             <label>Matière</label>
+                             <div class="form-group">
+                                 {{ form_widget(form.matiere) }}
+                             </div>
+                         </div>
+                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                             <label>Note Controle Continue</label>
+                             <div class="form-group">
+                                 {{ form_widget(form.cc, {'attr': { 'step': '0.01', 'onkeyup': 'testnumber();'}}) }}
+                             </div>
+                             <label>Note Devoir Surveillé</label>
+                             <div class="form-group">
+                                 {{ form_widget(form.ds, {'attr': { 'step': '0.01', 'onkeyup': 'testnumber();'}}) }}
+                             </div>
+                             <label>Note Examen</label>
+                             <div class="form-group">
+                                 {{ form_widget(form.examen, {'attr': { 'step': '0.01', 'onkeyup': 'testnumber();'}}) }}
+                             </div>
+                             <br>
+                             <div class="control-group">
+                                 {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
+                             </div>
+                             {{ form_end(form) }}
+                             <br><br>
+                         </div>
+                     </div></div></div></div></div>
+
+     <!-- filtrer la liste des groupe selon la classe séléctionnée -->
+     <script type="text/javascript">
+         (function($) {
+             $('#gestion_notebundle_note_classes').change(function(){
+                 var idClasse = $(this).val();
+                 $.ajax({
+                     type: "POST",
+                     url: "{{ url('groupe_list_ajax_call') }}?classe_id=" + idClasse,
+                     success: function(data) {
+                         // Remove current options
+                         $('#gestion_notebundle_note_groupe').html('');
+                         $.each(data, function(k, v) {
+                             $('#gestion_notebundle_note_groupe').append('<option value="' + v + '">' + k + '</option>');
+                         });
+                     }
+                 });
+                 return false;
+             });
+         })(jQuery);
+     </script>
+
+     <!-- filtrer la liste des étudiants selon le groupe séléctionné -->
+     <script type="text/javascript">
+         (function($) {
+             $('#gestion_notebundle_note_groupe').change(function(){
+                 var idGroupe = $(this).val();
+                 $.ajax({
+                     type: "POST",
+                     url: "{{ url('etudiant_list_ajax_call') }}?groupe_id=" + idGroupe,
+                     success: function(data) {
+                         // Remove current options
+                         $('#gestion_notebundle_note_etudiant').html('');
+                         $.each(data, function(k, v) {
+                             $('#gestion_notebundle_note_etudiant').append('<option value="' + v + '">' + k + '</option>');
+                         });
+                     }
+                 });
+                 return false;
+             });
+         })(jQuery);
+     </script>
+     <!-- script permettant la séléction multiple des matières -->
+
+     <script>
+         var eventHandler = function(name) {
+             return function() {
+                 console.log(name, arguments);
+                 $('#log').append('<div><span class="name">' + name + '</span></div>');
+             };
+         };
+         var $select = $('#select-matieres').selectize({
+             create          : false,
+             plugins: ['remove_button'],
+             onChange        : eventHandler('onChange'),
+             onItemAdd       : eventHandler('onItemAdd'),
+             onItemRemove    : eventHandler('onItemRemove'),
+             onOptionAdd     : eventHandler('onOptionAdd'),
+             onOptionRemove  : eventHandler('onOptionRemove'),
+             onDropdownOpen  : eventHandler('onDropdownOpen'),
+             onDropdownClose : eventHandler('onDropdownClose'),
+             onFocus         : eventHandler('onFocus'),
+             onBlur          : eventHandler('onBlur'),
+             onInitialize    : eventHandler('onInitialize'),
+         });
+     </script>
+
+ {% endblock %}
+
+
+                        {% block footer %}
+
+                            <!-- START CORE JAVASCRIPT -->
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/jquery/dist/jquery.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/tether/dist/js/tether.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/switchery/dist/switchery.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/screenfull.js/dist/screenfull.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/classie/classie.js') }}"></script>
+                            <!-- END CORE JAVASCRIPT -->
+
+                            <!-- START PAGE PLUGINS -->
+
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/moment/min/moment.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/flatpickr/dist/flatpickr.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/jQuery.print/jQuery.print.js') }}"></script>
+                            <!-- END PAGE PLUGINS -->
+
+
+                            <!-- START GLOBAL JAVASCRIPT -->
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/js/site.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/js/site-settings.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/js/global/userlist.js') }}"></script>
+                            <!-- END THEME LAYOUT JAVASCRIPT -->
+
+                        {% endblock %}

@@ -3,7 +3,7 @@ gestion_entreprise_homepage:
     defaults: { _controller: GestionEntrepriseBundle:Default:listEntrep }
 
 liste_entreprise:
-    path:     /Entreprises
+    path:     /Entreprises/list
     defaults: { _controller: GestionEntrepriseBundle:Default:listEntrep }
 
 ajouter_entreprise:

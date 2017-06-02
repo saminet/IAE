@@ -35,7 +35,7 @@ SaveAbsenceMatiereConsu:
     defaults: { _controller: GestionAbsenceBundle:consulterAbsenceRetard:SaveAbsenceMatiereConsu }
 
 listClasse:
-    path:     /classe
+    path:     /classe/liste
     defaults: { _controller: GestionAbsenceBundle:Classe:listClasse }
 
 AjoutClasse:
@@ -59,7 +59,7 @@ deleteClasse:
     defaults: { _controller: GestionAbsenceBundle:Classe:deleteClasse }
 
 listGroupe:
-    path:     /groupe
+    path:     /groupe/liste
     defaults: { _controller: GestionAbsenceBundle:Groupe:listGroupe }
 
 AjoutGroupe:

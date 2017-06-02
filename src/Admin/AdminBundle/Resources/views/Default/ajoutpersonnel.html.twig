@@ -1,0 +1,347 @@
+{% extends '::layoutAdmin.html.twig' %}
+
+{% block header %}
+
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/font-awesome/css/font-awesome.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables/media/css/dataTables.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables-scroller/css/scroller.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/flatpickr/dist/flatpickr.min.css') }}"/>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+    <script type="text/javascript">
+        function checkname()
+        {
+            var name=document.getElementById( "UserName" ).value;
+            var pseudo = $("#UserName").val();
+
+            if(name)
+            {
+                $.ajax({
+                    type: 'post',
+                    url: "{{ url('verifLogin') }}?pseudo=" + pseudo,
+                    data: {
+                        pseudo:pseudo,
+                    },
+                    success: function (response) {
+                        $( '#name_status' ).html(response);
+                        if(response=="OK")
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                });
+            }
+            else
+            {
+                $( '#name_status' ).html("");
+                return false;
+            }
+        }
+
+        function checkemail()
+        {
+            var email=document.getElementById( "UserEmail" ).value;
+            var email = $("#UserEmail").val();
+
+            if(email)
+            {
+                $.ajax({
+                    type: 'post',
+                    url: "{{ url('verifEmail') }}?mail=" + email,
+                    data: {
+                        user_email:email,
+                    },
+                    success: function (response) {
+                        $( '#email_status' ).html(response);
+                        if(response=="OK")
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                });
+            }
+            else
+            {
+                $( '#email_status' ).html("");
+                return false;
+            }
+        }
+
+        function checkall()
+        {
+            var namehtml=document.getElementById("name_status").innerHTML;
+            var emailhtml=document.getElementById("email_status").innerHTML;
+
+            if((namehtml && emailhtml)=="OK")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+    </script>
+
+    <script>
+        function same()
+        {
+            document.getElementById( "UserName" ).value=document.getElementById( "UserEmail" ).value;
+            document.getElementById( "Password" ).value=document.getElementById( "cin" ).value;
+        }
+    </script>
+
+    <script>
+
+        (function($) {
+            $.fn.formToWizard = function(options) {
+                options = $.extend({
+                    submitButton: ""
+                }, options);
+
+                var element = this;
+
+                var steps = $(element).find("fieldset");
+                var count = steps.size();
+                var submmitButtonName = "#" + options.submitButton;
+                $(submmitButtonName).hide();
+
+                // 2
+                $(element).before("<ul id='steps'></ul>");
+
+                steps.each(function(i) {
+                    $(this).wrap("<div id='step" + i + "'></div>");
+                    $(this).append("<p id='step" + i + "commands'></p>");
+
+                    // 2
+                    var name = $(this).find("legend").html();
+                    $("#steps").append("<li id='stepDesc" + i + "'>Etape " + (i + 1) + "<span>" + name + "</span></li>");
+
+                    if (i == 0) {
+                        createNextButton(i);
+                        selectStep(i);
+                    }
+                    else if (i == count - 1) {
+                        $("#step" + i).hide();
+                        createPrevButton(i);
+                    }
+                    else {
+                        $("#step" + i).hide();
+                        createPrevButton(i);
+                        createNextButton(i);
+                    }
+                });
+
+                function createPrevButton(i) {
+                    var stepName = "step" + i;
+                    $("#" + stepName + "commands").append("<a href='#' id='" + stepName + "Prev' class='prev'>< Précédent</a>");
+
+                    $("#" + stepName + "Prev").bind("click", function(e) {
+                        $("#" + stepName).hide();
+                        $("#step" + (i - 1)).show();
+                        $(submmitButtonName).hide();
+                        selectStep(i - 1);
+                    });
+                }
+
+                function createNextButton(i) {
+                    var stepName = "step" + i;
+                    $("#" + stepName + "commands").append("<a href='#' id='" + stepName + "Next' class='next'>Suivant ></a>");
+
+                    $("#" + stepName + "Next").bind("click", function(e) {
+                        $("#" + stepName).hide();
+                        $("#step" + (i + 1)).show();
+                        if (i + 2 == count)
+                            $(submmitButtonName).show();
+                        selectStep(i + 1);
+                    });
+                }
+
+                function selectStep(i) {
+                    $("#steps li").removeClass("current");
+                    $("#stepDesc" + i).addClass("current");
+                }
+
+            }
+        })(jQuery);
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#SignupForm").formToWizard({ submitButton: 'SaveAccount' })
+        });
+    </script>
+
+{% endblock %}
+
+ {% block body %}
+
+<style>
+    #date {
+        width: 50%;
+    }
+</style>
+
+     <h3>Ajouter un Personnel  / <a href="{{ path('liste_Membre') }}">Liste des personnels</a></h3>
+     <div class="content content-product-edit datatable-width">
+         <div class="nav-tab-horizontal">
+             <div class="divider15"></div>
+             <div class="tab-content">
+                 <div>
+                     <div class="row"><br>
+                         <form id="SignupForm" action="{{path('Valider_Membre')}}" method="POST" >
+                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                             <label>Nom</label>
+                             <div class="form-group">
+                                 <input name="nom" id="Nom" type="text" required="required" />
+                             </div>
+                             <label>Prenom</label>
+                             <div class="form-group">
+                                 <input name="prenom" id="Prenom" type="text" required="required" />
+                             </div>
+                             <label>Sexe</label>
+                             <div class="form-group">
+                                 <input type="radio" name="sexe" value="Homme" checked />  <strong>Homme</strong>
+                                 <input type="radio" name="sexe" value="Femme" />  <strong>Femme</strong>
+                             </div>
+                             <label>Date de Naissance</label>
+                             <div id="date" class="form-group form-bootstrap-datetime">
+                                 <div class='input-group' data-plugin="flatpickr" data-wrap="true">
+                                     <input type='text' name="DateNaissance" class="form-control" data-input />
+                               <span class="input-group-addon date-icon" data-toggle>
+                               <i class="icon icon_calendar"></i>
+                               </span>
+                                 </div>
+                             </div>
+                             <label>Lieu de Naissnace</label>
+                             <div class="form-group">
+                                 <input name="leuxNais" id="lieuxNaissance" type="text" required="required"/>
+                             </div>
+                             <label>Adresse</label>
+                             <div class="form-group">
+                                 <input name="adresse" id="adresse" type="text" required="required" />
+                             </div>
+                             <label>Nationalite</label>
+                             <div class="form-group">
+                                 <input name="nat" id="nationalite" type="text" required="required" />
+                             </div>
+                             <label>Numéro CIN/Passeport</label>
+                             <div class="form-group">
+                                 <input name="cin" id="cin" type="text" onkeyup="same();" required="required" />
+                             </div>
+                             <label>Ville</label>
+                             <div class="form-group">
+                                 <input name="ville" id="ville" type="text" required="required"/>
+                             </div>
+                         </div>
+                         <form class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                             <label>Téléphone</label>
+                             <div class="form-group">
+                                 <input name="tel" id="tel" type="number" required="required"/>
+                             </div>
+                             <label>Email</label>
+                             <div class="form-group">
+                                 <input name="mail" id="UserEmail" type="email" onkeyup="checkemail(),same();" required="required" />
+                                 <span id="email_status"></span>
+                             </div>
+                             <label>Numéro RIB/RIP</label>
+                             <div class="form-group">
+                                 <input name="rib" id="rib" type="text" required="required"/>
+                             </div>
+                             <label>Login</label>
+                             <div class="form-group">
+                                 <input type="text" id="UserName" name="pseudo" onkeyup="checkname();" required="required" />&nbsp;&nbsp;
+                                 <span id="name_status"></span>
+                             </div>
+                             <label>Mot de passe</label>
+                             <div class="form-group">
+                                 <input name="password" id="Password" type="password" required="required"/>
+                             </div>
+                             <label>Profil à affecter</label>
+                             <div class="form-group">
+                                 <select name="profil" id="role" class="form-control input-inline input-sm input-small">
+                                     <option value="" selected>-- Choisir le Profil --</option>
+                                     {% if profil is not empty %}
+                                         {% for pro in profil %}
+                                             <option value={{pro.posteProfil}}>{{pro.nomProfil}}</option>
+                                         {% endfor %}
+                                     {% endif %}
+                                 </select>
+                             </div>
+                             <label>Etat</label>
+                             <div class="form-group">
+                                 <input type="radio" name="etat" value="Actif" checked />  <strong>Actif</strong>
+                                 <input type="radio" name="etat" value="Inactif" />  <strong>Inactif</strong>
+                             </div>
+                             <div class="form-group">
+                                 <input id="SaveAccount" type="submit" class="btn btn-success" value="Sauvegarder" />
+                             </div>
+                             </form>
+                             <br><br>
+                         </form>
+                         </div>
+                     </div></div></div></div></div></div>
+     <script type="text/javascript">
+         <!-- filtrer la liste des groupe selon la classe séléctionnée -->
+         (function ($) {
+             $('#etudiant_classe').change(function () {
+                 var idClasse = $(this).val();
+                 $.ajax({
+                     type: "POST",
+                     url: "{{ url('groupe_list_ajax_call') }}?classe_id=" + idClasse,
+                     success: function (data) {
+                         // Remove current options
+                         $('#etudiant_groupe').html('');
+                         $.each(data, function (k, v) {
+                             $('#etudiant_groupe').append('<option value="' + v + '">' + k + '</option>');
+                         });
+                     }
+                 });
+                 return false;
+             });
+         })(jQuery);
+     </script>
+
+ {% endblock %}
+
+
+                        {% block footer %}
+
+                            <!-- START CORE JAVASCRIPT -->
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/jquery/dist/jquery.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/tether/dist/js/tether.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/switchery/dist/switchery.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/screenfull.js/dist/screenfull.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/classie/classie.js') }}"></script>
+                            <!-- END CORE JAVASCRIPT -->
+
+                            <!-- START PAGE PLUGINS -->
+
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/moment/min/moment.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/flatpickr/dist/flatpickr.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/jQuery.print/jQuery.print.js') }}"></script>
+                            <!-- END PAGE PLUGINS -->
+
+
+                            <!-- START GLOBAL JAVASCRIPT -->
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/js/site.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/js/site-settings.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/js/global/userlist.js') }}"></script>
+                            <!-- END THEME LAYOUT JAVASCRIPT -->
+
+                        {% endblock %}

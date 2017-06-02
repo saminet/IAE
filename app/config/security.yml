@@ -5,9 +5,10 @@ security:
 
     role_hierarchy:
         ROLE_ADMIN:       [ROLE_USER, ROLE_ENSEIGNANT, ROLE_ETUDIANT, ROLE_CONSULTANT, ROLE_ALLOWED_TO_SWITCH]
-        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_USER, ROLE_ENSEIGNANT, ROLE_ETUDIANT, ROLE_CONSULTANT, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_USER, ROLE_ENSEIGNANT, ROLE_PARENT, ROLE_CONSULTANT, ROLE_ALLOWED_TO_SWITCH]
         ROLE_ENSEIGNANT:  [ROLE_USER,ROLE_CONSULTANT]
         ROLE_ETUDIANT:    ROLE_CONSULTANT
+        ROLE_PARENT:      ROLE_CONSULTANT
         ROLE_VALIDATEUR:  ROLE_ADMIN
         ROLE_CONSULTANT:  ROLE_USER
 
@@ -34,5 +35,19 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/preinscrit/, role: ROLE_SUPER_ADMIN }
-        - { path: ^/notes, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/preinscrit/, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/etudiant/, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/parent/, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/classe/, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/groupe/, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/membre/, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/personnel/, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/enseignant/, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/Entreprises/, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/event/, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/filieres/, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/matieres/, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/niveau/, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/note/, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/salles/, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/Unite_Enseignement/, role: IS_AUTHENTICATED_FULLY }
