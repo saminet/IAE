@@ -1,0 +1,295 @@
+{% extends 'base.html.twig' %}
+
+{% block menu %}
+    <div id="header-icon">
+        <div class="header-width">
+            <div class="col-xl-12">
+                <div class="menucontainer">
+                    <div class="overlapblackbg"></div>
+                    <a id="navtoggle" class="animated-arrow"><span></span></a>
+                    <nav id="nav" class="topmenu" role="navigation">
+                        <div class="sidebar-search">
+                            <input id="live-search-box" type="search" class="form-control input-sm" placeholder="Search...">
+                            <a href="javascript:void(0)"><i class="search-close icon_search"></i></a>
+                        </div>
+                        <ul class="menu-list live-search-list">
+                            <li>
+                                <a href="DashboardEtudiant">
+                                    <span class="icon_desktop header-icon" aria-hidden="true"></span>Dashboard
+                                </a>
+                            </li>
+                            <nav id="nav-mega">
+                                <ul class="menu-list">
+                                    <li class="dropdown dropdown-mega-item">
+                                        <a href="javascript:void(0)" data-toggle="dropdown" data-open="true" aria-haspopup="true" aria-expanded="false">
+                                            <span class="icon_ul header-icon" aria-hidden="true"></span><span class="mega-title">Ressource Humaine</span>
+                                            <span class="arrow_carrot-down header-arrow-down" aria-hidden="true"></span>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-mega-menu">
+                                            <div class="mega-menu-container">
+                                                <div class="row">
+                                                    <div class="col-xl-2 col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                        <div class="mega-menu-title">
+                                                            <span>Gestion Comptes</span>
+                                                        </div>
+                                                        <ul>
+                                                            <li>
+                                                                <a href="{{ path('CrudProfil') }}">
+                                                                    <span class="icon_user_female" aria-hidden="true"></span>Mon profil
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="divider-xs-megamenu-spacing"></div>
+                                                    <div class="col-xl-2 col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                        <div class="mega-menu-title">
+                                                            <span>Gestion Absences et retards</span>
+                                                        </div>
+                                                        <ul>
+                                                            <li>
+                                                                <a href="{{ path('listeabsencesetudiants') }}">
+                                                                    <span class="icon_creditcard" aria-hidden="true"></span>Feuille d'appel étudiants
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="divider-md-spacing"></div>
+                                                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="mega-menu-title">
+                                                            <span>Trombinoscope</span>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                <ul>
+                                                                    <li>
+                                                                        <a href="{{ path('listEtudiant') }}">
+                                                                            <span class="icon_pencil-edit" aria-hidden="true"></span>Trombinoscope de l'équipe pédagogique
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="{{ path('listEtudiant') }}">
+                                                                            <span class="icon_drawer_alt" aria-hidden="true"></span>Trombinoscope des étudiants
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="{{ path('Liste_enseignant') }}">
+                                                                            <span class="icon_info_alt" aria-hidden="true"></span>Trombinoscope des enseignants
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <img src="../../../assets/global/image/tabimg.png" alt="" class="tabimage"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <span class="icon_puzzle header-icon" aria-hidden="true"></span>Stage
+                                </a>
+                                <ul class="dropNav">
+                                    <li>
+                                        <a href="{{ path('CrudProfil') }}">Gestion entreprise</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('CrudProfil') }}">Gestion stagaires</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <span class="icon_table header-icon" aria-hidden="true"></span>Module scolarité
+                                </a>
+                                <ul class="dropNav">
+                                    <li>
+                                        <a href="{{ path('listMatiere') }}">Liste des Matiéres</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('Liste_Niveau') }}">Liste des U.E</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('releveEtudiant') }}">Mes notes</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('releveEtudiant') }}">Cahier de texte</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('releveEtudiant') }}">Liste session principale</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('releveEtudiant') }}">Liste session de rattrapage</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </nav>
+                    <nav id="nav-mega">
+                        <ul class="menu-list">
+                            <li class="dropdown dropdown-mega-item">
+                                <a href="javascript:void(0)" data-toggle="dropdown" data-open="true" aria-haspopup="true" aria-expanded="false">
+                                    <span class="icon_ul header-icon" aria-hidden="true"></span><span class="mega-title">Vie Scolaire</span>
+                                    <span class="arrow_carrot-down header-arrow-down" aria-hidden="true"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-mega-menu">
+                                    <div class="mega-menu-container">
+                                        <div class="row">
+                                            <div class="col-xl-2 col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="mega-menu-title">
+                                                    <span>Emploi du temps</span>
+                                                </div>
+                                                <ul>
+                                                    <li>
+                                                        <a href="{{ path('listeSalle') }}">
+                                                            <span class="icon_document_alt" aria-hidden="true"></span>Emploi du temps
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{ path('listeSalle') }}">
+                                                            <span class="icon_menu-square_alt2" aria-hidden="true"></span>Emploi du temps des examns
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="divider-xs-megamenu-spacing"></div>
+                                            <div class="col-xl-2 col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="mega-menu-title">
+                                                    <span>Classe / Groupe</span>
+                                                </div>
+                                                <ul>
+                                                    <li>
+                                                        <a href="{{ path('listClasse') }}">
+                                                            <span class="icon_tags_alt" aria-hidden="true"></span>Liste des groupes
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="divider-md-spacing"></div>
+                                            <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="mega-menu-title">
+                                                    <span>Communication</span>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                        <ul>
+                                                            <li>
+                                                                <a href="{{ path('listClasse') }}">
+                                                                    <span class="icon_pencil-edit" aria-hidden="true"></span>Messagerie
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="{{ path('listClasse') }}">
+                                                                    <span class="icon_drawer_alt" aria-hidden="true"></span>Agenda
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="{{ path('listClasse') }}">
+                                                                    <span class="icon_info_alt" aria-hidden="true"></span>Liste des évenements
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <img src="../../../assets/global/image/tabimg.png" alt="" class="tabimage"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block section %}
+
+    <div class="search-overlay">
+        <div class="float-default search">
+            <div class="search_bg"></div>
+            <div class="right-icon search_box">
+                <div class="search-div">
+                    <input type="text" class="search_input">
+                    <label class="search-input-label">
+                        <span class="input-label-title">Search</span>
+                    </label>
+                </div>
+                <div class="divider50"></div>
+                <div class="search-result">
+                    <div class="search-item">
+                        <div class="search-image float-xs-left">
+                            <img src="{{ asset('templates/assets/global/image/guitar.jpg') }}" alt="search-image">
+                        </div>
+                        <div class="search-info float-xs-right">
+                            <h3 class="title">Search here</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse faucibus diam quis arcu
+                                lobortis sagittis. Etiam eu ornare mi. Interdum et malesuada fames ac ante ipsum primis in
+                                faucibus.</p>
+                        </div>
+                    </div>
+                    <div class="divider15"></div>
+                    <div class="search-item">
+                        <div class="search-info search-full float-xs-right">
+                            <h3 class="title">Admin templates</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse faucibus diam quis arcu
+                                lobortis sagittis. Etiam eu ornare mi. Interdum et malesuada fames ac ante ipsum primis in
+                                faucibus.</p>
+                        </div>
+                    </div>
+                    <div class="divider15"></div>
+                    <div class="search-item">
+                        <div class="search-image float-xs-left">
+                            <img src="{{ asset('templates/assets/global/image/book-flower.jpg') }}" alt="search-image">
+                        </div>
+                        <div class="search-info float-xs-right">
+                            <h3 class="title">Books</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse faucibus diam quis arcu
+                                lobortis sagittis. Etiam eu ornare mi. Interdum et malesuada fames ac ante ipsum primis in
+                                faucibus.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search_close icon_close"></div>
+        </div>
+    </div> <br>
+    <section id="main" class="container-fluid">
+        <div class="row">
+
+            <section id="content-wrapper">
+                <div class="site-content-title">
+                    <h2 class="float-xs-left content-title-main">&nbsp;&nbsp;&nbsp;&nbsp;Espace Etudiant</h2>
+
+                    <ol class="breadcrumb float-xs-right">
+                        <li class="breadcrumb-item">
+                            <span class="fs1" aria-hidden="true" data-icon=""></span>
+                            <a href="{{ path('DashboardEtudiant') }}">Home</a>
+                        </li>
+
+                    </ol>
+
+                </div>
+
+                <div class="content userlist-content">
+                    <div class="row">
+                        {% block body %}{% endblock %}
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </section>
+
+{% endblock %}

@@ -1,0 +1,225 @@
+{% extends '::layoutParent.html.twig' %}
+
+{% block header %}
+
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/font-awesome/css/font-awesome.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables/media/css/dataTables.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables-scroller/css/scroller.bootstrap4.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/flatpickr/dist/flatpickr.min.css') }}"/>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script type="text/javascript">
+        function checkname()
+        {
+            var name=document.getElementById( "gestion_preinscriptionbundle_parents_login" ).value;
+            var pseudo = $("#gestion_preinscriptionbundle_parents_login").val();
+
+            if(name)
+            {
+                $.ajax({
+                    type: 'post',
+                    url: "{{ url('verifLogin') }}?pseudo=" + pseudo,
+                    data: {
+                        user_name:name,
+                    },
+                    success: function (response) {
+                        $( '#name_status' ).html(response);
+                        if(response=="OK")
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                });
+            }
+            else
+            {
+                $( '#name_status' ).html("");
+                return false;
+            }
+        }
+
+        function checkemail()
+        {
+            var email=document.getElementById( "gestion_preinscriptionbundle_parents_email" ).value;
+            var email = $("#gestion_preinscriptionbundle_parents_email").val();
+
+            if(email)
+            {
+                $.ajax({
+                    type: 'post',
+                    url: "{{ url('verifEmail') }}?mail=" + email,
+                    data: {
+                        user_email:email,
+                    },
+                    success: function (response) {
+                        $( '#email_status' ).html(response);
+                        if(response=="OK")
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                });
+            }
+            else
+            {
+                $( '#email_status' ).html("");
+                return false;
+            }
+        }
+
+        function checkall()
+        {
+            var namehtml=document.getElementById("name_status").innerHTML;
+            var emailhtml=document.getElementById("email_status").innerHTML;
+
+            if((namehtml && emailhtml)=="OK")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+    </script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        jQuery(document).ready(function() {
+            $('.js-datepicker').datepicker({format: 'yyyy-mm-dd'});
+        });
+    </script>
+
+    <script>
+        function same()
+        {
+            document.getElementById( "gestion_preinscriptionbundle_parents_login" ).value=document.getElementById( "gestion_preinscriptionbundle_parents_email" ).value;
+            document.getElementById( "gestion_preinscriptionbundle_parents_password" ).value=document.getElementById( "gestion_preinscriptionbundle_parents_numCinPass" ).value;
+        }
+    </script>
+
+{% endblock %}
+
+ {% block body %}
+     <div class="content content-product-edit datatable-width">
+         <div class="nav-tab-horizontal">
+             <div class="divider15"></div>
+             <div class="tab-content">
+                 <div>
+                     <div class="row">
+                         {{ form_start(form,{'attr':{'action':path('modifierProfilParent', { 'id': parent.id })}}) }}
+                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                             <label for="etudiant_nom">Nom</label>
+                             <div class="form-group">
+                                 {{ form_widget(form.nom) }}
+                             </div>
+                             <label>Prenom</label>
+                             <div class="form-group">
+                                 {{ form_widget(form.prenom) }}
+                             </div>
+                             <label>Date de Naissance</label>
+                             <div class="form-group form-bootstrap-datetime">
+                                 <div class="input-group" data-plugin="flatpickr" data-wrap="true">
+                                     {{ form_widget(form.dateNaissance, { 'attr': {'class': 'form-control flatpickr-input', 'readonly': 'readonly', 'data-input':'' } }) }}
+                                     <span class="input-group-addon date-icon" data-toggle="">
+<i class="icon icon_calendar"></i>
+</span>
+                                 </div>
+                             </div>
+                             <label for="etudiant_sexe">Sexe</label>
+                             <div class="form-group">
+                                 {{ form_widget(form.sexe) }}
+                             </div>
+                             <label>Lieu de Naissnace</label>
+                             <div class="form-group">
+                                 {{ form_widget(form.lieuNaissance) }}
+                             </div>
+                             <label>Adresse</label>
+                             <div class="form-group">
+                                 {{ form_widget(form.adresse) }}
+                             </div>
+                             <label>Nationalite</label>
+                             <div class="form-group">
+                                 {{ form_widget(form.nationalite) }}
+                             </div>
+                             <label>Numéro CIN/Passeport</label>
+                             <div class="form-group">
+                                 {{ form_widget(form.numCinPass, { 'attr': { 'onkeyup': 'same();'  } } ) }}
+                             </div>
+                             <label>Ville</label>
+                             <div class="form-group">
+                                 {{ form_widget(form.ville) }}
+                             </div>
+                         </div>
+                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                             <label>Téléphone</label>
+                             <div class="form-group">
+                                 {{ form_widget(form.tel) }}
+                             </div>
+                             <label>Email</label>
+                             <div class="form-group">
+                                 {{ form_widget(form.email, { 'attr': { 'onkeyup': 'checkemail();same();'  } } ) }}
+                                 <span id="email_status"></span>
+                             </div>
+                             <label>Login</label>
+                             <div class="form-group">
+                                 {{ form_widget(form.login, { 'attr': { 'onkeyup': 'checkname()'  } } ) }}
+                                 <span id="name_status"></span>
+                             </div>
+                             <label>Mot de passe</label>
+                             <div class="form-group">
+                                 {{ form_widget(form.password) }}
+                             </div>
+                             <br>
+                             <div class="control-group">
+                                 <input type="hidden" name="idEtud" value={{ oldUser }} >
+                                 {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
+                             </div>
+                             {{ form_end(form) }}
+                             <br><br>
+                         </div>
+                     </div></div></div></div></div></div>
+
+ {% endblock %}
+
+
+                        {% block footer %}
+
+                            <!-- START CORE JAVASCRIPT -->
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/jquery/dist/jquery.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/tether/dist/js/tether.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/switchery/dist/switchery.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/screenfull.js/dist/screenfull.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/classie/classie.js') }}"></script>
+                            <!-- END CORE JAVASCRIPT -->
+
+                            <!-- START PAGE PLUGINS -->
+
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/moment/min/moment.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/flatpickr/dist/flatpickr.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/jQuery.print/jQuery.print.js') }}"></script>
+                            <!-- END PAGE PLUGINS -->
+
+
+                            <!-- START GLOBAL JAVASCRIPT -->
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/js/site.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/js/site-settings.min.js') }}"></script>
+                            <script type="text/javascript" src="{{ asset('templates/assets/global/js/global/userlist.js') }}"></script>
+                            <!-- END THEME LAYOUT JAVASCRIPT -->
+
+                        {% endblock %}
