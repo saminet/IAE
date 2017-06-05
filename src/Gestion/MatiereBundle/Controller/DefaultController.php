@@ -55,8 +55,8 @@ class DefaultController extends Controller
         $em->flush();
 
         $matiere= $this->getDoctrine()->getEntityManager()->getRepository('GestionMatiereBundle:Matiere')->findAll();
-        $user = $this->getUser();
-        return new RedirectResponse($this->container->get('router')->generate('listMatiere'));
+        $usr = $this->getUser();
+        return new RedirectResponse($this->container->get('router')->generate('listMatiere',array('user' => $usr)));
     }
 
     public function modifierMatiereAction($id)
@@ -88,7 +88,7 @@ class DefaultController extends Controller
         $matieree= $this->getDoctrine()->getEntityManager()->getRepository('GestionMatiereBundle:Matiere')->findAll();
         $classes= $this->getDoctrine()->getEntityManager()->getRepository('GestionAbsenceBundle:Classe')->findAll();
         $user = $this->getUser();
-        return new RedirectResponse($this->container->get('router')->generate('listMatiere'));
+        return new RedirectResponse($this->container->get('router')->generate('listMatiere',array('user' => $user)));
     }
 
     public function deleteMatiereAction($id)
@@ -103,7 +103,7 @@ class DefaultController extends Controller
 
         $matiere= $this->getDoctrine()->getEntityManager()->getRepository('GestionMatiereBundle:Matiere')->findAll();
         $user = $this->getUser();
-        return new RedirectResponse($this->container->get('router')->generate('listMatiere'));
+        return new RedirectResponse($this->container->get('router')->generate('listMatiere',array('user' => $user)));
 
     }
 

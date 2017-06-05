@@ -17,11 +17,12 @@ class DefaultController extends Controller
 
     public function listFilieresAction()
     {
+        $usr = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         $filiere = $em->getRepository('GestionFiliereBundle:Filiere')->findAll();
 
         return $this->container->get('templating')->renderResponse('GestionFiliereBundle:Default:listeFiliere.html.twig',array(
-                'filiere' => $filiere)
+                'filiere' => $filiere,'user' => $usr)
         );
     }
 
@@ -43,7 +44,8 @@ class DefaultController extends Controller
             if($form->isValid()){
                 $em->persist($filiere);
                 $em->flush();
-                return $this->redirect($this->generateUrl('liste_filieres'));
+                $usr = $this->getUser();
+                return $this->redirect($this->generateUrl('liste_filieres',array('user' => $usr)));
             }
         }
         //on rend la vue
@@ -66,10 +68,8 @@ class DefaultController extends Controller
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             // Inutile de persister ici, Doctrine connait déjà notre filière
             $em->flush();
-
-            $request->getSession()->getFlashBag()->add('notice', 'Les données de la filière'.$filiere->getId().' est bien modifiée.');
-
-            return $this->redirectToRoute('liste_filieres', array('id' => $filiere->getId()));
+            $usr = $this->getUser();
+            return $this->redirectToRoute('liste_filieres', array('id' => $filiere->getId(), 'user' => $usr));
         }
 
         return $this->render('GestionFiliereBundle:Default:modifierFilieres.html.twig', array(
@@ -88,7 +88,8 @@ class DefaultController extends Controller
         }
         $em->remove($filiere);
         $em->flush();
-        return new RedirectResponse($this->container->get('router')->generate('liste_filieres'));
+        $usr = $this->getUser();
+        return new RedirectResponse($this->container->get('router')->generate('liste_filieres',array('user' => $usr)));
     }
 
 }

@@ -16,19 +16,11 @@ infos_Membre:
 
 Ajout_Personnel:
     path:     /personnel/ajouter
-    defaults: { _controller: AdminAdminBundle:Default:ajoutPersonnel }
+    defaults: { _controller: AdminAdminBundle:Default:ajouterPersonnel }
 
-Valider_Membre:
-    path:     /membre/valider
-    defaults: { _controller: AdminAdminBundle:Default:validerMembre }
-
-modifier_Membre:
-    path:     /personnel/edit/{id}
-    defaults: { _controller: AdminAdminBundle:Default:editMembre }
-
-ValiderEditMembre:
-    path:     /personnel/edit/valider/{id}
-    defaults: { _controller: AdminAdminBundle:Default:validerEditMembre }
+modifier_Personnel:
+    path:     /personnel/modifier/{id}
+    defaults: { _controller: AdminAdminBundle:Default:modifierPersonnel }
 
 DeletetMembre:
     path:     /personnel/delete/{id}
@@ -38,13 +30,17 @@ profilMembre:
     path:     /personnel/profil
     defaults: { _controller: AdminAdminBundle:Default:profilMembre }
 
+profilAdmin:
+    path:     /admin/profil
+    defaults: { _controller: AdminAdminBundle:Default:profilAdmin }
+
 modifierProfilMembre:
     path:     /personnel/profil/edit/{id}
     defaults: { _controller: AdminAdminBundle:Default:modifierProfilMembre }
 
-validerModifProfilMembre:
-    path:     /personnel/profil/valider/{id}
-    defaults: { _controller: AdminAdminBundle:Default:validerModifProfilMembre }
+modifierProfilAdmin:
+    path:     /admin/profil/edit/{id}
+    defaults: { _controller: AdminAdminBundle:Default:modifierProfilAdmin }
 
 verifLogin:
     path:     /verifLogin

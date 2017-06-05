@@ -111,6 +111,20 @@
         }
     </script>
 
+    <script type="text/javascript">
+        function validateForm()
+        {
+            var dateNais=document.forms["etudiant"]["etudiant_dateNaissance"].value;
+            var dateObt=document.forms["etudiant"]["etudiant_anneeObtention"].value;
+            if (dateNais==null || dateNais=="" || dateObt==null || dateObt=="")
+            {
+                alert("Veuillez vérifier les champs de la date");
+                return false;
+            }else
+                return true;
+        }
+    </script>
+
 {% endblock %}
 
  {% block body %}
@@ -121,7 +135,7 @@
         <div class="tab-content">
             <div>
                 <div class="row">
-                    {{ form_start(form,{'attr':{'action':path('ajouter_Etudiant')}}) }}
+                    {{ form_start(form, {'action': path('ajouter_Etudiant',{'name':'etudiant'}),'attr': {'class': 'smart-form userform', 'onsubmit':'return validateForm();'} } ) }}
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
                         <label for="etudiant_nom">Nom</label>
                         <div class="form-group">
@@ -221,7 +235,7 @@
                         {{ form_end(form) }}
                         <br><br>
                     </div>
-                </div></div></div></div></div></div>
+                </div></div></div></div></div>
 
                         <script type="text/javascript">
                             <!-- filtrer la liste des groupe selon la classe séléctionnée -->

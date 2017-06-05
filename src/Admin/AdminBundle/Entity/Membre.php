@@ -36,9 +36,9 @@ class Membre
     private $prenom;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="date_naissance", type="string", length=255)
+     * @ORM\Column(name="date_naissance", type="date")
      */
     private $dateNaissance;
 
@@ -507,7 +507,7 @@ class Membre
     /**
      * Set dateNaissance
      *
-     * @param string $dateNaissance
+     * @param \DateTime $dateNaissance
      *
      * @return Membre
      */
@@ -521,11 +521,10 @@ class Membre
     /**
      * Get dateNaissance
      *
-     * @return string
+     * @return \DateTime
      */
     public function getDateNaissance()
     {
         return $this->dateNaissance;
     }
-
 }

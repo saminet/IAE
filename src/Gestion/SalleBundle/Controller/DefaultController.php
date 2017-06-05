@@ -19,16 +19,18 @@ class DefaultController extends Controller
 
     public function listSallesAction()
     {
+        $usr = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         $salle = $em->getRepository('GestionSalleBundle:Salle')->findAll();
 
-        return $this->container->get('templating')->renderResponse('GestionSalleBundle:Default:listeSalles.html.twig',array(
+        return $this->container->get('templating')->renderResponse('GestionSalleBundle:Default:listeSalles.html.twig',array('user' => $usr,
                 'salle' => $salle)
         );
     }
 
     public function ajouterSalleAction(Request $request)
     {
+        $usr = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         //on crée un nouveau etudiant
         $salle = new Salle();
@@ -44,11 +46,12 @@ class DefaultController extends Controller
             if($form->isValid()){
                 $em->persist($salle);
                 $em->flush();
-                return $this->redirect($this->generateUrl('list_Salles'));
+                $usrs = $this->getUser();
+                return $this->redirect($this->generateUrl('list_Salles',array('user' => $usrs)));
             }
         }
         //on rend la vue
-        return $this->render('GestionSalleBundle:Default:ajouterSalle.html.twig',array(
+        return $this->render('GestionSalleBundle:Default:ajouterSalle.html.twig',array('user' => $usr,
             'form' => $formView) );
     }
 
@@ -62,11 +65,13 @@ class DefaultController extends Controller
         }
         $em->remove($salle);
         $em->flush();
-        return new RedirectResponse($this->container->get('router')->generate('list_Salles'));
+        $usrs = $this->getUser();
+        return new RedirectResponse($this->container->get('router')->generate('list_Salles',array('user' => $usrs)));
     }
 
     public function modifierSalleAction($id, Request $request)
     {
+        $usrs = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         $salle= $em->getRepository('GestionSalleBundle:Salle')->find($id);
         if (null === $salle) {
@@ -83,7 +88,7 @@ class DefaultController extends Controller
             return $this->redirectToRoute('list_Salles', array('id' => $salle->getId()));
         }
 
-        return $this->render('GestionSalleBundle:Default:modifierSalle.html.twig', array(
+        return $this->render('GestionSalleBundle:Default:modifierSalle.html.twig', array('user' => $usrs,
             'salle' => $salle,
             'form'   => $formView,
         ));

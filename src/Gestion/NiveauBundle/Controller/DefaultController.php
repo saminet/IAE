@@ -21,11 +21,12 @@ class DefaultController extends Controller
 
     public function listeNiveauxAction()
     {
+        $usr = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         $niveau = $em->getRepository('GestionNiveauBundle:Niveau')->findAll();
 
         return $this->container->get('templating')->renderResponse('GestionNiveauBundle:Default:listeNiveaux.html.twig',array(
-                'niveau' => $niveau)
+                'niveau' => $niveau, 'user' => $usr)
         );
     }
 
@@ -47,7 +48,8 @@ class DefaultController extends Controller
             if($form->isValid()){
                 $em->persist($niveau);
                 $em->flush();
-                return $this->redirect($this->generateUrl('Liste_Niveau'));
+                $usr = $this->getUser();
+                return $this->redirect($this->generateUrl('Liste_Niveau',array('user' => $usr)));
             }
         }
         //on rend la vue
@@ -58,6 +60,7 @@ class DefaultController extends Controller
 
     public function modifierNiveauAction($id, Request $request)
     {
+        $usr = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         $niveau= $em->getRepository('GestionNiveauBundle:Niveau')->find($id);
         if (null === $niveau) {
@@ -70,15 +73,12 @@ class DefaultController extends Controller
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             // Inutile de persister ici, Doctrine connait déjà notre filière
             $em->flush();
-
-            $request->getSession()->getFlashBag()->add('notice', 'Les données du niveau'.$niveau->getId().' est bien modifiée.');
-
-            return $this->redirectToRoute('Liste_Niveau');
+            return $this->redirectToRoute('Liste_Niveau',array('user' => $usr));
         }
 
         return $this->render('GestionNiveauBundle:Default:modifierNiveau.html.twig', array(
             'niveau' => $niveau,
-            'form'   => $formView,
+            'form'   => $formView, 'user' => $usr
         ));
     }
 
@@ -93,7 +93,8 @@ class DefaultController extends Controller
         }
         $em->remove($niveau);
         $em->flush();
-        return new RedirectResponse($this->container->get('router')->generate('Liste_Niveau'));
+        $usr = $this->getUser();
+        return new RedirectResponse($this->container->get('router')->generate('Liste_Niveau',array('user' => $usr)));
     }
 
 

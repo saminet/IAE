@@ -111,6 +111,19 @@
         }
     </script>
 
+    <script type="text/javascript">
+        function validateForm()
+        {
+            var dateNais=document.forms["gestion_preinscriptionbundle_parents"]["gestion_preinscriptionbundle_parents_dateNaissance"].value;
+            if (dateNais==null || dateNais=="")
+            {
+                alert("Veuillez vérifier la date de naissance");
+                return false;
+            }else
+                return true;
+        }
+    </script>
+
 {% endblock %}
 
  {% block body %}
@@ -121,7 +134,7 @@
              <div class="tab-content">
                  <div>
                      <div class="row">
-                         {{ form_start(form,{'attr':{'action':path('ajouter_Parent')}}) }}
+                         {{ form_start(form, {'action': path('ajouter_Parent',{'name':'gestion_preinscriptionbundle_parents'}),'attr': {'class': 'smart-form userform', 'onsubmit':'return validateForm();'} } ) }}
                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
                              <label for="etudiant_nom">Nom</label>
                              <div class="form-group">

@@ -46,7 +46,7 @@
         <tr>
             <td data-title="Nom"><a href="{{ path('infos_Enseignant',{ 'id': ens.id }) }}">{{ ens.nom }}</a></td>
             <td data-title="Prénom">{{ ens.prenom }}</td>
-            <td data-title="Date de Naissance">{{ ens.dateNaissance|date("m/d/Y", false) }}</td>
+            <td data-title="Date de Naissance">{{ ens.dateNaissance|date("d-m-Y", false) }}</td>
             <td data-title="Lieu de Naissance">{{ ens.lieuxNaissance }}</td>
             <td data-title="Ville">{{ ens.ville }}</td>
             <td data-title="Sexe">{{ ens.sexe }}</td>

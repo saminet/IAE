@@ -34,6 +34,11 @@ class Profil
      * @ORM\Column(name="PosteProfil", type="string", length=255)
      */
     private $posteProfil;
+
+    public function __toString()
+    {
+        return $this->posteProfil;
+    }
     
     /**
      * Get id

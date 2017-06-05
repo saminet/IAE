@@ -41,7 +41,7 @@
                     <tr>
                         <td><a href="{{ path('infosParent', { 'id': parnt.id }) }}">{{ parnt.nom }}</a></td>
                         <td>{{ parnt.prenom }}</td>
-                        <td>{{ parnt.dateNaissance|date("m/d/Y", false) }}</td>
+                        <td>{{ parnt.dateNaissance|date("d-m-Y", false) }}</td>
                         <td>{{ parnt.lieuNaissance }}</td>
                         <td>{{ parnt.ville }}</td>
                         <td>{{ parnt.sexe }}</td>

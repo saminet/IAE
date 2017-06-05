@@ -61,6 +61,7 @@ class DefaultController extends Controller
 
     public function ajouterNoteAction(Request $request)
     {
+        $usr = $this->getUser();
         $groupe=null;
         $etudiant=null;
         $em = $this->container->get('doctrine')->getEntityManager();
@@ -84,25 +85,27 @@ class DefaultController extends Controller
             $note->setEtat('En attente');
             $em->persist($note);
             $em->flush();
-            return $this->redirect($this->generateUrl('list_note'));
+            return $this->redirect($this->generateUrl('list_note',array('user' => $usr)));
         }
         //on rend la vue
-        return $this->render('GestionNoteBundle:Default:ajouterNote.html.twig',array('form' => $formView, 'classes' => $Classes, 'groupe'=>$groupe));
+        return $this->render('GestionNoteBundle:Default:ajouterNote.html.twig',array('form' => $formView, 'classes' => $Classes, 'groupe'=>$groupe, 'user' => $usr));
     }
 
     public function verifierNoteAction($id)
     {
+        $usr = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         $notes = $em->getRepository('GestionNoteBundle:Note')->find($id);
         $notes->setEtat('Validé');
         $em->persist($notes);
         $em->flush();
         //on rend la vue
-        return new RedirectResponse($this->container->get('router')->generate('list_note'));
+        return new RedirectResponse($this->container->get('router')->generate('list_note',array('user' => $usr)));
     }
 
     public function modifierNoteAction($id, Request $request)
     {
+        $usr = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         $groupe=null;
         $etudiant=null;
@@ -123,10 +126,10 @@ class DefaultController extends Controller
             $notes->setEtat('En attente');
             $em->persist($notes);
             $em->flush();
-            return $this->redirect($this->generateUrl('list_note'));
+            return $this->redirect($this->generateUrl('list_note',array('user' => $usr)));
         }
         //on rend la vue
-        return $this->render('GestionNoteBundle:Default:modifierNote.html.twig',array('form' => $formView, 'etudiant'=>$etudiant, 'notes'=>$notes));
+        return $this->render('GestionNoteBundle:Default:modifierNote.html.twig',array('form' => $formView, 'etudiant'=>$etudiant, 'notes'=>$notes, 'user' => $usr));
     }
 
     public function validerModifNoteAction($id, Request $request)
@@ -150,7 +153,8 @@ class DefaultController extends Controller
         $em->persist($notes);
         $em->flush();
         //on rend la vue
-        return new RedirectResponse($this->container->get('router')->generate('list_note'));
+        $usr = $this->getUser();
+        return new RedirectResponse($this->container->get('router')->generate('list_note',array('user' => $usr)));
     }
 
     public function deleteNoteAction($id)
@@ -160,7 +164,8 @@ class DefaultController extends Controller
         $em->remove($note);
         $em->flush();
         //on rend la vue
-        return new RedirectResponse($this->container->get('router')->generate('list_note'));
+        $usr = $this->getUser();
+        return new RedirectResponse($this->container->get('router')->generate('list_note',array('user' => $usr)));
     }
 
     public function searchNoteAction($id, Request $request)
@@ -204,11 +209,12 @@ class DefaultController extends Controller
 
     public function infosPreEtudiantAction($id)
     {
+        $usr = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         $preinscrit= $em->getRepository('GestionPreinscriptionBundle:Preinscrit')->find($id);
         return $this->container->get('templating')->renderResponse('GestionPreinscriptionBundle:Default:infosPreEtudiant.html.twig',
             array(
-                'preinscrit' => $preinscrit
+                'preinscrit' => $preinscrit, 'user' => $usr
             ));
     }
 

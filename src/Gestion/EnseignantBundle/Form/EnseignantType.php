@@ -34,7 +34,8 @@ class EnseignantType extends AbstractType
             ->add('email',emailType::class, array('attr' => array('class'=>'form-control','placeholder'=>'Email de l\'enseignant')))
             ->add('dateNaissance',DateType::class, array(
                 // render as a single text box
-                'widget' => 'single_text'))
+                'widget' => 'single_text',
+                'input' => 'datetime'))
             ->add('ville',TextType::class, array('attr' => array('class'=>'form-control','placeholder'=>'Ville de l\'enseignant')))
             ->add('lieuxNaissance',TextType::class, array('attr' => array('class'=>'form-control','placeholder'=>'Lieux de Naissance d\'enseignant')))
             ->add('nationalite',TextType::class, array('attr' => array('class'=>'form-control','placeholder'=>'Nationalité de l\'enseignant')))

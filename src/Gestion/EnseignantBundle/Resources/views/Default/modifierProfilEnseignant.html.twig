@@ -102,6 +102,7 @@
             document.getElementById( "gestion_enseignantbundle_enseignant_password" ).value=document.getElementById( "gestion_enseignantbundle_enseignant_cin" ).value;
         }
     </script>
+
 {% endblock %}
 
  {% block body %}
@@ -112,6 +113,7 @@
             <div>
                 <div class="row"><br>
                     {{ form_start(form,{'attr':{'action':path('modifierProfilEnseignant',{ 'id': enseignant.id })}}) }}
+                    {{ form_start(form, {'action': path('modifierProfilEnseignant',{'id': enseignant.id, 'name':'gestion_enseignantbundle_enseignant'}),'attr': {'class': 'smart-form userform', 'onsubmit':'return validateForm();'} } ) }}
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
                         <label for="gestion_enseignantbundle_nom">Nom</label>
                         <div class="form-group">
@@ -182,6 +184,7 @@
                         <div class="form-group">
                             {{ form_widget(form.password) }}
                         </div>
+                        <input type="text" name="dateNaisEns" value={{ enseignant.dateNaissance|date('d-m-Y') }} >
                         <input type="hidden" name="idEns" value={{ oldUser }} >
                         <div class="form-group">
                             {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}

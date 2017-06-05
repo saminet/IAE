@@ -31,6 +31,7 @@
             {% for parent in parents %}
                 <tr><td><b>Nom</b></td><td>{{ parent.nom }}</td></tr>
                 <tr><td><b>Prenom</b></td><td>{{ parent.prenom }}</td></tr>
+                <tr><td><b>date de Naissance</b></td><td>{{ parent.dateNaissance|date('d-m-Y') }}</td></tr>
                 <tr><td><b>Sexe</b></td><td>{{ parent.sexe }}</td></tr>
                 <tr><td><b>LieuNaissance</b></td><td>{{ parent.nationalite }}</td></tr>
                 <tr><td><b>Ville</b></td><td>{{ parent.ville }}</td>

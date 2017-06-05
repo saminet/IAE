@@ -21,9 +21,10 @@ class DefaultController extends Controller
     {
         $em = $this->container->get('doctrine')->getEntityManager();
         $entreprise = $em->getRepository('GestionEntrepriseBundle:Entreprise')->findAll();
+        $usr = $this->getUser();
 
         return $this->container->get('templating')->renderResponse('GestionEntrepriseBundle:Default:listEntrep.html.twig', array(
-                'entreprise' => $entreprise)
+                'entreprise' => $entreprise, 'user' => $usr)
         );
 
     }
@@ -43,7 +44,8 @@ class DefaultController extends Controller
         if($form->isSubmitted() && $form->isValid()){
             $em->persist($entreprise);
             $em->flush();
-            return $this->redirect($this->generateUrl('liste_entreprise'));
+            $usr = $this->getUser();
+            return $this->redirect($this->generateUrl('liste_entreprise',array('user' => $usr)));
         }
         //on rend la vue
         return $this->render('GestionEntrepriseBundle:Default:ajouterEntrep.html.twig',array(
@@ -52,6 +54,7 @@ class DefaultController extends Controller
 
     public function editEntrepAction($id, Request $request)
     {
+        $usr = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         $entreprise= $em->getRepository('GestionEntrepriseBundle:Entreprise')->find($id);
         if (null === $entreprise) {
@@ -63,12 +66,11 @@ class DefaultController extends Controller
         $formView = $form->createView();
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
                 $em->flush();
-            return $this->redirectToRoute('liste_entreprise', array('id' => $entreprise->getId()));
+            return $this->redirectToRoute('liste_entreprise', array('id' => $entreprise->getId(), 'user' => $usr));
         }
-
         return $this->render('GestionEntrepriseBundle:Default:modifierEntrep.html.twig', array(
             'entreprise' => $entreprise,
-            'form' => $formView
+            'form' => $formView, 'user' => $usr
         ));
     }
 
@@ -82,7 +84,8 @@ class DefaultController extends Controller
         }
         $em->remove($entreprise);
         $em->flush();
-        return new RedirectResponse($this->get('router')->generate('liste_entreprise'));
+        $usr = $this->getUser();
+        return new RedirectResponse($this->get('router')->generate('liste_entreprise',array('user' => $usr)));
     }
 
 }

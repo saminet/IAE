@@ -23,16 +23,18 @@ class DefaultController extends Controller
 
     public function listAction()
     {
+        $usrs = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         $ue = $em->getRepository('GestionUEBundle:UE')->findAll();
 
-        return $this->container->get('templating')->renderResponse('GestionUEBundle:Default:listeUE.html.twig',array(
+        return $this->container->get('templating')->renderResponse('GestionUEBundle:Default:listeUE.html.twig',array('user' => $usrs,
                 'unites' => $ue)
         );
     }
 
     public function AjouterUEAction(Request $request)
     {
+        $usrs = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         //$filieres=null;
         //$niveaux= $this->getDoctrine()->getEntityManager()->getRepository('GestionNiveauBundle:Niveau')->findAll();
@@ -53,11 +55,12 @@ class DefaultController extends Controller
             $em->flush();
             return $this->redirectToRoute('Liste_UE');
         }
-        return $this->render('GestionUEBundle:Default:ajouter.html.twig', array('unite' => $unite, 'form' => $formView));
+        return $this->render('GestionUEBundle:Default:ajouter.html.twig', array('user' => $usrs, 'unite' => $unite, 'form' => $formView));
     }
 
     public function modifierUEAction($id, Request $request)
     {
+        $usr = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         //$filieres=null;
         //$niveaux= $this->getDoctrine()->getEntityManager()->getRepository('GestionNiveauBundle:Niveau')->findAll();
@@ -74,10 +77,10 @@ class DefaultController extends Controller
             // Inutile de persister ici, Doctrine connait déjà notre unité d'enseignement
             $em->flush();
 
-            return $this->redirectToRoute('Liste_UE');
+            return $this->redirectToRoute('Liste_UE',array('user' => $usr));
         }
 
-        return $this->render('GestionUEBundle:Default:modifierUE.html.twig', array(
+        return $this->render('GestionUEBundle:Default:modifierUE.html.twig', array('user' => $usr, 
             'unite' => $ue, 'form'   => $formView));
     }
 
@@ -91,7 +94,8 @@ class DefaultController extends Controller
         }
         $em->remove($ue);
         $em->flush();
-        return new RedirectResponse($this->container->get('router')->generate('Liste_UE'));
+        $usr = $this->getUser();
+        return new RedirectResponse($this->container->get('router')->generate('Liste_UE',array('user' => $usr)));
     }
 
     public function ajaxGetFilieresAction(Request $request) {

@@ -21,21 +21,23 @@ class DefaultController extends Controller
 
     public function listEnseignantAction()
     {
+        $usr = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         $enseignants = $em->getRepository('GestionEnseignantBundle:Enseignant')->findAll();
 
         return $this->container->get('templating')->renderResponse('GestionEnseignantBundle:Default:listeEns.html.twig',array(
-                'enseignant' => $enseignants)
+                'enseignant' => $enseignants, 'user' => $usr)
         );
     }
 
     public function infosEnseignantAction($id)
     {
+        $usr = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         $enseignants= $em->getRepository('GestionEnseignantBundle:Enseignant')->find($id);
         return $this->container->get('templating')->renderResponse('GestionEnseignantBundle:Default:infosEnseignant.html.twig',
             array(
-                'enseignant' => $enseignants
+                'enseignant' => $enseignants, 'user' => $usr
             ));
     }
 
@@ -76,6 +78,8 @@ class DefaultController extends Controller
             $username = $donnee->getLogin();
             $password = $donnee->getPassword();
             $email = $donnee->getEmail();
+            $dateNaisPerson=$donnee->getDateNaissance();
+            $dateNaisPers=$request->get('dateNaisEns');
             //var_dump($username,$Old_usr,$password,$email,$Old_user);die('Hello');
             //ajout des paramètres username et password dans la table 'fos_user'
             $userManager = $this->get('fos_user.user_manager');
@@ -87,8 +91,11 @@ class DefaultController extends Controller
                 $usr->setEmail($email);
                 $userManager->updateUser($usr);
 
-                // Inutile de persister ici, Doctrine connait déjà notre annonce
-                $em->flush();
+            if (null === $dateNaisPerson) {
+                $date = new \DateTime($dateNaisPers);
+                $enseignant->setDateNaissance($date);
+            }
+            $em->flush();
 
             return $this->redirectToRoute('DashboardEnseignant', array('id' => $enseignant->getId()));
         }
@@ -101,7 +108,7 @@ class DefaultController extends Controller
 
     public function ajouterEnseignantAction(Request $request)
     {
-
+        $usr = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         //on crée un nouveau etudiant
         $enseignant = new Enseignant();
@@ -149,12 +156,12 @@ class DefaultController extends Controller
 
                 $em->persist($enseignant);
                 $em->flush();
-                return $this->redirect($this->generateUrl('Liste_enseignant'));
+                return $this->redirect($this->generateUrl('Liste_enseignant',array('user' => $usr)));
             }
         }
         //on rend la vue
         return $this->render('GestionEnseignantBundle:Default:ajouterEnseignant.html.twig',array(
-            'form' => $formView) );
+            'form' => $formView, 'user' => $usr) );
     }
 
     public function verifLoginAction(Request $request)
@@ -199,6 +206,7 @@ class DefaultController extends Controller
 
     public function modifierEnseignantAction($id, Request $request)
     {
+        $usrs = $this->getUser();
         $Old_user=$request->get('username');
         $Old_usr=$request->get('idEns');
 
@@ -218,6 +226,8 @@ class DefaultController extends Controller
             $username = $donnee->getLogin();
             $password = $donnee->getPassword();
             $email = $donnee->getEmail();
+            $dateNaisPerson=$donnee->getDateNaissance();
+            $dateNaisPers=$request->get('dateNaisEns');
             //var_dump($username,$Old_usr,$password,$email,$Old_user);die('Hello');
             //ajout des paramètres username et password dans la table 'fos_user'
             $userManager = $this->get('fos_user.user_manager');
@@ -239,21 +249,25 @@ class DefaultController extends Controller
                 $usr->setEnabled(true);
                 $userManager->updateUser($usr);
 
-                // Inutile de persister ici, Doctrine connait déjà notre annonce
+                if (null === $dateNaisPerson) {
+                    $date = new \DateTime($dateNaisPers);
+                    $enseignant->setDateNaissance($date);
+                }
+                $em->persist($enseignant);
                 $em->flush();
             }
-
-            return $this->redirectToRoute('Liste_enseignant', array('id' => $enseignant->getId()));
+            return $this->redirectToRoute('Liste_enseignant', array('id' => $enseignant->getId(), 'user' => $usrs));
         }
 
         return $this->render('GestionEnseignantBundle:Default:modifierEnseignant.html.twig', array(
             'enseignant' => $enseignant,
-            'form'   => $formView, 'oldUser' => $Old_user
+            'form'   => $formView, 'oldUser' => $Old_user, 'user' => $usrs
         ));
     }
 
     public function supprimerEnseignantAction(Request $request, $id)
     {
+        $usrs = $this->getUser();
         $username=$request->get('username');
         //var_dump($username);die('Hello');
         $em = $this->container->get('doctrine')->getEntityManager();
@@ -270,7 +284,7 @@ class DefaultController extends Controller
 
         $em->remove($etudiant);
         $em->flush();
-        return new RedirectResponse($this->container->get('router')->generate('Liste_enseignant'));
+        return new RedirectResponse($this->container->get('router')->generate('Liste_enseignant',array('user' => $usrs)));
     }
 
 

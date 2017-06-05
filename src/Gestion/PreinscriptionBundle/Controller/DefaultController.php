@@ -61,10 +61,11 @@ class DefaultController extends Controller
 
     public function listPreinscritAction()
     {
+        $usr = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         $preinscrits = $em->getRepository('GestionPreinscriptionBundle:Preinscrit')->findAll();
 
-        return $this->container->get('templating')->renderResponse('GestionPreinscriptionBundle:Default:listePre.html.twig',array(
+        return $this->container->get('templating')->renderResponse('GestionPreinscriptionBundle:Default:listePre.html.twig',array('user' => $usr,
                 'preinscrits' => $preinscrits)
         );
     }
@@ -72,8 +73,8 @@ class DefaultController extends Controller
 
     public function accepterPreinscritAction($id)
     {
+        $usr = $this->getUser();
         $preinscrit= $this->getDoctrine()->getRepository('GestionPreinscriptionBundle:Preinscrit')->find($id);
-
         $attachment = \Swift_Attachment::fromPath('../web/uploads/frais-scolarite.pdf');
         $message = \Swift_Message::newInstance()
             ->setContentType("text/html")
@@ -95,12 +96,13 @@ class DefaultController extends Controller
 
 
         return $this->render('GestionPreinscriptionBundle:Default:accepterPreinscrit.html.twig',array(
-            'candidat' => $preinscrit) );
+            'candidat' => $preinscrit, 'user' => $usr) );
     }
 
 
     public function refuserPreinscritAction($id)
     {
+        $usr = $this->getUser();
         $preinscrit= $this->getDoctrine()->getRepository('GestionPreinscriptionBundle:Preinscrit')->find($id);
 
         $message = \Swift_Message::newInstance()
@@ -127,7 +129,7 @@ class DefaultController extends Controller
 
 
         return $this->render('GestionPreinscriptionBundle:Default:refuserPreinscrit.html.twig',array(
-            'candidat' => $preinscrit) );
+            'candidat' => $preinscrit, 'user' => $usr) );
     }
 
 
@@ -192,18 +194,18 @@ class DefaultController extends Controller
         $type->setParameter('charset', 'utf-8');
 
         $this->get('mailer')->send($message);
-
-
-        return $this->render('GestionPreinscriptionBundle:Default:valider_preinscrit.html.twig',array(
+        $usr = $this->getUser();
+        return $this->render('GestionPreinscriptionBundle:Default:valider_preinscrit.html.twig',array('user' => $usr,
             'etudiant' => $etudiant) );
     }
 
     public function listEtudiantAction()
     {
+        $usr = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         $etudiants = $em->getRepository('GestionPreinscriptionBundle:Etudiant')->findAll();
         return $this->container->get('templating')->renderResponse('GestionPreinscriptionBundle:Default:listEtd.html.twig',array(
-                'etudiants' => $etudiants)
+                'etudiants' => $etudiants, 'user' => $usr)
         );
     }
 
@@ -260,6 +262,8 @@ class DefaultController extends Controller
             $password = $donnee->getPassword();
             $email = $donnee->getEmail();
             $roles = 'ROLE_PARENTS';
+            $dateNaisPerson=$donnee->getDateNaissance();
+            $dateNaisPers=$request->get('dateNaisParnt');
             //var_dump($username,$Old_usr,$password,$email,$roles);die('Hello');
             $userManager = $this->get('fos_user.user_manager');
             $user = $userManager->findUserByUsername($Old_usr);
@@ -270,16 +274,21 @@ class DefaultController extends Controller
                 $user->setRoles(array($roles));
                 $userManager->updateUser($user);
 
+            if (null === $dateNaisPerson) {
+                $date = new \DateTime($dateNaisPers);
+                $parent->setDateNaissance($date);
+            }
             // Inutile de persister ici, Doctrine connait déjà les donées
             $em->flush();
-            return $this->redirectToRoute('DashboardParent', array('user' => $Old_user));
+            return $this->redirectToRoute('DashboardParent', array('user' => $users));
         }
         return $this->render('GestionPreinscriptionBundle:Default:modifierProfilParent.html.twig', array(
-            'parent' => $parent, 'form' => $formView, 'oldUser' => $Old_user, 'user' => $Old_user));
+            'parent' => $parent, 'form' => $formView, 'oldUser' => $Old_user, 'user' => $users));
     }
 
     public function ajouterEtudiantAction(Request $request)
     {
+        $usr = $this->getUser();
         $groupe=null;
         $classe= $this->getDoctrine()->getEntityManager()->getRepository('GestionAbsenceBundle:Classe')->findAll();
         $em = $this->container->get('doctrine')->getEntityManager();
@@ -327,11 +336,10 @@ class DefaultController extends Controller
 
             $em->persist($etudiant);
             $em->flush();
-
-            return $this->redirect($this->generateUrl('listEtudiant'));
+            return $this->redirect($this->generateUrl('listEtudiant',array('user' => $usr)));
         }
         //on rend la vue
-        return $this->render('GestionPreinscriptionBundle:Default:ajouterEtudiant.html.twig',array(
+        return $this->render('GestionPreinscriptionBundle:Default:ajouterEtudiant.html.twig',array('user' => $usr,
             'form'   => $formView, 'classe'   => $classe, 'groupe'   => $groupe));
     }
 
@@ -376,6 +384,7 @@ class DefaultController extends Controller
 
     public function modifierEtudiantAction($id, Request $request)
     {
+        $usr = $this->getUser();
         $Old_user=$request->get('username');
         $Old_usr=$request->get('idEtud');
         //var_dump($Old_user);die('Hello');
@@ -396,7 +405,11 @@ class DefaultController extends Controller
             $password = $donnee->getPassword();
             $email = $donnee->getEmail();
             $roles = 'ROLE_ETUDIANT';
-            //var_dump($username,$Old_usr,$roles,$password,$email,$roles,$etat);die('Hello');
+            $dateNaisPerson=$donnee->getDateNaissance();
+            $dateNaisPers=$request->get('dateNaisEtud');
+            $dateObtDip=$donnee->getAnneeObtention();
+            $dateObtnDip=$request->get('dateObtDip');
+
             $userManager = $this->get('fos_user.user_manager');
             $user = $userManager->findUserByUsername($Old_usr);
 
@@ -418,14 +431,19 @@ class DefaultController extends Controller
                 $user->setRoles(array($roles));
                 $userManager->updateUser($user);
             }
-                // Inutile de persister ici, Doctrine connait déjà notre annonce
+            if (null === $dateNaisPerson || null === $dateObtDip) {
+                $date = new \DateTime($dateNaisPers);
+                $dateObt = new \DateTime($dateObtnDip);
+                $etudiant->setDateNaissance($date);
+                $etudiant->setAnneeObtention($dateObt);
+            }
                 $em->flush();
-            return $this->redirectToRoute('listEtudiant', array('id' => $etudiant->getId()));
+            return $this->redirectToRoute('listEtudiant', array('id' => $etudiant->getId(),'user' => $usr ));
         }
 
-        return $this->render('GestionPreinscriptionBundle:Default:modifierEtudiant.html.twig', array(
+        return $this->render('GestionPreinscriptionBundle:Default:modifierEtudiant.html.twig', array('user' => $usr,
             'etudiant' => $etudiant,
-            'form' => $formView, 'oldUser' => $Old_user,
+            'form' => $formView, 'oldUser' => $Old_user
         ));
     }
 
@@ -454,6 +472,10 @@ class DefaultController extends Controller
             $password = $donnee->getPassword();
             $email = $donnee->getEmail();
             $roles = 'ROLE_ETUDIANT';
+            $dateNaisPerson=$donnee->getDateNaissance();
+            $dateNaisPers=$request->get('dateNaisEtud');
+            $dateObtDip=$donnee->getAnneeObtention();
+            $dateObtnDip=$request->get('dateObtDip');
             //var_dump($username,$Old_usr,$roles,$password,$email,$roles,$etat);die('Hello');
             $userManager = $this->get('fos_user.user_manager');
             $user = $userManager->findUserByUsername($usr);
@@ -464,6 +486,13 @@ class DefaultController extends Controller
                 $user->setEnabled(false);
                 $user->setRoles(array($roles));
                 $userManager->updateUser($user);
+
+            if (null === $dateNaisPerson || null === $dateObtDip) {
+                $date = new \DateTime($dateNaisPers);
+                $dateObt = new \DateTime($dateObtnDip);
+                $etudiant->setDateNaissance($date);
+                $etudiant->setAnneeObtention($dateObt);
+            }
             // Inutile de persister ici, Doctrine connait déjà notre annonce
             $em->flush();
             return $this->redirectToRoute('DashboardEtudiant', array('user' => $usr));
@@ -492,7 +521,8 @@ class DefaultController extends Controller
 
         $em->remove($etudiant);
         $em->flush();
-        return new RedirectResponse($this->container->get('router')->generate('listEtudiant'));
+        $usrs = $this->getUser();
+        return new RedirectResponse($this->container->get('router')->generate('listEtudiant',array('user' => $usrs)));
     }
 
     public function rechercherAction(Request $request)
@@ -520,9 +550,9 @@ class DefaultController extends Controller
             else {
                 $etudiants = $em->getRepository('GestionPreinscriptionBundle:Etudiant')->findAll();
             }
-
+            $usr = $this->getUser();
             return $this->container->get('templating')->renderResponse('GestionPreinscriptionBundle:Default:listEtd.html.twig', array(
-                'etudiants' => $etudiants
+                'etudiants' => $etudiants, 'user' => $usr
             ));
         }
         else {
@@ -535,9 +565,10 @@ class DefaultController extends Controller
     {
         $em = $this->container->get('doctrine')->getEntityManager();
         $etudiant= $em->getRepository('GestionPreinscriptionBundle:Etudiant')->find($id);
+        $usr = $this->getUser();
         return $this->container->get('templating')->renderResponse('GestionPreinscriptionBundle:Default:infosEtudiant.html.twig',
             array(
-                'etudiant' => $etudiant
+                'etudiant' => $etudiant, 'user' => $usr
             ));
     }
 
@@ -545,9 +576,10 @@ class DefaultController extends Controller
     {
         $em = $this->container->get('doctrine')->getEntityManager();
         $preinscrit= $em->getRepository('GestionPreinscriptionBundle:Preinscrit')->find($id);
+        $usr = $this->getUser();
         return $this->container->get('templating')->renderResponse('GestionPreinscriptionBundle:Default:infosPreEtudiant.html.twig',
             array(
-                'preinscrit' => $preinscrit
+                'preinscrit' => $preinscrit, 'user' => $usr
             ));
     }
 
@@ -555,11 +587,12 @@ class DefaultController extends Controller
     {
         // Create the form according to the FormType created previously.
         // And give the proper parameters
+        $usrs = $this->getUser();
         $form = $this->createForm('Gestion\PreinscriptionBundle\Form\ContactType',null,array(
             // To set the action use $this->generateUrl('route_identifier')
             'action' => $this->generateUrl('myapplication_contact'),
             'method' => 'POST'
-        ));
+        ,array('user' => $usrs)));
 
         if ($request->isMethod('POST')) {
             // Refill the fields in case the form is not valid.
@@ -579,7 +612,7 @@ class DefaultController extends Controller
             }
         }
 
-        return $this->render('GestionPreinscriptionBundle:Default:contact.html.twig', array(
+        return $this->render('GestionPreinscriptionBundle:Default:contact.html.twig', array('user' => $usrs,
             'form' => $form->createView()
         ));
     }
@@ -617,9 +650,9 @@ class DefaultController extends Controller
     {
         $em = $this->container->get('doctrine')->getEntityManager();
         $parent = $em->getRepository('GestionPreinscriptionBundle:Parents')->findAll();
-
+        $usr = $this->getUser();
         return $this->container->get('templating')->renderResponse('GestionPreinscriptionBundle:Default:listParents.html.twig', array(
-                'parent' => $parent)
+                'parent' => $parent, 'user' => $usr)
         );
 
     }
@@ -628,14 +661,16 @@ class DefaultController extends Controller
     {
         $em = $this->container->get('doctrine')->getEntityManager();
         $parent= $em->getRepository('GestionPreinscriptionBundle:Parents')->find($id);
+        $usr = $this->getUser();
         return $this->container->get('templating')->renderResponse('GestionPreinscriptionBundle:Default:infosParents.html.twig',
             array(
-                'parent' => $parent
+                'parent' => $parent, 'user' => $usr
             ));
     }
 
     public function ajouterParentAction(Request $request)
     {
+        $usrs = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         //on crée un nouveau etudiant
         $parent = new Parents();
@@ -678,16 +713,17 @@ class DefaultController extends Controller
             }
             $em->persist($parent);
             $em->flush();
-            return $this->redirect($this->generateUrl('listParent'));
+            return $this->redirect($this->generateUrl('listParent',array('user' => $usrs)));
         }
         //on rend la vue
-        return $this->render('GestionPreinscriptionBundle:Default:ajouterParent.html.twig',array(
+        return $this->render('GestionPreinscriptionBundle:Default:ajouterParent.html.twig',array('user' => $usrs,
             'form'   => $formView));
     }
 
 
     public function modifierParentAction($id, Request $request)
     {
+        $usr = $this->getUser();
         $Old_user=$request->get('username');
         $Old_usr=$request->get('idEtud');
         //var_dump($Old_user);die('Hello');
@@ -708,6 +744,8 @@ class DefaultController extends Controller
             $password = $donnee->getPassword();
             $email = $donnee->getEmail();
             $roles = 'ROLE_PARENTS';
+            $dateNaisPerson=$donnee->getDateNaissance();
+            $dateNaisPers=$request->get('dateNaisParnt');
             //var_dump($username,$Old_usr,$password,$email,$roles);die('Hello');
             $userManager = $this->get('fos_user.user_manager');
             $user = $userManager->findUserByUsername($Old_usr);
@@ -730,11 +768,15 @@ class DefaultController extends Controller
                 $userManager->updateUser($user);
             }
                 // Inutile de persister ici, Doctrine connait déjà les donées
+            if (null === $dateNaisPerson) {
+                $date = new \DateTime($dateNaisPers);
+                $parent->setDateNaissance($date);
+            }
                 $em->flush();
-            return $this->redirectToRoute('listParent', array('id' => $parent->getId(),  'user' => $Old_user));
+            return $this->redirectToRoute('listParent', array('id' => $parent->getId(), 'user' => $usr));
         }
 
-        return $this->render('GestionPreinscriptionBundle:Default:modifierParent.html.twig', array( 'user' => $Old_user,
+        return $this->render('GestionPreinscriptionBundle:Default:modifierParent.html.twig', array( 'user' => $usr,
             'parent' => $parent, 'form' => $formView, 'oldUser' => $Old_user,
         ));
     }
@@ -757,6 +799,7 @@ class DefaultController extends Controller
 
         $em->remove($etudiant);
         $em->flush();
-        return new RedirectResponse($this->get('router')->generate('listParent'));
+        $usrs = $this->getUser();
+        return new RedirectResponse($this->get('router')->generate('listParent',array('user' => $usrs)));
     }
 }

@@ -109,14 +109,6 @@
         });
     </script>
 
-    <script>
-        function same()
-        {
-            document.getElementById( "etudiant_login" ).value=document.getElementById( "etudiant_email" ).value;
-            document.getElementById( "etudiant_password" ).value=document.getElementById( "etudiant_numCinPass" ).value;
-        }
-    </script>
-
 {% endblock %}
 
  {% block body %}
@@ -158,8 +150,6 @@
                         <div class="form-group">
                             {{ form_widget(form.adresse) }}
                         </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
                         <label>Nationalite</label>
                         <div class="form-group">
                             {{ form_widget(form.nationalite) }}
@@ -172,6 +162,8 @@
                         <div class="form-group">
                             {{ form_widget(form.ville) }}
                         </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
                         <label>Etablissement</label>
                         <div class="form-group">
                             {{ form_widget(form.etablissement) }}
@@ -209,6 +201,8 @@
                         </div>
                         <br>
                         <div class="control-group">
+                            <input type="hidden" name="dateNaisEtud" value={{ etudiant.dateNaissance|date('d-m-Y') }} >
+                            <input type="hidden" name="dateObtDip" value={{ etudiant.anneeObtention|date('d-m-Y') }} >
                             <input type="hidden" name="idEtud" value={{ oldUser }} >
                             {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
                         </div>

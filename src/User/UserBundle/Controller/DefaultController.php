@@ -76,7 +76,6 @@ class DefaultController extends Controller
     {
         if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
             $user = $this->getUser();
-
             return $this->render('UserUserBundle:Default:admin.html.twig', array(
                 'user' => $user
             ));

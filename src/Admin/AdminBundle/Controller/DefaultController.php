@@ -1,6 +1,7 @@
 <?php
 
 namespace Admin\AdminBundle\Controller;
+use Admin\AdminBundle\Form\MembreType;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
@@ -47,105 +48,120 @@ class DefaultController extends Controller
         return $this->render('AdminAdminBundle:Default:membre.html.twig', array('user' => $user));
     }
 
-    public function ajoutPersonnelAction()
+    public function ajouterPersonnelAction(Request $request)
     {
-
+        $usr = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
-        $profil = $em->getRepository('AdminAdminBundle:Profil')->findAll();
-        $user = $this->getUser();
-        // On vérifie que l'utilisateur dispose bien du rôle correspondant
-        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ETUDIANT','ROLE_ADMIN')) {
-            // Sinon on déclenche une exception « Accès interdit »
-            throw new AccessDeniedException('Désolé, mais vous n\'etes pas autorisé à accéder à ce service.');
-            //$this->get('session')->getFlashBag()->add('notice', 'Your changes were saved!');
+        //on crée un nouveau etudiant
+        $personnel = new Membre();
+        //on recupere le formulaire
+        $form = $this->createForm(MembreType::class,$personnel);
 
-        }
+        //on génère le html du formulaire crée
+        $formView = $form->createView();
+        // Refill the fields in case the form is not valid.
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $donnee = $form->getData();
+            $etat = $donnee->getEtat();
+            $roles = $donnee->getRole();
+            //var_dump($roles);die('HELLO');
+            $username = $donnee->getLogin();
+            //var_dump($username);die('Hello');
+            $password = $donnee->getPassword();
+            $email = $donnee->getEmail();
 
-        return $this->render('AdminAdminBundle:Default:ajoutpersonnel.html.twig', array('user' => $user, 'profil' => $profil));
-    }
-
-    public function validerMembreAction(Request $request)
-    {
-
-        $em = $this->container->get('doctrine')->getEntityManager();
-        $Membre = $em->getRepository('AdminAdminBundle:Membre')->findAll();
-
-        $users = $this->getUser();
-        if (!is_object($users) || !$users instanceof UserInterface) {
-            throw new AccessDeniedException('This user does not have access to this section.');
-        }
-
-        $nom=$request->get('nom');
-        $prenom=$request->get('prenom');
-        $cin=$request->get('cin');
-        $rib=$request->get('rib');
-        $sexe=$request->get('sexe');
-        $ville=$request->get('ville');
-        $dateNais=$request->get('DateNaissance');
-        $leuxNais=$request->get('leuxNais');
-        $nat=$request->get('nat');
-        $tel=$request->get('tel');
-        $email=$request->get('mail');
-        $adresse=$request->get('adresse');
-        $username=$request->get('pseudo');
-        $password=$request->get('password');
-        $etat=$request->get('etat');
-        //$roles=array();
-        $roles=$request->get('profil');
-        //var_dump($username);die('Hello');
-        //ajout des paramètres username et password dans la table 'fos_user'
-        //var_dump($nom,$prenom,$cin,$rib,$sexe,$ville,$leuxNais,$nat,$tel,$email,$adresse,$username,$password,$roles,$etat,$dateNais);die('Hello');
-
-        $userManager = $this->get('fos_user.user_manager');
-        $user = $userManager->createUser();
-        if ($etat=='Inactif') {
-            $user->setUsername($username);
-            $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
-            $user->setPassword($hash);
-            $user->setEmail($email);
-            $user->setEnabled(false);
-            $user->setRoles(array($roles));
-            $userManager->updateUser($user);
-        }
-        else{
-            $user->setUsername($username);
-            $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
-            $user->setPassword($hash);
-            $user->setEmail($email);
-            $user->setEnabled(true);
-            $user->setRoles(array($roles));
-            $userManager->updateUser($user);
+            //var_dump($username,$password,$email,$roles);die('Hello');
+            $userManager = $this->get('fos_user.user_manager');
+            $user = $userManager->createUser();
+            if ($etat=='Inactif') {
+                $user->setUsername($username);
+                $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
+                $user->setPassword($hash);
+                $user->setEmail($email);
+                $user->setEnabled(false);
+                $user->setRoles(array($roles));
+                $userManager->updateUser($user);
             }
-            //sauvegarde dans la base des donnée,table membre
-            $membre = new Membre();
-            $membre->setNom($nom);
-            $membre->setPrenom($prenom);
-            $membre->setCin($cin);
-            $membre->setRib($rib);
-            $membre->setSexe($sexe);
-            $membre->setVille($ville);
-            $membre->setLieuxNaissance($leuxNais);
-            $membre->setNationalite($nat);
-            $membre->setDateNaissance($dateNais);
-            $membre->setTel($tel);
-            $membre->setEmail($email);
-            $membre->setAdresse($adresse);
-            $membre->setLogin($username);
-            $membre->setPassword($password);
-            $membre->setRole($roles);
-            $membre->setEtat($etat);
+            else{
+                $user->setUsername($username);
+                $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
+                $user->setPassword($hash);
+                $user->setEmail($email);
+                $user->setEnabled(true);
+                $user->setRoles(array($roles));
+                $userManager->updateUser($user);
+            }
+            //var_dump(array($donnee->getClasse()));die('Hello');
 
-            //sauvegarde des idprofil dans chaque ligne de boucle dans acces
-            $em = $this->getDoctrine()->getManager();
-            // tells Doctrine you want to (eventually) save the Product (no queries yet)
-            $em->persist($membre);
-            // actually executes the queries (i.e. the INSERT query)
+            $em->persist($personnel);
             $em->flush();
-
-
-        return $this->redirect($this->generateUrl('liste_Membre', array('user' => $users)));
+            return $this->redirect($this->generateUrl('liste_Membre',array('user' => $usr)));
+        }
+        //on rend la vue
+        return $this->render('AdminAdminBundle:Default:ajoutpersonnel.html.twig',array('user' => $usr,
+            'form'   => $formView));
     }
 
+    public function modifierPersonnelAction($id, Request $request)
+    {
+        $usr = $this->getUser();
+        $Old_user=$request->get('username');
+        $Old_usr=$request->get('idPers');
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $personnel= $em->getRepository('AdminAdminBundle:Membre')->find($id);
+        if (null === $personnel) {
+            throw new NotFoundHttpException("Le personnel d'id ".$id." n'existe pas.");
+        }
+        //on recupere le formulaire
+        $form = $this->createForm(MembreType::class, $personnel);
+        //on génère le html du formulaire crée
+        $formView = $form->createView();
+        // Refill the fields in case the form is not valid.
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $donnee = $form->getData();
+            $etat = $donnee->getEtat();
+            $roles = $donnee->getRole();
+            $username = $donnee->getLogin();
+            $password = $donnee->getPassword();
+            $email = $donnee->getEmail();
+            $dateNaisPerson=$donnee->getDateNaissance();
+            $dateNaisPers=$request->get('dateNaisPers');
+            //var_dump($username,$password,$Old_usr,$roles);die('Hello');
+            $userManager = $this->get('fos_user.user_manager');
+            $user = $userManager->findUserByUsername($Old_usr);
+            if ($etat=='Inactif') {
+                $user->setUsername($username);
+                $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
+                $user->setPassword($hash);
+                $user->setEmail($email);
+                $user->setEnabled(false);
+                $user->setRoles(array($roles));
+                $userManager->updateUser($user);
+            }
+            else{
+                $user->setUsername($username);
+                $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
+                $user->setPassword($hash);
+                $user->setEmail($email);
+                $user->setEnabled(true);
+                $user->setRoles(array($roles));
+                $userManager->updateUser($user);
+            }
+
+            if (null === $dateNaisPerson) {
+                $date = new \DateTime($dateNaisPers);
+                $personnel->setDateNaissance($date);
+            }
+            $em->persist($personnel);
+            $em->flush();
+            return $this->redirect($this->generateUrl('liste_Membre',array('user' => $usr)));
+        }
+        //on rend la vue
+        return $this->render('AdminAdminBundle:Default:modifierPersonnel.html.twig',array('user' => $usr, 'personnel' => $personnel,
+        'oldUser' => $Old_user, 'form'   => $formView));
+    }
 
     public function verifLoginAction(Request $request)
     {
@@ -196,7 +212,7 @@ class DefaultController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
         $user = $this->getUser();
-        return $this->render('AdminAdminBundle:Default:listMembre.html.twig', array('user' => $user, 'membre' => $membre ));
+        return $this->render('AdminAdminBundle:Default:listPersonnels.html.twig', array('user' => $user, 'membre' => $membre ));
     }
 
     public function infosMembreAction($id)
@@ -208,96 +224,7 @@ class DefaultController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
         $user = $this->getUser();
-        return $this->render('AdminAdminBundle:Default:infosMembre.html.twig', array('user' => $user, 'membre' => $membre ));
-    }
-
-    public function editMembreAction($id)
-    {
-        $em = $this->container->get('doctrine')->getEntityManager();
-        $profil = $em->getRepository('AdminAdminBundle:Profil')->findAll();
-        $membre= $em->getRepository('AdminAdminBundle:Membre')->find($id);
-        $user = $this->getUser();
-        if (!is_object($user) || !$user instanceof UserInterface) {
-            throw new AccessDeniedException('This user does not have access to this section.');
-        }
-        $user = $this->getUser();
-        return $this->render('AdminAdminBundle:Default:modifierMembre.html.twig', array('user' => $user, 'membre' => $membre, 'profil' => $profil));
-    }
-
-    public function validerEditMembreAction($id, Request $request)
-    {
-
-        $IDMembre=$request->get('idMembre');
-        $nom=$request->get('nom');
-        $prenom=$request->get('prenom');
-        $dateNais=$request->get('DateNaissance');
-        $cin=$request->get('cin');
-        $rib=$request->get('rib');
-        $sexe=$request->get('sexe');
-        $ville=$request->get('ville');
-        $leuxNais=$request->get('leuxNais');
-        $nat=$request->get('nat');
-        $tel=$request->get('tel');
-        $email=$request->get('mail');
-        $adresse=$request->get('adresse');
-        $username=$request->get('pseudo');
-        $username_Old=$request->get('Old_login');
-        $password=$request->get('password');
-        $etat=$request->get('etat');
-        //$roles=array();
-        $roles=$request->get('profil');
-        //var_dump($nom,$prenom,$cin,$rib,$sexe,$ville,$leuxNais,$nat,$tel,$email,$adresse,$username,$password,$roles);die('Hello');
-
-        $usr = $this->getUser();
-        if (!is_object($usr) || !$usr instanceof UserInterface) {
-            throw new AccessDeniedException('This user does not have access to this section.');
-        }
-
-        //ajout des paramètres username et password dans la table 'fos_user'
-        $userManager = $this->get('fos_user.user_manager');
-        $user = $userManager->findUserByUsername($username_Old);
-        if ($etat=='Inactif') {
-            $user->setUsername($username);
-            $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
-            $user->setPassword($hash);
-            $user->setEmail($email);
-            $user->setEnabled(false);
-            $user->setRoles(array($roles));
-            $userManager->updateUser($user);
-        }
-        else{
-            $user->setUsername($username);
-            $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
-            $user->setPassword($hash);
-            $user->setEmail($email);
-            $user->setEnabled(true);
-            $user->setRoles(array($roles));
-            $userManager->updateUser($user);
-        }
-
-        //sauvegarde dans la base des donnée,table membre
-        $em = $this->getDoctrine()->getManager();
-        $membre = $em->getRepository('AdminAdminBundle:Membre')->find($IDMembre);
-        $membre->setNom($nom);
-        $membre->setPrenom($prenom);
-        $membre->setDateNaissance($dateNais);
-        $membre->setCin($cin);
-        $membre->setRib($rib);
-        $membre->setSexe($sexe);
-        $membre->setVille($ville);
-        $membre->setLieuxNaissance($leuxNais);
-        $membre->setNationalite($nat);
-        $membre->setTel($tel);
-        $membre->setEmail($email);
-        $membre->setAdresse($adresse);
-        $membre->setLogin($username);
-        $membre->setPassword($password);
-        $membre->setEtat($etat);
-        $membre->setRole($roles);
-        $em->persist($membre);
-        // actually executes the queries (i.e. the INSERT query)
-        $em->flush();
-        return $this->redirect($this->generateUrl('liste_Membre', array('user' => $usr)));
+        return $this->render('AdminAdminBundle:Default:infosPersonnel.html.twig', array('user' => $user, 'membre' => $membre ));
     }
 
     public function deleteMembreAction(Request $request)
@@ -374,7 +301,7 @@ class DefaultController extends Controller
             if (!is_object($user) || !$user instanceof UserInterface) {
                 throw new AccessDeniedException('This user does not have access to this section.');
             }
-            return $this->redirect($this->generateUrl('listeProfil'));
+            return $this->redirect($this->generateUrl('listeProfil',array('user' => $user)));
         }
     }
 
@@ -820,6 +747,22 @@ class DefaultController extends Controller
         return $this->render('AdminAdminBundle:Default:ressourceplanningclasses.html.twig');
     }
 
+    public function profilAdminAction(Request $request)
+    {
+
+        $user = $this->getUser();
+        $userManager = $this->get('fos_user.user_manager');
+        $user = $userManager->findUserByUsername($user);
+        $login = $user->getUsername();
+
+        //var_dump($selectedIdEtudiant, $Semestre);die('Hello');
+        $repository1=$this->getDoctrine()->getRepository('AdminAdminBundle:Membre');
+        $SelectedMem=$repository1->createQueryBuilder('e')->where('e.login = :idMembre')->setParameter('idMembre', $login)->getQuery()->getResult();
+        //var_dump($SelectedEtud);die('Hello');
+        return $this->render('AdminAdminBundle:Default:profilAdmin.html.twig', array(
+            'user' => $user, 'membre' => $SelectedMem));
+    }
+
     public function profilMembreAction(Request $request)
     {
 
@@ -838,80 +781,115 @@ class DefaultController extends Controller
 
     public function modifierProfilMembreAction($id, Request $request)
     {
-        $em = $this->container->get('doctrine')->getEntityManager();
-        $membre= $em->getRepository('AdminAdminBundle:Membre')->find($id);
-        $user = $this->getUser();
-        if (!is_object($user) || !$user instanceof UserInterface) {
-            throw new AccessDeniedException('This user does not have access to this section.');
-        }
-        $user = $this->getUser();
-        return $this->render('AdminAdminBundle:Default:modifierProfilMembre.html.twig', array('user' => $user, 'membre' => $membre));
-    }
-
-    public function validerModifProfilMembreAction($id, Request $request)
-    {
-
-        $IDMembre = $request->get('idMembre');
-        $nom = $request->get('nom');
-        $prenom = $request->get('prenom');
-        $dateNais = $request->get('DateNaissance');
-        $cin = $request->get('cin');
-        $rib = $request->get('rib');
-        $sexe = $request->get('sexe');
-        $ville = $request->get('ville');
-        $leuxNais = $request->get('leuxNais');
-        $nat = $request->get('nat');
-        $tel = $request->get('tel');
-        $email = $request->get('mail');
-        $adresse = $request->get('adresse');
-        $username = $request->get('pseudo');
-        $username_Old = $request->get('Old_login');
-        $password = $request->get('password');
-        $roles = $request->get('role');
-        $etat = $request->get('etat');
-        //var_dump($nom,$prenom,$dateNais,$cin,$rib,$sexe,$ville,$leuxNais,$nat,$tel,$email,$adresse,$username,$password,$roles,$etat);die('Hello');
-
         $usr = $this->getUser();
-        if (!is_object($usr) || !$usr instanceof UserInterface) {
-            throw new AccessDeniedException('This user does not have access to this section.');
+        $Old_user=$request->get('username');
+        $Old_usr=$request->get('idPers');
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $personnel= $em->getRepository('AdminAdminBundle:Membre')->find($id);
+        if (null === $personnel) {
+            throw new NotFoundHttpException("Le personel d'id ".$id." n'existe pas.");
         }
+        //on recupere le formulaire
+        $form = $this->createForm(MembreEditType::class, $personnel);
+        //on génère le html du formulaire crée
+        $formView = $form->createView();
+        // Refill the fields in case the form is not valid.
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $donnee = $form->getData();
+            $etat = $donnee->getEtat();
+            $username = $donnee->getLogin();
+            $password = $donnee->getPassword();
+            $email = $donnee->getEmail();
+            $roles = $request->get('role');
+            $dateNaisPerson=$donnee->getDateNaissance();
+            $dateNaisPers=$request->get('dateNaisPers');
 
-        //ajout des paramètres username et password dans la table 'fos_user'
-        $userManager = $this->get('fos_user.user_manager');
-        $user = $userManager->findUserByUsername($username_Old);
+            $userManager = $this->get('fos_user.user_manager');
+            $user = $userManager->findUserByUsername($Old_usr);
+            if ($etat=='Inactif') {
+                $user->setUsername($username);
+                $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
+                $user->setPassword($hash);
+                $user->setEmail($email);
+                $userManager->updateUser($user);
+            }
+            else{
+                $user->setUsername($username);
+                $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
+                $user->setPassword($hash);
+                $user->setEmail($email);
+                $userManager->updateUser($user);
+            }
 
-        $user->setUsername($username);
-        $hash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 13]);
-        $user->setPassword($hash);
-        $user->setEmail($email);
-        $userManager->updateUser($user);
-        //sauvegarde dans la base des donnée,table membre
-        $em = $this->getDoctrine()->getManager();
-        $membre = $em->getRepository('AdminAdminBundle:Membre')->find($IDMembre);
-        $membre->setNom($nom);
-        $membre->setPrenom($prenom);
-        $membre->setDateNaissance($dateNais);
-        $membre->setCin($cin);
-        $membre->setRib($rib);
-        $membre->setSexe($sexe);
-        $membre->setVille($ville);
-        $membre->setLieuxNaissance($leuxNais);
-        $membre->setNationalite($nat);
-        $membre->setTel($tel);
-        $membre->setEmail($email);
-        $membre->setAdresse($adresse);
-        $membre->setLogin($username);
-        $membre->setPassword($password);
-        $membre->setRole($roles);
-        $membre->setEtat($etat);
-        $em->persist($membre);
-        // actually executes the queries (i.e. the INSERT query)
-        $em->flush();
-        if ($roles == 'ROLE_SUPER_ADMIN')
-            return $this->redirect($this->generateUrl('DashboardAdmin', array('user' => $usr)));
-        else
-            return $this->redirect($this->generateUrl('profilMembre', array('user' => $usr)));
-    }
+            if (null === $dateNaisPerson) {
+                $date = new \DateTime($dateNaisPers);
+                $personnel->setDateNaissance($date);
+            }
+            $em->persist($personnel);
+            $em->flush();
+
+                return $this->redirect($this->generateUrl('profilMembre', array('user' => $usr)));
+        }
+        //on rend la vue
+        return $this->render('AdminAdminBundle:Default:modifierProfilMembre.html.twig',array('user' => $usr, 'personnel' => $personnel,
+            'oldUser' => $Old_user, 'form'   => $formView));    }
+
+    public function modifierProfilAdminAction($id, Request $request)
+    {
+        $usr = $this->getUser();
+        $Old_user=$request->get('username');
+        $Old_usr=$request->get('idPers');
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $personnel= $em->getRepository('AdminAdminBundle:Membre')->find($id);
+        if (null === $personnel) {
+            throw new NotFoundHttpException("Le personel d'id ".$id." n'existe pas.");
+        }
+        //on recupere le formulaire
+        $form = $this->createForm(MembreEditType::class, $personnel);
+        //on génère le html du formulaire crée
+        $formView = $form->createView();
+        // Refill the fields in case the form is not valid.
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $donnee = $form->getData();
+            $etat = $donnee->getEtat();
+            $username = $donnee->getLogin();
+            $password = $donnee->getPassword();
+            $email = $donnee->getEmail();
+            $roles = $request->get('role');
+            $dateNaisPerson=$donnee->getDateNaissance();
+            $dateNaisPers=$request->get('dateNaisPers');
+
+            $userManager = $this->get('fos_user.user_manager');
+            $user = $userManager->findUserByUsername($Old_usr);
+            if ($etat=='Inactif') {
+                $user->setUsername($username);
+                $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
+                $user->setPassword($hash);
+                $user->setEmail($email);
+                $userManager->updateUser($user);
+            }
+            else{
+                $user->setUsername($username);
+                $hash = password_hash($password,PASSWORD_BCRYPT,['cost' => 13]) ;
+                $user->setPassword($hash);
+                $user->setEmail($email);
+                $userManager->updateUser($user);
+            }
+
+            if (null === $dateNaisPerson) {
+                $date = new \DateTime($dateNaisPers);
+                $personnel->setDateNaissance($date);
+            }
+            $em->persist($personnel);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('profilAdmin', array('user' => $usr)));
+        }
+        //on rend la vue
+        return $this->render('AdminAdminBundle:Default:modifierProfilAdmin.html.twig',array('user' => $usr, 'personnel' => $personnel,
+            'oldUser' => $Old_user, 'form'   => $formView));    }
 
 
     }

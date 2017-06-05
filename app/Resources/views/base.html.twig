@@ -374,7 +374,9 @@
                                     <p>{{ user }}</p>
                                 </div>
                                 <div class="dropdown-divider"></div>
-                                {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN') %}
+                                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                <a class="btn left-spacing link-btn" href="{{ path('profilAdmin') }}" role="button">
+                                {% elseif is_granted('ROLE_ADMIN') %}
                                 <a class="btn left-spacing link-btn" href="{{ path('profilMembre') }}" role="button">
                                     {% elseif is_granted('ROLE_ENSEIGNANT') %}
                                     <a class="btn left-spacing link-btn" href="{{ path('profilEnseignant') }}" role="button">

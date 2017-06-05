@@ -117,6 +117,35 @@
         }
     </script>
 
+    <script>
+        function pwdFocus() {
+            $('#fakepassword').hide();
+            $('#passwords').show();
+            $('#passwords').focus();
+        }
+
+        function pwdBlur() {
+            if ($('#passwords').attr('value') == '') {
+                $('#passwords').hide();
+                $('#fakepassword').show();
+            }
+        }
+    </script>
+
+    <script type="text/javascript">
+        function validateForm()
+        {
+            var dateNais=document.forms["etudiant"]["etudiant_dateNaissance"].value;
+            var dateObt=document.forms["etudiant"]["etudiant_anneeObtention"].value;
+            if (dateNais==null || dateNais=="" || dateObt==null || dateObt=="")
+            {
+                alert("Veuillez vérifier les champs de la date");
+                return false;
+            }else
+                return true;
+        }
+    </script>
+
 {% endblock %}
 
  {% block body %}
@@ -127,7 +156,7 @@
         <div class="tab-content">
             <div>
                 <div class="row">
-                    {{ form_start(form,{'attr':{'action':path('modifier_Etudiant',{ 'id': etudiant.id })}}) }}
+                    {{ form_start(form, {'action': path('modifier_Etudiant',{'id': etudiant.id, 'name':'etudiant'}),'attr': {'class': 'smart-form userform', 'onsubmit':'return validatesForm();'} } ) }}
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
                         <label for="etudiant_nom">Nom</label>
                         <div class="form-group">
@@ -222,6 +251,8 @@
                         </div>
                         <br>
                         <div class="control-group">
+                            <input type="hidden" name="dateNaisEtud" value={{ etudiant.dateNaissance|date('d-m-Y') }} >
+                            <input type="hidden" name="dateObtDip" value={{ etudiant.anneeObtention|date('d-m-Y') }} >
                             <input type="hidden" name="idEtud" value={{ oldUser }} >
                             {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
                         </div>

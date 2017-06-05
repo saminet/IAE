@@ -103,14 +103,6 @@
         });
     </script>
 
-    <script>
-        function same()
-        {
-            document.getElementById( "gestion_preinscriptionbundle_parents_login" ).value=document.getElementById( "gestion_preinscriptionbundle_parents_email" ).value;
-            document.getElementById( "gestion_preinscriptionbundle_parents_password" ).value=document.getElementById( "gestion_preinscriptionbundle_parents_numCinPass" ).value;
-        }
-    </script>
-
 {% endblock %}
 
  {% block body %}
@@ -185,6 +177,7 @@
                              </div>
                              <br>
                              <div class="control-group">
+                                 <input type="text" name="dateNaisParnt" value={{ parent.dateNaissance|date('d-m-Y') }} >
                                  <input type="hidden" name="idEtud" value={{ oldUser }} >
                                  {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
                              </div>

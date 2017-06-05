@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -78,6 +79,14 @@ class EtudiantType extends AbstractType
 
             ->add('login',TextType::class, array('attr' => array('placeholder'=>'choisir un nom d\'utilisateur','class'=>'form-control')))
             ->add('password',PasswordType::class, array('attr' => array('placeholder'=>'Choisir un mot de Passe','class'=>'form-control')))
+            /**->add('password', RepeatedType::class, array(
+            'type' => PasswordType::class,
+            'invalid_message' => 'les champs mot de passe ne sont pas conformes.',
+            'options' => array('attr' => array('class' => 'password-field','placeholder'=>'Choisir un mot de Passe','class'=>'form-control',)),
+            'required' => true,
+            'first_options'  => array('label' => 'Mot de passe'),
+            'second_options' => array('label' => 'Répéter le mot de passe'),
+            )) */
             ->add('etat',ChoiceType::class, array('placeholder'=>'Choisir son état','choices' => array('Actif'=>'Actif', 'Inactif'=>'Inactif'),
                 'expanded' => true,
                 'multiple' => false))

@@ -13,6 +13,7 @@
         <tr><td><b>Nom</b></td><td>{{ enseignant.nom }}</td></tr>
         <tr><td><b>Prenom</b></td><td>{{ enseignant.prenom }}</td></tr>
         <tr><td><b>Sexe</b></td><td>{{ enseignant.sexe }}</td></tr>
+        <tr><td><b>date de Naissance</b></td><td>{{ enseignant.dateNaissance|date('d-m-Y') }}</td></tr>
         <tr><td><b>LieuNaissance</b></td><td>{{ enseignant.nationalite }}</td></tr>
         <tr><td><b>Ville</b></td><td>{{ enseignant.ville }}</td>
         <tr><td><b>Numéro Cin/Pass</b></td><td>{{ enseignant.cin }}</td></tr>
