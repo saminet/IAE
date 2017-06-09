@@ -1,15 +1,14 @@
 {% extends "::layoutAdmin.html.twig" %}
 
 {% block body %}
-
+    <div class="col-md-12 profile-contain">
+    <div class="row">
+    <div class="col-md-12 col-xs-12">
+    <div class="content">
     <h1>Information sur l'étudiant(e) : <b>{{ etudiant.nom }}</b> </h1>
     <a href="{{path('listEtudiant')}}">Revenir à la liste des étudiants</a>
     <table class="table">
-
     <tbody>
-
-
-
     <tr><td><b>Nom</b></td><td>{{ etudiant.nom }}</td></tr>
     <tr><td><b>Prenom</b></td><td>{{ etudiant.prenom }}</td></tr>
     <tr><td><b>Sexe</b></td><td>{{ etudiant.sexe }}</td></tr>
@@ -28,7 +27,7 @@
     <tr><td><b>Classe de l'étudiant</b></td><td>{{ etudiant.classe }}</td></tr>
     <tr><td><b>Groupe de l'étudiant</b></td><td>{{ etudiant.groupe }}</td></tr>
     <tr><td><a href="{{ path('modifier_Etudiant',{'id':etudiant.id,'username':etudiant.login}) }}"><button class="btn btn-primary">Modifier</button></a></td></tr>
-
     </tbody>
-
+        </table>
+    </div></div></div></div>
 {% endblock %}

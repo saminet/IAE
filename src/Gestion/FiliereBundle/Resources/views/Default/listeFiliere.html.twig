@@ -24,47 +24,55 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Liste des filières</h1>
-    <div id="no-more-tables">
-    <table class="table-vertical" id="example">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Intitulé</th>
-            <th>Niveau</th>
-            <th><a href="{{path('ajouter_filieres')}}">+Nouvelle Filière</a></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for fil in filiere %}
-            <tr>
-                <td data-title="ID">{{ fil.id }}</td>
-                <td data-title="Intitulé">{{ fil.intitule }}</td>
-                <td data-title="Niveau">{{ fil.niveau }}</td>
-                <td data-title="Action">
-                    <div class="btn-toolbar" role="toolbar">
+                <div class="col-md-12 profile-contain">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="content">
+                                <h1>Liste des filières</h1>
+                                <div id="no-more-tables">
+                                    <table class="table-vertical" id="example">
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Intitulé</th>
+                                            <th>Niveau</th>
+                                            <th><a href="{{path('ajouter_filieres')}}">+Nouvelle Filière</a></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for fil in filiere %}
+                                            <tr>
+                                                <td data-title="ID">{{ fil.id }}</td>
+                                                <td data-title="Intitulé">{{ fil.intitule }}</td>
+                                                <td data-title="Niveau">{{ fil.niveau }}</td>
+                                                <td data-title="Action">
+                                                    <div class="btn-toolbar" role="toolbar">
 
-                        <div class="btn-group">
+                                                        <div class="btn-group">
+                                                                <a href="{{ path('modifier_filieres',{'id':fil.id}) }}">
+                                                                <button type="button" class="btn btn-default">
+                                                                    <span class="glyphicon glyphicon-pencil"></span>
+                                                                </button>
+                                                            </a>
 
-                            <a href="">
-                                <button type="button" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </button>
-                            </a>
-
-                            <a href="">
-                                <button type="button" class="btn btn-default" onclick="if(window.confirm('Voulez-vous vraiment supprimer ?'))
+                                                            <a href="{{ path('supprimer_filieres',{'id':fil.id}) }}">
+                                                                <button type="button" class="btn btn-default" onclick="if(window.confirm('Voulez-vous vraiment supprimer ?'))
                                 {return true;}else{return false;}">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </button></a>
+                                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                                </button></a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% else %}
+                                            <p>Aucune filières n'a été trouvée.</p>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-                </td>
-            </tr>
-        {% else %}
-            <p>Aucune filières n'a été trouvée.</p>
-        {% endfor %}
-        </tbody>
-    </table>
-    </div>
+                </div>
 {% endblock %}

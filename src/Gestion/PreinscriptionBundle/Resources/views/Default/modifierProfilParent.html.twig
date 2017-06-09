@@ -106,12 +106,10 @@
 {% endblock %}
 
  {% block body %}
-     <div class="content content-product-edit datatable-width">
-         <div class="nav-tab-horizontal">
-             <div class="divider15"></div>
-             <div class="tab-content">
-                 <div>
-                     <div class="row">
+     <div class="col-md-12 profile-contain">
+         <div class="row">
+             <div class="col-md-12 col-xs-12">
+                 <div class="content">
                          {{ form_start(form,{'attr':{'action':path('modifierProfilParent', { 'id': parent.id })}}) }}
                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
                              <label for="etudiant_nom">Nom</label>
@@ -184,7 +182,7 @@
                              {{ form_end(form) }}
                              <br><br>
                          </div>
-                     </div></div></div></div></div></div>
+                     </div></div></div></div>
 
  {% endblock %}
 

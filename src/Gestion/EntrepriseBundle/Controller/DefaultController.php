@@ -47,8 +47,9 @@ class DefaultController extends Controller
             $usr = $this->getUser();
             return $this->redirect($this->generateUrl('liste_entreprise',array('user' => $usr)));
         }
+        $usr = $this->getUser();
         //on rend la vue
-        return $this->render('GestionEntrepriseBundle:Default:ajouterEntrep.html.twig',array(
+        return $this->render('GestionEntrepriseBundle:Default:ajouterEntrep.html.twig',array('user' => $usr,
             'form'   => $formView));
     }
 

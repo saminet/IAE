@@ -25,7 +25,10 @@
 {% endblock %}
 
 {% block body %}
-    <div>
+<div class="col-md-12 profile-contain">
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="content">
         <table class="table">
             <tbody>
             {% for etudiant in etudiant %}
@@ -47,12 +50,10 @@
                 <tr><td><b>Classe de l'étudiant</b></td><td>{{ etudiant.classe }}</td></tr>
                 <tr><td><b>Groupe de l'étudiant</b></td><td>{{ etudiant.groupe }}</td></tr>
                 <tr><td><a href="{{ path('modifierProfilEtudiant',{'id':etudiant.id,'username':etudiant.login, 'classe':etudiant.classe, 'groupe':etudiant.groupe, }) }}"><button class="btn btn-primary">Modifier</button></a></td></tr>
-
-                </tr>
             {% else %}
                 <p>Aucune information n'a été trouvée.</p>
             {% endfor %}
             </tbody>
         </table>
-    </div>
+            </div></div></div></div>
 {% endblock %}

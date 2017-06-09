@@ -20,8 +20,9 @@ class NiveauType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nomNiveau',TextType::class, array('attr' => array('class'=>'form-control')))
-            // ->add('nomFiliere',TextType::class, array('attr' => array('class'=>'form-control')))
+            ->add('nomNiveau', ChoiceType::class, array(
+                'choices' => array('1 ère année' => '1 ère année', '2 ème année' => '2 ère année', '3 èrm année' => '3ème année'),
+            ))
 
             ->add('filiere', EntityType::class, array(
                 'required' => true,

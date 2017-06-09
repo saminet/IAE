@@ -141,6 +141,13 @@ class Preinscrit
     private $niveau;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="etat", type="string", length=255)
+     */
+    private $etat;
+
+    /**
      * Get id
      *
      * @return int
@@ -556,5 +563,29 @@ class Preinscrit
     public function getFormation()
     {
         return $this->formation;
+    }
+
+    /**
+     * Set etat
+     *
+     * @param string $etat
+     *
+     * @return Preinscrit
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * Get etat
+     *
+     * @return string
+     */
+    public function getEtat()
+    {
+        return $this->etat;
     }
 }

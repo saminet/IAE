@@ -119,118 +119,118 @@
 {% endblock %}
 
  {% block body %}
-<h3>Ajouter un enseignant  / <a href="{{ path('Liste_enseignant') }}">Liste des enseignants</a></h3>
-<div class="content content-product-edit datatable-width">
-    <div class="nav-tab-horizontal">
-        <div class="divider15"></div>
-        <div class="tab-content">
-            <div>
-                <div class="row"><br>
-                    {{ form_start(form, {'action': path('ajouter_Enseignant',{'name':'gestion_enseignantbundle_enseignant'}),'attr': {'class': 'smart-form userform', 'onsubmit':'return validateForm();'} } ) }}
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                        <label for="gestion_enseignantbundle_nom">Nom</label>
-                        <div class="form-group">
-                            {{ form_widget(form.nom) }}
-                        </div>
-                        <label for="gestion_enseignantbundle_prenom">Prenom</label>
-                        <div class="form-group">
-                            {{ form_widget(form.prenom) }}
-                        </div>
-                        <label>Sexe</label>
-                        <div class="form-group">
-                            {{ form_widget(form.sexe) }}
-                        </div>
-                        <label for="gestion_enseignantbundle_dateNaissance">Date de Naissance</label>
-                        <div class="form-group form-bootstrap-datetime">
-                            <div class="input-group" data-plugin="flatpickr" data-wrap="true">
-                                {{ form_widget(form.dateNaissance, { 'attr': {'class': 'form-control flatpickr-input', 'readonly': 'readonly', 'data-input':'' } }) }}
-                                <span class="input-group-addon date-icon" data-toggle="">
+                 <div class="col-md-12 profile-contain">
+                     <div class="row">
+                         <div class="col-md-12 col-xs-12">
+                             <div class="content">
+                                 <h3>Ajouter un enseignant  / <a href="{{ path('Liste_enseignant') }}">Liste des enseignants</a></h3>
+                                 {{ form_start(form, {'action': path('ajouter_Enseignant',{'name':'gestion_enseignantbundle_enseignant'}),'attr': {'class': 'smart-form userform', 'onsubmit':'return validateForm();'} } ) }}
+                                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                     <label for="gestion_enseignantbundle_nom">Nom</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.nom) }}
+                                     </div>
+                                     <label for="gestion_enseignantbundle_prenom">Prenom</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.prenom) }}
+                                     </div>
+                                     <label>Sexe</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.sexe) }}
+                                     </div>
+                                     <label for="gestion_enseignantbundle_dateNaissance">Date de Naissance</label>
+                                     <div class="form-group form-bootstrap-datetime">
+                                         <div class="input-group" data-plugin="flatpickr" data-wrap="true">
+                                             {{ form_widget(form.dateNaissance, { 'attr': {'class': 'form-control flatpickr-input', 'readonly': 'readonly', 'data-input':'' } }) }}
+                                             <span class="input-group-addon date-icon" data-toggle="">
 <i class="icon icon_calendar"></i>
 </span>
-                            </div>
-                        </div>
-                        <label for="gestion_enseignantbundle_enseignant_lieuxNaissance">Lieu de Naissnace</label>
-                        <div class="form-group">
-                            {{ form_widget(form.lieuxNaissance) }}
-                        </div>
-                        <label for="gestion_enseignantbundle_enseignant_adresse">Adresse</label>
-                        <div class="form-group">
-                            {{ form_widget(form.adresse) }}
-                        </div>
-                        <label>Nationalite</label>
-                        <div class="form-group">
-                            {{ form_widget(form.nationalite) }}
-                        </div>
-                        <label for="gestion_enseignantbundle_enseignant_cin">Numéro CIN/Passeport</label>
-                        <div class="form-group">
-                            {{ form_widget(form.cin, { 'attr': { 'onkeyup': 'same();'  } } ) }}
-                        </div>
-                        <label for="gestion_enseignantbundle_enseignant_ville">Ville</label>
-                        <div class="form-group">
-                            {{ form_widget(form.ville) }}
-                        </div>
-                        <label for="gestion_enseignantbundle_enseignant_rib">Numéro RIB/RIP</label>
-                        <div class="form-group">
-                            {{ form_widget(form.rib) }}
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                        <label for="gestion_enseignantbundle_enseignant_tel">Téléphone</label>
-                        <div class="form-group">
-                            {{ form_widget(form.tel) }}
-                        </div>
-                        <label for="gestion_enseignantbundle_enseignant_email">Email</label>
-                        <div class="form-group">
-                            {{ form_widget(form.email, { 'attr': { 'onkeyup': 'checkemail();same();'  } } ) }}
-                            <span id="email_status"></span>
-                        </div>
-                        <label for="gestion_enseignantbundle_enseignant_nationalite">Nationalité</label>
-                        <div class="form-group">
-                            {{ form_widget(form.nationalite) }}
-                        </div>
-                        <label>Login</label>
-                        <div class="form-group">
-                            {{ form_widget(form.login, { 'attr': { 'onkeyup': 'checkname()'  } } ) }}
-                            <span id="name_status"></span>
-                        </div>
-                        <label>Mot de passe</label>
-                        <div class="form-group">
-                            {{ form_widget(form.password) }}
-                        </div>
-                        <label>Etat</label>
-                        <div class="form-group">
-                            {{ form_widget(form.etat) }}
-                        </div>
-                        <div class="form-group">
-                            {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
-                        </div>
-                        {{ form_end(form) }}
-                        <br><br>
-                    </div>
-                </div></div></div></div></div></div>
+                                         </div>
+                                     </div>
+                                     <label for="gestion_enseignantbundle_enseignant_lieuxNaissance">Lieu de Naissnace</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.lieuxNaissance) }}
+                                     </div>
+                                     <label for="gestion_enseignantbundle_enseignant_adresse">Adresse</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.adresse) }}
+                                     </div>
+                                     <label>Nationalite</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.nationalite) }}
+                                     </div>
+                                     <label for="gestion_enseignantbundle_enseignant_cin">Numéro CIN/Passeport</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.cin, { 'attr': { 'onkeyup': 'same();'  } } ) }}
+                                     </div>
+                                     <label for="gestion_enseignantbundle_enseignant_ville">Ville</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.ville) }}
+                                     </div>
+                                     <label for="gestion_enseignantbundle_enseignant_rib">Numéro RIB/RIP</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.rib) }}
+                                     </div>
+                                 </div>
+                                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                     <label for="gestion_enseignantbundle_enseignant_tel">Téléphone</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.tel) }}
+                                     </div>
+                                     <label for="gestion_enseignantbundle_enseignant_email">Email</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.email, { 'attr': { 'onkeyup': 'checkemail();same();'  } } ) }}
+                                         <span id="email_status"></span>
+                                     </div>
+                                     <label for="gestion_enseignantbundle_enseignant_nationalite">Nationalité</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.nationalite) }}
+                                     </div>
+                                     <label>Login</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.login, { 'attr': { 'onkeyup': 'checkname()'  } } ) }}
+                                         <span id="name_status"></span>
+                                     </div>
+                                     <label>Mot de passe</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.password) }}
+                                     </div>
+                                     <label>Etat</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.etat) }}
+                                     </div>
+                                     <div class="form-group">
+                                         {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
+                                     </div>
+                                     {{ form_end(form) }}
 
-                        <script type="text/javascript">
-                            <!-- filtrer la liste des groupe selon la classe séléctionnée -->
-                            (function ($) {
-                                $('#etudiant_classe').change(function () {
-                                    var idClasse = $(this).val();
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "{{ url('groupe_list_ajax_call') }}?classe_id=" + idClasse,
-                                        success: function (data) {
-                                            // Remove current options
-                                            $('#etudiant_groupe').html('');
-                                            $.each(data, function (k, v) {
-                                                $('#etudiant_groupe').append('<option value="' + v + '">' + k + '</option>');
-                                            });
-                                        }
-                                    });
-                                    return false;
-                                });
-                            })(jQuery);
-                        </script>
+                                     <script type="text/javascript">
+                                         <!-- filtrer la liste des groupe selon la classe séléctionnée -->
+                                         (function ($) {
+                                             $('#etudiant_classe').change(function () {
+                                                 var idClasse = $(this).val();
+                                                 $.ajax({
+                                                     type: "POST",
+                                                     url: "{{ url('groupe_list_ajax_call') }}?classe_id=" + idClasse,
+                                                     success: function (data) {
+                                                         // Remove current options
+                                                         $('#etudiant_groupe').html('');
+                                                         $.each(data, function (k, v) {
+                                                             $('#etudiant_groupe').append('<option value="' + v + '">' + k + '</option>');
+                                                         });
+                                                     }
+                                                 });
+                                                 return false;
+                                             });
+                                         })(jQuery);
+                                     </script>
 
-                        {% endblock %}
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+         </div>
+   {% endblock %}
 
 
                         {% block footer %}

@@ -754,13 +754,14 @@ class DefaultController extends Controller
         $userManager = $this->get('fos_user.user_manager');
         $user = $userManager->findUserByUsername($user);
         $login = $user->getUsername();
+        $email = $user->getEmail();
 
         //var_dump($selectedIdEtudiant, $Semestre);die('Hello');
         $repository1=$this->getDoctrine()->getRepository('AdminAdminBundle:Membre');
         $SelectedMem=$repository1->createQueryBuilder('e')->where('e.login = :idMembre')->setParameter('idMembre', $login)->getQuery()->getResult();
         //var_dump($SelectedEtud);die('Hello');
-        return $this->render('AdminAdminBundle:Default:profilAdmin.html.twig', array(
-            'user' => $user, 'membre' => $SelectedMem));
+        return $this->render('AdminAdminBundle:Default:profileAdmin.html.twig', array(
+            'user' => $user, 'membre' => $SelectedMem, 'email' => $email));
     }
 
     public function profilMembreAction(Request $request)

@@ -120,85 +120,94 @@
 {% endblock %}
 
  {% block body %}
-     <div class="tab-content">
-         <div class="row">
-             {{ form_start(form, {'action': path('modifierProfilMembre',{'id': personnel.id, 'name':'admin_adminbundle_membre'}),'attr': {'class': 'smart-form userform', 'onsubmit':'return validatesForm();'} } ) }}
-             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                 <label for="etudiant_nom">Nom</label>
-                 <div class="form-group">
-                     {{ form_widget(form.nom, {'attr': {'onkeyup': 'validateForm();'}}) }}
+                 <div class="site-content-title">
+                     <P class="float-xs-left content-title-main">Espace Membre</P>
                  </div>
-                 <label>Prenom</label>
-                 <div class="form-group">
-                     {{ form_widget(form.prenom) }}
-                 </div>
-                 <label>Date de Naissance</label>
-                 <div class="form-group form-bootstrap-datetime">
-                     <div class="input-group" data-plugin="flatpickr" data-wrap="true">
-                         {{ form_widget(form.dateNaissance, { 'attr': {'class': 'form-control flatpickr-input', 'readonly': 'readonly', 'data-input':'' } }) }}
-                         <span class="input-group-addon date-icon" data-toggle="">
+                 <div class="col-md-12 profile-contain">
+                     <div class="row">
+                         <div class="col-md-12 col-xs-12">
+                             <div class="content">
+
+                                 {{ form_start(form, {'action': path('modifierProfilMembre',{'id': personnel.id, 'name':'admin_adminbundle_membre'}),'attr': {'class': 'smart-form userform', 'onsubmit':'return validatesForm();'} } ) }}
+                                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                     <label for="etudiant_nom">Nom</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.nom, {'attr': {'onkeyup': 'validateForm();'}}) }}
+                                     </div>
+                                     <label>Prenom</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.prenom) }}
+                                     </div>
+                                     <label>Date de Naissance</label>
+                                     <div class="form-group form-bootstrap-datetime">
+                                         <div class="input-group" data-plugin="flatpickr" data-wrap="true">
+                                             {{ form_widget(form.dateNaissance, { 'attr': {'class': 'form-control flatpickr-input', 'readonly': 'readonly', 'data-input':'' } }) }}
+                                             <span class="input-group-addon date-icon" data-toggle="">
                  <i class="icon icon_calendar"></i>
                  </span>
+                                         </div>
+                                     </div>
+                                     <label>Sexe</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.sexe) }}
+                                     </div>
+                                     <label>Numéro RIB/RIP</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.rib) }}
+                                     </div>
+                                     <label>Adresse</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.adresse) }}
+                                     </div>
+                                     <label>Lieu de Naissnace</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.lieuxNaissance) }}
+                                     </div>
+                                     <label>Nationalite</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.nationalite) }}
+                                     </div>
+                                 </div>
+                                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                     <label>Ville</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.ville) }}
+                                     </div>
+                                     <label>Numéro CIN/Passeport</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.cin, { 'attr': { 'onkeyup': 'same();'  } } ) }}
+                                     </div>
+                                     <label>Téléphone</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.tel) }}
+                                     </div>
+                                     <label>Email</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.email, { 'attr': { 'onkeyup': 'checkemail();same();'  } } ) }}
+                                         <span id="email_status"></span>
+                                     </div>
+                                     <label>Login</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.login) }}
+                                         <span id="name_status"></span>
+                                     </div>
+                                     <label>Mot de passe</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.password, { 'attr': { 'onkeyup': 'same();'  } } ) }}
+                                         <div class="control-group">
+                                             <input type="hidden" name="dateNaisPers" value={{ personnel.dateNaissance|date('d-m-Y') }} >
+                                             <input type="hidden" name="idPers" value={{ oldUser }} >
+                                             {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
+                                         </div>
+                                         {{ form_end(form) }}
+                                         <br><br>
+                                     </div>
+                                 </div>
+
+                             </div>
+                         </div>
                      </div>
                  </div>
-                 <label>Sexe</label>
-                 <div class="form-group">
-                     {{ form_widget(form.sexe) }}
-                 </div>
-                 <label>Numéro RIB/RIP</label>
-                 <div class="form-group">
-                     {{ form_widget(form.rib) }}
-                 </div>
-                 <label>Adresse</label>
-                 <div class="form-group">
-                     {{ form_widget(form.adresse) }}
-                 </div>
-                 <label>Lieu de Naissnace</label>
-                 <div class="form-group">
-                     {{ form_widget(form.lieuxNaissance) }}
-                 </div>
-                 <label>Nationalite</label>
-                 <div class="form-group">
-                     {{ form_widget(form.nationalite) }}
-                 </div>
-             </div>
-             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                 <label>Ville</label>
-                 <div class="form-group">
-                     {{ form_widget(form.ville) }}
-                 </div>
-                 <label>Numéro CIN/Passeport</label>
-                 <div class="form-group">
-                     {{ form_widget(form.cin, { 'attr': { 'onkeyup': 'same();'  } } ) }}
-                 </div>
-                 <label>Téléphone</label>
-                 <div class="form-group">
-                     {{ form_widget(form.tel) }}
-                 </div>
-                 <label>Email</label>
-                 <div class="form-group">
-                     {{ form_widget(form.email, { 'attr': { 'onkeyup': 'checkemail();same();'  } } ) }}
-                     <span id="email_status"></span>
-                 </div>
-                 <label>Login</label>
-                 <div class="form-group">
-                     {{ form_widget(form.login) }}
-                     <span id="name_status"></span>
-                 </div>
-                 <label>Mot de passe</label>
-                 <div class="form-group">
-                     {{ form_widget(form.password, { 'attr': { 'onkeyup': 'same();'  } } ) }}
-                 <div class="control-group">
-                     <input type="hidden" name="dateNaisPers" value={{ personnel.dateNaissance|date('d-m-Y') }} >
-                     <input type="hidden" name="idPers" value={{ oldUser }} >
-                     {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
-                 </div>
-                 {{ form_end(form) }}
-                 <br><br>
-             </div>
-         </div>
-     </div>
-
  {% endblock %}
 
 

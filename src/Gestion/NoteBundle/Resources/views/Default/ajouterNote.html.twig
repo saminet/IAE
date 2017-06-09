@@ -41,13 +41,11 @@
 {% endblock %}
 
  {% block body %}
-     <h3>Ajouter une nouvelle note / <a href="{{path('list_note')}}">Liste des notes</a> </h3>
-     <div class="content content-product-edit datatable-width">
-         <div class="nav-tab-horizontal">
-             <div class="divider15"></div>
-             <div class="tab-content">
-                 <div>
-                     <div class="row">
+<div class="col-md-12 profile-contain">
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="content">
+     <p>Ajouter une nouvelle note / <a href="{{path('list_note')}}">Liste des notes</a> </p>
                          {{ form_start(form,{'attr':{'action':path('ajout_note')}}) }}
                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
                              <label for="etudiant_nom">Classe</label>
@@ -91,7 +89,7 @@
                              {{ form_end(form) }}
                              <br><br>
                          </div>
-                     </div></div></div></div></div>
+                     </div></div></div></div></div></div></div></div></div>
 
      <!-- filtrer la liste des groupe selon la classe séléctionnée -->
      <script type="text/javascript">

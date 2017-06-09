@@ -12,24 +12,27 @@ class GroupeController extends Controller
 {
     public function indexAction()
     {
+        $user = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         $groupe = $em->getRepository('GestionAbsenceBundle:Groupe')->findAll();
-        return $this->container->get('templating')->renderResponse('GestionAbsenceBundle:Groupe:listGroupe.html.twig',array(
+        return $this->container->get('templating')->renderResponse('GestionAbsenceBundle:Groupe:listGroupe.html.twig',array('user' => $user,
                 'groupe' => $groupe)
         );
     }
 
     public function listGroupeAction()
     {
+        $user = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         $groupe = $em->getRepository('GestionAbsenceBundle:Groupe')->findAll();
-        return $this->container->get('templating')->renderResponse('GestionAbsenceBundle:Groupe:listGroupe.html.twig',array(
+        return $this->container->get('templating')->renderResponse('GestionAbsenceBundle:Groupe:listGroupe.html.twig',array('user' => $user,
                 'groupe' => $groupe)
         );
     }
 
     public function AjoutGroupeAction(Request $request)
     {
+        $user = $this->getUser();
         $classe= $this->getDoctrine()->getEntityManager()->getRepository('GestionAbsenceBundle:Classe')->findAll();
         $em = $this->container->get('doctrine')->getEntityManager();
         //on crée un nouveau etudiant
@@ -47,12 +50,13 @@ class GroupeController extends Controller
             return $this->redirect($this->generateUrl('listGroupe'));
         }
         //on rend la vue
-        return $this->render('GestionAbsenceBundle:Groupe:ajoutGroupe.html.twig',array(
+        return $this->render('GestionAbsenceBundle:Groupe:ajoutGroupe.html.twig',array('user' => $user,
             'form'   => $formView, 'classe'   => $classe));
     }
 
     public function ModifierGroupeAction($id, Request $request)
     {
+        $user = $this->getUser();
         $classe= $this->getDoctrine()->getEntityManager()->getRepository('GestionAbsenceBundle:Classe')->findAll();
         $em = $this->container->get('doctrine')->getEntityManager();
         $groupe= $em->getRepository('GestionAbsenceBundle:Groupe')->find($id);
@@ -66,15 +70,17 @@ class GroupeController extends Controller
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             // Inutile de persister ici, Doctrine connait déjà notre annonce
             $em->flush();
-            return $this->redirect($this->generateUrl('listGroupe'));
+            return $this->redirect($this->generateUrl('listGroupe', array(
+                'user' => $user)));
         }
         //on rend la vue
-        return $this->render('GestionAbsenceBundle:Groupe:modifierGroupe.html.twig',array(
+        return $this->render('GestionAbsenceBundle:Groupe:modifierGroupe.html.twig',array('user' => $user,
             'form'   => $formView, 'groupe'   => $groupe, 'classe'   => $classe));
     }
 
     public function deleteGroupeAction($id)
     {
+        $user = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         $groupe= $this->getDoctrine()->getRepository('GestionAbsenceBundle:Groupe')->find($id);
         if (!$groupe)
@@ -84,7 +90,8 @@ class GroupeController extends Controller
 
         $em->remove($groupe);
         $em->flush();
-        return new RedirectResponse($this->get('router')->generate('listGroupe'));
+        return new RedirectResponse($this->get('router')->generate('listGroupe', array(
+            'user' => $user)));
     }
 
 }

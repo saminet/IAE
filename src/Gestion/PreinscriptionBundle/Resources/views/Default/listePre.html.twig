@@ -26,7 +26,11 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Liste des préinscits :</h1>
+    <div class="col-md-12 profile-contain">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="content">
+    <h3>Liste des préinscits :</h3>
     <div id="no-more-tables">
         <table class="table-vertical" id="example">
             <thead>
@@ -37,6 +41,7 @@
                 <th>LieuNaissance</th>
                 <th>Ville</th>
                 <th>Sexe</th>
+                <th>Etat</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -49,6 +54,7 @@
                     <td data-title="Lieu de Naissance">{{ pre.lieuNaissance }}</td>
                     <td data-title="Ville">{{ pre.ville }}</td>
                     <td data-title="Sexe">{{ pre.sexe }}</td>
+                    <td data-title="Sexe">{{ pre.etat }}</td>
                     <td data-title="Action">
                         <div class="btn-toolbar" role="toolbar">
 
@@ -82,9 +88,9 @@
                     </td>
                 </tr>
             {% else %}
-                <p>Aucune note n'a été trouvée.</p>
+                <p>Aucune préinscrit n'a été trouvée.</p>
             {% endfor %}
             </tbody>
         </table>
-    </div>
+    </div></div></div></div></div>
 {% endblock %}

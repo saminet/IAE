@@ -1,15 +1,14 @@
 {% extends '::layoutAdmin.html.twig' %}
 
 {% block body %}
-
-    <h1>Information sur le candidat : <b>{{ preinscrit.nom }}</b> </h1>
+    <div class="col-md-12 profile-contain">
+    <div class="row">
+    <div class="col-md-12 col-xs-12">
+        <div class="content">
+    <h1>Information sur le candidat : <b>{{ preinscrit.nom }} {{ preinscrit.prenom }}</b> </h1>
     <a href="{{path('Liste_preinscrits')}}">Revenir à la liste des préinscriptions</a>
     <table class="table">
-
     <tbody>
-
-
-
         <tr><td><b>Nom</b></td><td>{{ preinscrit.nom }}</td></tr>
         <tr><td><b>Prenom</b></td><td>{{ preinscrit.prenom }}</td></tr>
         <tr><td><b>Sexe</b></td><td>{{ preinscrit.sexe }}</td></tr>
@@ -23,14 +22,12 @@
         <tr><td><b>Etablissement</b></td><td>{{ preinscrit.etablissement }}</td></tr>
         <tr><td><b>Niveau</b></td><td>{{ preinscrit.niveau }}</td></tr>
         <tr><td><b>Formation Souhaité</b></td><td>{{ preinscrit.formation }}</td></tr>
-
         <tr><td>
                 <a href="{{ path('acepterPreinscrit',{ 'id': preinscrit.id }) }}"><button class="btn btn-success">Accepter</button></a>
                 <a href="{{ path('refuserPreinscrit',{'id':preinscrit.id}) }}"><button class="btn btn-danger">Refuser</button></a>
             </td>
         </tr>
-
     </tbody>
-
-
+    </table>
+        </div></div></div></div>
 {% endblock %}

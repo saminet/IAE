@@ -11,38 +11,40 @@
 {% endblock %}
 
  {% block body %}
-     <h3>Ajouter une entreprise / <a href="{{path('liste_entreprise')}}">Liste des entreprises</a> </h3>
-     <div class="content content-product-edit datatable-width">
-         <div class="nav-tab-horizontal">
-             <div class="divider15"></div>
-             <div class="tab-content">
-                 <div>
+                 <div class="col-md-12 profile-contain">
                      <div class="row">
-                         {{ form_start(form,{'attr':{'action':path('ajouter_entreprise')}}) }}
-                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                             <label for="etudiant_nom">Nom de la Société</label>
-                             <div class="form-group">
-                                 {{ form_widget(form.nomEntrep) }}
-                             </div>
-                             <label>Raison Sociale</label>
-                             <div class="form-group">
-                                 {{ form_widget(form.raisonSoc) }}
-                             </div>
-                         </div>
-                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                             <label>Adresse</label>
-                             <div class="form-group">
-                                 {{ form_widget(form.adresseEntrep) }}
-                             </div>
-                             <br>
-                             <div class="control-group">
-                                 {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
-                             </div>
-                             {{ form_end(form) }}
-                             <br><br>
-                         </div>
-                     </div></div></div></div></div></div>
+                         <div class="col-md-12 col-xs-12">
+                             <div class="content">
 
+                                 <h3>Ajouter une entreprise / <a href="{{path('liste_entreprise')}}">Liste des entreprises</a> </h3>
+                                 {{ form_start(form,{'attr':{'action':path('ajouter_entreprise')}}) }}
+                                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                     <label for="etudiant_nom">Nom de la Société</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.nomEntrep) }}
+                                     </div>
+                                     <label>Raison Sociale</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.raisonSoc) }}
+                                     </div>
+                                 </div>
+                                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                     <label>Adresse</label>
+                                     <div class="form-group">
+                                         {{ form_widget(form.adresseEntrep) }}
+                                     </div>
+                                     <br>
+                                     <div class="control-group">
+                                         {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
+                                     </div>
+                                     {{ form_end(form) }}
+                                     <br><br>
+                                 </div>
+
+                             </div>
+                         </div>
+                     </div>
+                 </div>
  {% endblock %}
 
 

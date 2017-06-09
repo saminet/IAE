@@ -34,6 +34,10 @@
 {% endblock %}
 
 {% block body %}
+    <div class="col-md-12 profile-contain">
+    <div class="row">
+    <div class="col-md-12 col-xs-12">
+    <div class="content">
     <h3>Modifier le note en <b><span style='color: blue;'>{{ notes.matiere }}
             </span></b> pour l'étudiant(e) : <b><span style='color: blue;'>{{ notes.etudiant.nom }} {{ notes.etudiant.prenom }}</span></b>
     </h3><br>
@@ -64,7 +68,7 @@
         <input type="submit" value="Enregistrer" type="button" class="btn btn-success">
     </form>
     </div>
-    </div>
+    </div></div></div></div></div>
 
 
     <!-- filtrer la liste des groupe selon la classe séléctionnée -->

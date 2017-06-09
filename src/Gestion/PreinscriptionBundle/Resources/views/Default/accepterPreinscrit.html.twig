@@ -2,7 +2,11 @@
 {% extends "::layoutAdmin.html.twig" %}
 
 {% block body %}
-
-Le candidat <b>{{ candidat.nom }}</b> à été bien informé.
-
+    <div class="col-md-12 col-xs-12">
+    <div class="content">
+    Le candidat <b>{{ candidat.nom }} {{ candidat.prenom }}</b> à été bien informé.
+        <br><br>
+    <a href="{{path('Liste_preinscrits')}}">Retour à la liste des pré-inscrits</a>
+    </div>
+    </div>
 {% endblock %}

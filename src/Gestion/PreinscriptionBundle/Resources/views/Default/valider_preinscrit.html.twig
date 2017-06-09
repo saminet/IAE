@@ -1,13 +1,14 @@
-{% extends '::base.html.twig' %}
+{% extends '::layoutAdmin.html.twig' %}
 
 {% block body %}
-
-<div>L'étudiant : {{ etudiant.nom }} est validé
-
+    <div class="col-md-12 col-xs-12">
+    <div class="content">
+    L'étudiant : {{ etudiant.nom }} {{ etudiant.prenom }} est validé.
     <p>
-        <br><br>
-        <a href="{{ path('Liste_preinscrits') }}">Revenir à la liste des préinscrits </a>
+    <br><br>
+    <a href="{{ path('Liste_preinscrits') }}">Revenir à la liste des préinscrits </a>
     </p>
-</div>
+   </div>
+   </div>
 
 {% endblock %}

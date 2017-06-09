@@ -24,64 +24,65 @@
 
 {% endblock %}
 
-
 {% block body %}
+            <div class="col-md-12 col-xs-12">
+                <div class="content">
+                    <h2>Liste des enseignants</h2>
+                    <div id="no-more-tables">
+                        <table class="table-vertical" id="example">
+                            <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prenom</th>
+                                <th>DateNaissance</th>
+                                <th>LieuNaissance</th>
+                                <th>Ville</th>
+                                <th>Sexe</th>
+                                <th><a href="{{path('ajouter_Enseignant')}}">+Nouveau Enseignant</a></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for ens in enseignant %}
+                                <tr>
+                                    <td data-title="Nom"><a href="{{ path('infos_Enseignant',{ 'id': ens.id }) }}">{{ ens.nom }}</a></td>
+                                    <td data-title="Prénom">{{ ens.prenom }}</td>
+                                    <td data-title="Date de Naissance">{{ ens.dateNaissance|date("d-m-Y", false) }}</td>
+                                    <td data-title="Lieu de Naissance">{{ ens.lieuxNaissance }}</td>
+                                    <td data-title="Ville">{{ ens.ville }}</td>
+                                    <td data-title="Sexe">{{ ens.sexe }}</td>
+                                    <td data-title="Action">
+                                        <div class="btn-toolbar" role="toolbar">
+                                            <div class="btn-group">
+                                                <a href="{{ path('infos_Enseignant',{ 'id': ens.id }) }}">
+                                                    <button type="button" class="btn btn-default">
+                                                        <span class="	glyphicon glyphicon-search"></span>
+                                                    </button>
+                                                </a>
 
-    <h2>Liste des enseignants</h2>
-    <div id="no-more-tables">
-    <table class="table-vertical" id="example">
-    <thead>
-    <tr>
-    <th>Nom</th>
-    <th>Prenom</th>
-    <th>DateNaissance</th>
-    <th>LieuNaissance</th>
-    <th>Ville</th>
-    <th>Sexe</th>
-    <th><a href="{{path('ajouter_Enseignant')}}">+Nouveau Enseignant</a></th>
-    </tr>
-    </thead>
-        <tbody>
-        {% for ens in enseignant %}
-        <tr>
-            <td data-title="Nom"><a href="{{ path('infos_Enseignant',{ 'id': ens.id }) }}">{{ ens.nom }}</a></td>
-            <td data-title="Prénom">{{ ens.prenom }}</td>
-            <td data-title="Date de Naissance">{{ ens.dateNaissance|date("d-m-Y", false) }}</td>
-            <td data-title="Lieu de Naissance">{{ ens.lieuxNaissance }}</td>
-            <td data-title="Ville">{{ ens.ville }}</td>
-            <td data-title="Sexe">{{ ens.sexe }}</td>
-            <td data-title="Action">
-                <div class="btn-toolbar" role="toolbar">
-                    <div class="btn-group">
-                        <a href="{{ path('infos_Enseignant',{ 'id': ens.id }) }}">
-                            <button type="button" class="btn btn-default">
-                                <span class="	glyphicon glyphicon-search"></span>
-                            </button>
-                        </a>
+                                                <a href="{{ path('modifier_Enseignant',{'id':ens.id, 'username':ens.login }) }}">
+                                                    <button type="button" class="btn btn-default">
+                                                        <span class="glyphicon glyphicon-pencil"></span>
+                                                    </button>
+                                                </a>
 
-                        <a href="{{ path('modifier_Enseignant',{'id':ens.id, 'username':ens.login }) }}">
-                            <button type="button" class="btn btn-default">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                            </button>
-                        </a>
-
-                        <a href="{{ path('supprimerEnseignant',{'id':ens.id,'username':ens.login }) }}">
-                            <button type="button" class="btn btn-default" onclick="if(window.confirm('Voulez-vous vraiment supprimer ?'))
+                                                <a href="{{ path('supprimerEnseignant',{'id':ens.id,'username':ens.login }) }}">
+                                                    <button type="button" class="btn btn-default" onclick="if(window.confirm('Voulez-vous vraiment supprimer ?'))
                                 {return true;}else{return false;}">
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </button></a>
+                                                        <span class="glyphicon glyphicon-trash"></span>
+                                                    </button></a>
+                                            </div>
+                                        </div>
+
+
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <p>Aucun enseignant n'a été trouvé.</p>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-
-
-            </td>
-        </tr>
-{% else %}
-    <p>Aucun enseignant n'a été trouvé.</p>
-{% endfor %}
-        </tbody>
-</table>
-    </div>
+            </div>
 {% endblock %}
-
 

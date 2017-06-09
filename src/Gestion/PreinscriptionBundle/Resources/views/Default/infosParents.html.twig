@@ -1,15 +1,14 @@
 {% extends "::layoutAdmin.html.twig" %}
 
 {% block body %}
-
-    <h1>Information sur l'étudiant(e) : <b>{{ parent.nom }}</b> </h1>
+    <div class="col-md-12 profile-contain">
+    <div class="row">
+    <div class="col-md-12 col-xs-12">
+    <div class="content">
+    <p>Information sur l'étudiant(e) : <b>{{ parent.nom }}</b> </p>
     <a href="{{path('listParent')}}">Revenir à la liste des parents</a>
     <table class="table">
-
     <tbody>
-
-
-
         <tr><td><b>Nom</b></td><td>{{ parent.nom }}</td></tr>
         <tr><td><b>Prenom</b></td><td>{{ parent.prenom }}</td></tr>
         <tr><td><b>Sexe</b></td><td>{{ parent.sexe }}</td></tr>
@@ -23,7 +22,7 @@
         <tr><td><b>Mot de Passe</b></td><td>{{ parent.password }}</td></tr>
         <tr><td><b>Etat du Parent</b></td><td>{{ parent.etat }}</td></tr>
         <tr><td><a href="{{ path('modifier_Parent',{'id':parent.id,'username':parent.login}) }}"><button class="btn btn-primary">Modifier</button></a></td></tr>
-
     </tbody>
-
+        </table>
+    </div></div></div></div>
 {% endblock %}

@@ -376,26 +376,26 @@
                                 <div class="dropdown-divider"></div>
                                 {% if is_granted('ROLE_SUPER_ADMIN') %}
                                 <a class="btn left-spacing link-btn" href="{{ path('profilAdmin') }}" role="button">
-                                {% elseif is_granted('ROLE_ADMIN') %}
-                                <a class="btn left-spacing link-btn" href="{{ path('profilMembre') }}" role="button">
-                                    {% elseif is_granted('ROLE_ENSEIGNANT') %}
-                                    <a class="btn left-spacing link-btn" href="{{ path('profilEnseignant') }}" role="button">
-                                    {% elseif is_granted('ROLE_ETUDIANT') %}
-                                    <a class="btn left-spacing link-btn" href="{{ path('profilEtudiant') }}" role="button">
-                                            {% else %}
-                                            <a class="btn left-spacing link-btn" href="{{ path('profilParent') }}" role="button">
-                                {% endif %}
-                                Mon Profil</a>
-                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                                    <a class="btn btn-primary float-xs-right right-spacing" href="{{ path('fos_user_security_logout') }}"
-                                       role="button">
-                                        <i class="icon-key"></i> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                                    </a>
-                                {% else %}
-                                    <a href="{{ path('fos_user_security_login') }}">
-                                        <i class="icon-key"></i>{{ 'layout.login'|trans({}, 'FOSUserBundle') }}
-                                    </a>
-                                {% endif %}
+                                    {% elseif is_granted('ROLE_ADMIN') %}
+                                    <a class="btn left-spacing link-btn" href="{{ path('profilMembre') }}" role="button">
+                                        {% elseif is_granted('ROLE_ENSEIGNANT') %}
+                                        <a class="btn left-spacing link-btn" href="{{ path('profilEnseignant') }}" role="button">
+                                            {% elseif is_granted('ROLE_ETUDIANT') %}
+                                            <a class="btn left-spacing link-btn" href="{{ path('profilEtudiant') }}" role="button">
+                                                {% else %}
+                                                <a class="btn left-spacing link-btn" href="{{ path('profilParent') }}" role="button">
+                                                    {% endif %}
+                                                    Mon Profil</a>
+                                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                                    <a class="btn btn-primary float-xs-right right-spacing" href="{{ path('fos_user_security_logout') }}"
+                                                       role="button">
+                                                        <i class="icon-key"></i> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                                                    </a>
+                                                {% else %}
+                                                    <a href="{{ path('fos_user_security_login') }}">
+                                                        <i class="icon-key"></i>{{ 'layout.login'|trans({}, 'FOSUserBundle') }}
+                                                    </a>
+                                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -406,7 +406,6 @@
     </header>
     {% block section %}{% endblock %}
 </div>
-
 <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/tether/dist/js/tether.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js') }}"></script>

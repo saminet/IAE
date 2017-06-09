@@ -35,18 +35,13 @@
 {% endblock %}
 
 {% block body %}
-    <br>
-    <h3>Modifier un groupe / <a href="{{ path('listGroupe') }}">Liste des groupes</a></h3>
-    <div>
-        <div class="content content-product-edit datatable-width">
-            <div class="nav-tab-horizontal">
-                <div class="divider15"></div>
-                <div class="tab-content">
-                    <div>
-                        <div class="row">
-                            {{ form_start(form,{'attr':{'action':path('ModifierGroupe', { 'id': groupe.id })}}) }}
-                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                                <br>
+                <div class="col-md-12 profile-contain">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="content">
+
+                                <p>Modifier un groupe / <a href="{{ path('listGroupe') }}">Liste des groupes</a></p>
+                                {{ form_start(form,{'attr':{'action':path('ModifierGroupe', { 'id': groupe.id })}}) }}
                                 <label>Nom de la classe:</label>
                                 <div class="form-group">
                                     {{ form_widget(form.classe) }}
@@ -66,9 +61,11 @@
                                     {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
                                 </div>
                                 {{ form_end(form) }}
-                                <br><br>
+
                             </div>
-                        </div></div></div></div></div></div>
+                        </div>
+                    </div>
+                </div>
 {% endblock %}
 
 

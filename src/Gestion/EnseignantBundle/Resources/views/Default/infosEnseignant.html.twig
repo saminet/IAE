@@ -1,31 +1,35 @@
 {% extends '::layoutAdmin.html.twig' %}
 
 {% block body %}
+                <div class="col-md-12 profile-contain">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="content">
+                                <h1>Information sur l'enseignant(e) : <b>{{ enseignant.nom }} {{ enseignant.prenom }}</b> </h1>
+                                <a href="{{path('Liste_enseignant')}}">Revenir à la liste des enseignants</a>
+                                <table class="table">
+                                    <tbody>
+                                    <tr><td><b>Nom</b></td><td>{{ enseignant.nom }}</td></tr>
+                                    <tr><td><b>Prenom</b></td><td>{{ enseignant.prenom }}</td></tr>
+                                    <tr><td><b>Sexe</b></td><td>{{ enseignant.sexe }}</td></tr>
+                                    <tr><td><b>date de Naissance</b></td><td>{{ enseignant.dateNaissance|date('d-m-Y') }}</td></tr>
+                                    <tr><td><b>LieuNaissance</b></td><td>{{ enseignant.nationalite }}</td></tr>
+                                    <tr><td><b>Ville</b></td><td>{{ enseignant.ville }}</td>
+                                    <tr><td><b>Numéro Cin/Pass</b></td><td>{{ enseignant.cin }}</td></tr>
+                                    <tr><td><b>Adresse</b></td><td>{{ enseignant.adresse }}</td></tr>
+                                    <tr><td><b>Téléphone</b></td><td>{{ enseignant.tel }}</td></tr>
+                                    <tr><td><b>Email</b></td><td>{{ enseignant.email }}</td></tr>
+                                    <tr><td><b>RIB</b></td><td>{{ enseignant.rib }}</td></tr>
+                                    <tr><td><b>Login</b></td><td>{{ enseignant.login }}</td></tr>
+                                    <tr><td><b>Mot de Passe</b></td><td>{{ enseignant.password }}</td></tr>
+                                    <tr><td><b>Etat</b></td><td>{{ enseignant.etat }}</td></tr>
+                                    <tr><td><a href="{{ path('modifier_Enseignant',{'id':enseignant.id,'username':enseignant.login }) }}"><button class="btn btn-primary">Modifier</button></a></td></tr>
+                                    </tbody>
+                                    </table>
 
-    <h1>Information sur l'enseignant(e) : <b>{{ enseignant.nom }} {{ enseignant.prenom }}</b> </h1>
-    <a href="{{path('Liste_enseignant')}}">Revenir à la liste des enseignants</a>
-    <table class="table">
-
-    <tbody>
-
-
-
-        <tr><td><b>Nom</b></td><td>{{ enseignant.nom }}</td></tr>
-        <tr><td><b>Prenom</b></td><td>{{ enseignant.prenom }}</td></tr>
-        <tr><td><b>Sexe</b></td><td>{{ enseignant.sexe }}</td></tr>
-        <tr><td><b>date de Naissance</b></td><td>{{ enseignant.dateNaissance|date('d-m-Y') }}</td></tr>
-        <tr><td><b>LieuNaissance</b></td><td>{{ enseignant.nationalite }}</td></tr>
-        <tr><td><b>Ville</b></td><td>{{ enseignant.ville }}</td>
-        <tr><td><b>Numéro Cin/Pass</b></td><td>{{ enseignant.cin }}</td></tr>
-        <tr><td><b>Adresse</b></td><td>{{ enseignant.adresse }}</td></tr>
-        <tr><td><b>Téléphone</b></td><td>{{ enseignant.tel }}</td></tr>
-        <tr><td><b>Email</b></td><td>{{ enseignant.email }}</td></tr>
-        <tr><td><b>RIB</b></td><td>{{ enseignant.rib }}</td></tr>
-        <tr><td><b>Login</b></td><td>{{ enseignant.login }}</td></tr>
-        <tr><td><b>Mot de Passe</b></td><td>{{ enseignant.password }}</td></tr>
-        <tr><td><b>Etat</b></td><td>{{ enseignant.etat }}</td></tr>
-        <tr><td><a href="{{ path('modifier_Enseignant',{'id':enseignant.id,'username':enseignant.login }) }}"><button class="btn btn-primary">Modifier</button></a></td></tr>
-
-    </tbody>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 {% endblock %}

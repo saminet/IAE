@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="description" content="bootstrap default admin template">
     <meta name="viewport" content="width=device-width">
-    <title>Login | Admin Template</title>
+    <title>Login | Gestion Universitaire</title>
 
     <script type="text/javascript">
         //<![CDATA[
@@ -82,9 +82,9 @@
                     </div>
                     <div class="checkbox-login login_v2_check">
                         <div class="checkbox-squared">
-                            <input value="None" id="remember_me" name="remember_me" type="checkbox">
-                            <label for="remember_me-squared1"></label>
-                            <span>Se Souvenir de Moi ?</span>
+                            <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                            <label for="remember_me"></label>
+                            <span>{{ 'security.login.remember_me'|trans }}</span>
                         </div>
                     </div>
                     <button type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" class="btn btn-primary btn-block">Se Connecter</button>

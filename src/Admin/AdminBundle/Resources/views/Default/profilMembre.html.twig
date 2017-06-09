@@ -25,29 +25,47 @@
 {% endblock %}
 
 {% block body %}
-    <div>
-        <table class="table">
-            <tbody>
-            {% for mem in membre %}
-                <tr>
-                <tr><td><b>Nom</b></td><td>{{ mem.nom }}</td></tr>
-                <tr><td><b>Prenom</b></td><td>{{ mem.prenom }}</td></tr>
-                <tr><td><b>Sexe</b></td><td>{{ mem.sexe }}</td></tr>
-                <tr><td><b>LieuNaissance</b></td><td>{{ mem.nationalite }}</td></tr>
-                <tr><td><b>Ville</b></td><td>{{ mem.ville }}</td>
-                <tr><td><b>date de Naissance</b></td><td>{{ mem.dateNaissance|date('d-m-Y') }}</td></tr>
-                <tr><td><b>Numéro Cin/Pass</b></td><td>{{ mem.cin }}</td></tr>
-                <tr><td><b>Adresse</b></td><td>{{ mem.adresse }}</td></tr>
-                <tr><td><b>Téléphone</b></td><td>{{ mem.tel }}</td></tr>
-                <tr><td><b>Email</b></td><td>{{ mem.email }}</td></tr>
-                <tr><td><b>Numéro RIB/RIP</b></td><td>{{ mem.rib }}</td></tr>
-                <tr><td><b>Login</b></td><td>{{ mem.login }}</td></tr>
-                <tr><td><a href="{{ path('modifierProfilMembre',{'id':mem.id,'username':mem.login }) }}"><button class="btn btn-primary">Modifier</button></a></td></tr>
-                </tr>
-            {% else %}
-                <p>Aucune information n'a été trouvée.</p>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    <section id="main" class="container-fluid">
+        <div class="row">
+            <section id="content-wrapper">
+                <div class="site-content-title">
+                    <P class="float-xs-left content-title-main">Espace Membre</P>
+                </div>
+                <div class="col-md-12 profile-contain">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="content">
+
+                                <table class="table">
+                                    <tbody>
+                                    {% for mem in membre %}
+                                        <tr>
+                                        <tr><td><b>Nom</b></td><td>{{ mem.nom }}</td></tr>
+                                        <tr><td><b>Prenom</b></td><td>{{ mem.prenom }}</td></tr>
+                                        <tr><td><b>Sexe</b></td><td>{{ mem.sexe }}</td></tr>
+                                        <tr><td><b>LieuNaissance</b></td><td>{{ mem.nationalite }}</td></tr>
+                                        <tr><td><b>Ville</b></td><td>{{ mem.ville }}</td>
+                                        <tr><td><b>date de Naissance</b></td><td>{{ mem.dateNaissance|date('d-m-Y') }}</td></tr>
+                                        <tr><td><b>Numéro Cin/Pass</b></td><td>{{ mem.cin }}</td></tr>
+                                        <tr><td><b>Adresse</b></td><td>{{ mem.adresse }}</td></tr>
+                                        <tr><td><b>Téléphone</b></td><td>{{ mem.tel }}</td></tr>
+                                        <tr><td><b>Email</b></td><td>{{ mem.email }}</td></tr>
+                                        <tr><td><b>Numéro RIB/RIP</b></td><td>{{ mem.rib }}</td></tr>
+                                        <tr><td><b>Login</b></td><td>{{ mem.login }}</td></tr>
+                                        <tr><td><a href="{{ path('modifierProfilMembre',{'id':mem.id,'username':mem.login }) }}"><button class="btn btn-primary">Modifier</button></a></td></tr>
+                                        </tr>
+                                    {% else %}
+                                        <p>Aucune information n'a été trouvée.</p>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </section>
 {% endblock %}

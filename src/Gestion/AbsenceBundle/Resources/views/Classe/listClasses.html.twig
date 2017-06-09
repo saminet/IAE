@@ -25,49 +25,58 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Liste des classes :</h1>
-    <div>
-        <table class="table"  cellpadding="0" cellspacing="0" border="0" class="display" id="examples" width="100%">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nom Classe</th>
-                <th><a href="{{path('AjoutClasse')}}">+Nouvelle Classe</a></th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for classe in classes %}
-                <tr>
-                    <td>{{classe.id}}</td>
-                    <td>{{classe.intitule}}</td>
+                <div class="col-md-12 profile-contain">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="content">
+                                <h1>Liste des classes :</h1>
+                                <div>
+                                    <table class="table"  cellpadding="0" cellspacing="0" border="0" class="display" id="examples" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nom Classe</th>
+                                            <th><a href="{{path('AjoutClasse')}}">+Nouvelle Classe</a></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for classe in classes %}
+                                            <tr>
+                                                <td>{{classe.id}}</td>
+                                                <td>{{classe.intitule}}</td>
 
-                    <td>
-                        <div class="btn-toolbar" role="toolbar">
+                                                <td>
+                                                    <div class="btn-toolbar" role="toolbar">
 
-                            <div class="btn-group">
+                                                        <div class="btn-group">
 
-                                <a href="{{ path('ModifierClasse', { 'id': classe.id }) }}">
-                                    <button type="button" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-pencil"></span>
-                                    </button>
-                                </a>
+                                                            <a href="{{ path('ModifierClasse', { 'id': classe.id }) }}">
+                                                                <button type="button" class="btn btn-default">
+                                                                    <span class="glyphicon glyphicon-pencil"></span>
+                                                                </button>
+                                                            </a>
 
-                                <a href="{{ path('deleteClasse',{'id':classe.id}) }}">
-                                    <button type="button" class="btn btn-default" onclick="if(window.confirm('Voulez-vous vraiment supprimer ?'))
+                                                            <a href="{{ path('deleteClasse',{'id':classe.id}) }}">
+                                                                <button type="button" class="btn btn-default" onclick="if(window.confirm('Voulez-vous vraiment supprimer ?'))
                                 {return true;}else{return false;}">
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                    </button>
-                                </a>
+                                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                                </button>
+                                                            </a>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
 
                             </div>
                         </div>
-                    </td>
-
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                    </div>
+                </div>
 {% endblock %}
 
 

@@ -29,23 +29,24 @@ class DefaultController extends Controller
         $em = $this->container->get('doctrine')->getEntityManager();
 
         $preinscrit1 = new Preinscrit();
-        $preinscrit1->setNom('Khaldi');
-        $preinscrit1->setPrenom('Brahim');
+        $preinscrit1->setNom('Jean');
+        $preinscrit1->setPrenom('Michel');
         $preinscrit1->setDateNaissance(new \DateTime("2011-07-23 06:12:33"));
-        $preinscrit1->setLieuNaissance('Paris');
+        $preinscrit1->setLieuNaissance('Aquitenne');
         $preinscrit1->setNationalite('Francaise');
         $preinscrit1->setVille('Paris');
         $preinscrit1->setNumCinPass('123990');
         $preinscrit1->setSexe('Masculain');
         $preinscrit1->setAdresse('Paris');
         $preinscrit1->setTel('123456');
-        $preinscrit1->setEmail('Khaldi001@gmail.com');
-        $preinscrit1->setDiplome('Metrise');
+        $preinscrit1->setEmail('michel88@gmail.com');
+        $preinscrit1->setDiplome('Maitrise');
         $preinscrit1->setEtablissement('Sorbon');
         $preinscrit1->setAnneeObtention(new \DateTime("2011-07-23 06:12:33"));
         $preinscrit1->setMessage('Bonjour');
         $preinscrit1->setNiveau('1 ère année');
         $preinscrit1->setFormation('Licence Fondamentale en Management');
+        $preinscrit1->setEtat('En Attente');
         $em->persist($preinscrit1);
 
         $em->flush();
@@ -70,11 +71,14 @@ class DefaultController extends Controller
         );
     }
 
-
     public function accepterPreinscritAction($id)
     {
         $usr = $this->getUser();
+        $em = $this->container->get('doctrine')->getEntityManager();
         $preinscrit= $this->getDoctrine()->getRepository('GestionPreinscriptionBundle:Preinscrit')->find($id);
+        $preinscrit->setEtat('Vérifié');
+        $em->persist($preinscrit);
+        $em->flush();
         $attachment = \Swift_Attachment::fromPath('../web/uploads/frais-scolarite.pdf');
         $message = \Swift_Message::newInstance()
             ->setContentType("text/html")
@@ -82,7 +86,7 @@ class DefaultController extends Controller
             ->setFrom('jeap37208@gmail.com')
             ->setTo(''.$preinscrit->getEmail().'')
             ->setBody(
-                'Bonjour Mr/Mme '.$preinscrit->getPrenom().',<br /> <br /> <br /> nous vous informons que votre demande d\'inscription à été bien accéptée 
+                'Bonjour Mr/Mme '.$preinscrit->getNom().' '.$preinscrit->getPrenom().',<br /> <br /> <br /> nous vous informons que votre demande d\'inscription à été bien accéptée 
                 <br /><br />  Vous trouvez ci dessous toutes les informations pour compléter votre dossier ainsi que les frais de scolarités.<br /><br /> <br />Si vous avez quelque chose 
                 à renseigner, merci de nous avoir contacter sur :<br /><br />Email :  iaetunis@gmail.com / contact@iaetunis.com <br /><br />Tél. : 94569697<br /><br />Fax : 71845269 E-mail <br /> <br /> <br /> <br /> <br /> <br />
                 Cordialement','text/html'
@@ -91,7 +95,6 @@ class DefaultController extends Controller
 
         $type = $message->getHeaders()->get('Content-Type');
         $type->setParameter('charset', 'utf-8');
-
         $this->get('mailer')->send($message);
 
 
@@ -99,44 +102,9 @@ class DefaultController extends Controller
             'candidat' => $preinscrit, 'user' => $usr) );
     }
 
-
-    public function refuserPreinscritAction($id)
-    {
-        $usr = $this->getUser();
-        $preinscrit= $this->getDoctrine()->getRepository('GestionPreinscriptionBundle:Preinscrit')->find($id);
-
-        $message = \Swift_Message::newInstance()
-            ->setContentType("text/html")
-            ->setSubject('Préinscription IAE')
-            ->setFrom('jeap37208@gmail.com')
-            ->setTo(''.$preinscrit->getEmail().'')
-            ->setBody(
-                'Bonjour Mr/Mme '.$preinscrit->getNom().',<br /> <br /> <br />
-                Nous vous remercions de l’intérêt que vous avez manifesté vis-à-vis de notre université.<br /> <br />
-                Après un examen attentif de votre dossier, nous avons le regret de vous informer que nous ne 
-                pouvons pas retenir votre candidature <br />car votre profil ne répond pas aux critères exigés. 
-                <br /><br />Nous sommes toujours ouvert à acceuillir votre candidature en cas d\'évolution de votre dossier  <br /><br />
-                <br />Pour toutes informations, merci de nous contacter sur : <br /><br />
-                Email :  iaetunis@gmail.com / contact@iaetunis.com <br /><br />
-                Tél. : 94569697<br /><br />Fax : 71845269 E-mail <br /> <br /> <br /> <br /> <br /><br />
-                Cordialement','text/html'
-            );
-
-        $type = $message->getHeaders()->get('Content-Type');
-        $type->setParameter('charset', 'utf-8');
-
-        $this->get('mailer')->send($message);
-
-
-        return $this->render('GestionPreinscriptionBundle:Default:refuserPreinscrit.html.twig',array(
-            'candidat' => $preinscrit, 'user' => $usr) );
-    }
-
-
     public function validerPreinscritAction($id)
     {
         $em = $this->container->get('doctrine')->getEntityManager();
-
         $preinscrit= $this->getDoctrine()->getRepository('GestionPreinscriptionBundle:Preinscrit')->find($id);
 
         $etudiant = new Etudiant();
@@ -197,6 +165,41 @@ class DefaultController extends Controller
         $usr = $this->getUser();
         return $this->render('GestionPreinscriptionBundle:Default:valider_preinscrit.html.twig',array('user' => $usr,
             'etudiant' => $etudiant) );
+    }
+
+    public function refuserPreinscritAction($id)
+    {
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $preinscrit= $this->getDoctrine()->getRepository('GestionPreinscriptionBundle:Preinscrit')->find($id);
+        if (!$preinscrit)
+        {
+            throw new NotFoundHttpException("Candidat non trouvé");
+        }
+        $message = \Swift_Message::newInstance()
+            ->setContentType("text/html")
+            ->setSubject('Préinscription IAE')
+            ->setFrom('jeap37208@gmail.com')
+            ->setTo(''.$preinscrit->getEmail().'')
+            ->setBody(
+                'Bonjour Mr/Mme '.$preinscrit->getNom().',<br /> <br /> <br />
+                Nous vous remercions de l’intérêt que vous avez manifesté vis-à-vis de notre université.<br /> <br />
+                Après un examen attentif de votre dossier, nous avons le regret de vous informer que nous ne 
+                pouvons pas retenir votre candidature <br />car votre profil ne répond pas aux critères exigés. 
+                <br /><br />Nous sommes toujours ouvert à acceuillir votre candidature en cas d\'évolution de votre dossier  <br /><br />
+                <br />Pour toutes informations, merci de nous contacter sur : <br /><br />
+                Email :  iaetunis@gmail.com / contact@iaetunis.com <br /><br />
+                Tél. : 94569697<br /><br />Fax : 71845269 E-mail <br /> <br /> <br /> <br /> <br /><br />
+                Cordialement','text/html'
+            );
+
+        $type = $message->getHeaders()->get('Content-Type');
+        $type->setParameter('charset', 'utf-8');
+        $this->get('mailer')->send($message);
+        $em->remove($preinscrit);
+        $em->flush();
+        $user = $this->getUser();
+        return $this->render('GestionPreinscriptionBundle:Default:refuserPreinscrit.html.twig',array(
+            'candidat' => $preinscrit, 'user' => $user) );
     }
 
     public function listEtudiantAction()
@@ -585,14 +588,12 @@ class DefaultController extends Controller
 
     public function contactAction(Request $request)
     {
-        // Create the form according to the FormType created previously.
-        // And give the proper parameters
-        $usrs = $this->getUser();
+        $usr = $this->getUser();
         $form = $this->createForm('Gestion\PreinscriptionBundle\Form\ContactType',null,array(
             // To set the action use $this->generateUrl('route_identifier')
             'action' => $this->generateUrl('myapplication_contact'),
             'method' => 'POST'
-        ,array('user' => $usrs)));
+        ));
 
         if ($request->isMethod('POST')) {
             // Refill the fields in case the form is not valid.
@@ -604,7 +605,7 @@ class DefaultController extends Controller
 
                     // Everything OK, redirect to wherever you want ! :
 
-                    return $this->redirectToRoute('email_valide');
+                    return $this->redirectToRoute('email_valide',array('user' => $usr));
                 }else{
                     // An error ocurred, handle
                     var_dump("Errooooor :(");
@@ -612,12 +613,13 @@ class DefaultController extends Controller
             }
         }
 
-        return $this->render('GestionPreinscriptionBundle:Default:contact.html.twig', array('user' => $usrs,
+        return $this->render('GestionPreinscriptionBundle:Default:contact.html.twig', array('user' => $usr,
             'form' => $form->createView()
         ));
     }
 
-    private function sendEmail($data){
+    private function sendEmail($data)
+    {
         $myappContactMail = 'jeap37208@gmail.com';
         $myappContactPassword = 'bigpassword';
 
@@ -631,7 +633,7 @@ class DefaultController extends Controller
         $mailer = \Swift_Mailer::newInstance($transport);
 
         $message = \Swift_Message::newInstance("A Propos de votre Preinscription ". $data["subject"])
-            ->setFrom(array($myappContactMail => "Message envoyé par ".$data["name"]))
+            ->setFrom(array($myappContactMail => "Message envoyé par ".$data["nom"] ." ".$data["prenom"]))
             ->setTo(array(
                 $myappContactMail => $myappContactMail
             ))
@@ -642,7 +644,9 @@ class DefaultController extends Controller
 
     public function validerMailAction()
     {
-        return $this->render('GestionPreinscriptionBundle:Default:reponse.html.twig');
+        $usr = $this->getUser();
+        return $this->render('GestionPreinscriptionBundle:Default:reponse.html.twig', array(
+            'user' => $usr));
     }
 
 

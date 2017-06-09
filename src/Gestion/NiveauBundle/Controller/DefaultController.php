@@ -32,6 +32,7 @@ class DefaultController extends Controller
 
     public function ajouterNiveauAction(Request $request)
     {
+        $usr = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         $filiere= $em->getRepository('GestionFiliereBundle:Filiere')->findAll();
         //on crée un nouveau etudiant
@@ -54,7 +55,7 @@ class DefaultController extends Controller
         }
         //on rend la vue
         return $this->render('GestionNiveauBundle:Default:ajouterNiveau.html.twig',array('filiere' => $filiere,
-            'form' => $formView) );
+            'form' => $formView, 'user' => $usr) );
     }
 
 

@@ -25,31 +25,40 @@
 {% endblock %}
 
 {% block body %}
-    <div>
-        <table class="table">
-            <tbody>
-            {% for ens in enseignant %}
-                <tr>
-                <tr><td><b>Nom</b></td><td>{{ ens.nom }}</td></tr>
-                <tr><td><b>Prenom</b></td><td>{{ ens.prenom }}</td></tr>
-                <tr><td><b>Sexe</b></td><td>{{ ens.sexe }}</td></tr>
-                <tr><td><b>date de Naissance</b></td><td>{{ ens.dateNaissance|date('d-m-Y') }}</td></tr>
-                <tr><td><b>Lieux de Naissance</b></td><td>{{ ens.lieuxNaissance }}</td></tr>
-                <tr><td><b>Nationalité</b></td><td>{{ ens.nationalite }}</td></tr>
-                <tr><td><b>Ville</b></td><td>{{ ens.ville }}</td>
-                <tr><td><b>Numéro Cin/Pass</b></td><td>{{ ens.cin }}</td></tr>
-                <tr><td><b>Adresse</b></td><td>{{ ens.adresse }}</td></tr>
-                <tr><td><b>Téléphone</b></td><td>{{ ens.tel }}</td></tr>
-                <tr><td><b>Email</b></td><td>{{ ens.email }}</td></tr>
-                <tr><td><b>RIB/PIP</b></td><td>{{ ens.rib }}</td></tr>
-                <tr><td><b>Login</b></td><td>{{ ens.login }}</td></tr>
-                <tr><td><a href="{{ path('modifierProfilEnseignant',{'id':ens.id,'username':ens.login }) }}"><button class="btn btn-primary">Modifier</button></a></td></tr>
+                <div class="site-content-title">
+                    <P class="float-xs-left content-title-main">Espace Admin</P>
+                </div>
+                <div class="col-md-12 profile-contain">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="content">
 
-                </tr>
-            {% else %}
-                <p>Aucune information n'a été trouvée.</p>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                                <table class="table">
+                                    <tbody>
+                                    {% for ens in enseignant %}
+                                        <tr>
+                                        <tr><td><b>Nom</b></td><td>{{ ens.nom }}</td></tr>
+                                        <tr><td><b>Prenom</b></td><td>{{ ens.prenom }}</td></tr>
+                                        <tr><td><b>Sexe</b></td><td>{{ ens.sexe }}</td></tr>
+                                        <tr><td><b>date de Naissance</b></td><td>{{ ens.dateNaissance|date('d-m-Y') }}</td></tr>
+                                        <tr><td><b>Lieux de Naissance</b></td><td>{{ ens.lieuxNaissance }}</td></tr>
+                                        <tr><td><b>Nationalité</b></td><td>{{ ens.nationalite }}</td></tr>
+                                        <tr><td><b>Ville</b></td><td>{{ ens.ville }}</td>
+                                        <tr><td><b>Numéro Cin/Pass</b></td><td>{{ ens.cin }}</td></tr>
+                                        <tr><td><b>Adresse</b></td><td>{{ ens.adresse }}</td></tr>
+                                        <tr><td><b>Téléphone</b></td><td>{{ ens.tel }}</td></tr>
+                                        <tr><td><b>Email</b></td><td>{{ ens.email }}</td></tr>
+                                        <tr><td><b>RIB/PIP</b></td><td>{{ ens.rib }}</td></tr>
+                                        <tr><td><b>Login</b></td><td>{{ ens.login }}</td></tr>
+                                        <tr><td><a href="{{ path('modifierProfilEnseignant',{'id':ens.id,'username':ens.login }) }}"><button class="btn btn-primary">Modifier</button></a></td></tr>
+                                    {% else %}
+                                        <p>Aucune information n'a été trouvée.</p>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
 {% endblock %}

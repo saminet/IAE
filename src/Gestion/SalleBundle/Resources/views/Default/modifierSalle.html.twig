@@ -27,13 +27,9 @@
 {% endblock %}
 
  {% block body %}
+     <div class="col-md-12 col-xs-12">
+         <div class="content">
      <h3>Ajouter une Salle / <a href="{{ path('list_Salles') }}">Liste des salles</a> </h3>
-     <div class="content content-product-edit datatable-width">
-         <div class="nav-tab-horizontal">
-             <div class="divider15"></div>
-             <div class="tab-content">
-                 <div>
-                     <div class="row">
                          {{ form_start(form,{'attr':{'action':path('modifier_Salle',{ 'id': salle.id })}}) }}
                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
                              <br>
@@ -62,7 +58,7 @@
                              {{ form_end(form) }}
                              <br><br>
                          </div>
-                     </div></div></div></div></div></div>
+                     </div></div>
  {% endblock %}
 
 
