@@ -2,78 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f93247d8-89e1-4ca9-a2ff-eac0d5f783f2" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/symfony2.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/new.html.twig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/refuser.html.twig" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/assets/global/image/profilIcon.png" afterPath="$PROJECT_DIR$/web/templates/assets/global/image/profilIcon.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/FOSUserBundle/views/Security/login_content.html.twig" afterPath="$PROJECT_DIR$/app/Resources/FOSUserBundle/views/Security/login_content.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/base.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/layoutAdmin.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/layoutAdmin.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Admin/AdminBundle/Controller/DefaultController.php" afterPath="$PROJECT_DIR$/src/Admin/AdminBundle/Controller/DefaultController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Admin/AdminBundle/Resources/views/Default/ajoutpersonnel.html.twig" afterPath="$PROJECT_DIR$/src/Admin/AdminBundle/Resources/views/Default/ajoutpersonnel.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Admin/AdminBundle/Resources/views/Default/modifierProfilMembre.html.twig" afterPath="$PROJECT_DIR$/src/Admin/AdminBundle/Resources/views/Default/modifierProfilMembre.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Admin/AdminBundle/Resources/views/Default/profilMembre.html.twig" afterPath="$PROJECT_DIR$/src/Admin/AdminBundle/Resources/views/Default/profilMembre.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/AbsenceBundle/Controller/GroupeController.php" afterPath="$PROJECT_DIR$/src/Gestion/AbsenceBundle/Controller/GroupeController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/AbsenceBundle/Resources/views/Classe/ajoutClasse.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/AbsenceBundle/Resources/views/Classe/ajoutClasse.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/AbsenceBundle/Resources/views/Classe/listClasses.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/AbsenceBundle/Resources/views/Classe/listClasses.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/AbsenceBundle/Resources/views/Classe/modifierClasse.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/AbsenceBundle/Resources/views/Classe/modifierClasse.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/AbsenceBundle/Resources/views/Groupe/ajoutGroupe.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/AbsenceBundle/Resources/views/Groupe/ajoutGroupe.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/AbsenceBundle/Resources/views/Groupe/listGroupe.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/AbsenceBundle/Resources/views/Groupe/listGroupe.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/AbsenceBundle/Resources/views/Groupe/modifierGroupe.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/AbsenceBundle/Resources/views/Groupe/modifierGroupe.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/EnseignantBundle/Resources/views/Default/ajouterEnseignant.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/EnseignantBundle/Resources/views/Default/ajouterEnseignant.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/EnseignantBundle/Resources/views/Default/infosEnseignant.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/EnseignantBundle/Resources/views/Default/infosEnseignant.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/EnseignantBundle/Resources/views/Default/listeEns.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/EnseignantBundle/Resources/views/Default/listeEns.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/EnseignantBundle/Controller/DefaultController.php" afterPath="$PROJECT_DIR$/src/Gestion/EnseignantBundle/Controller/DefaultController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/EnseignantBundle/Resources/views/Default/modifierEnseignant.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/EnseignantBundle/Resources/views/Default/modifierEnseignant.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/EnseignantBundle/Resources/views/Default/modifierProfilEnseignant.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/EnseignantBundle/Resources/views/Default/modifierProfilEnseignant.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/EnseignantBundle/Resources/views/Default/profilEnseignant.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/EnseignantBundle/Resources/views/Default/profilEnseignant.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/EntrepriseBundle/Controller/DefaultController.php" afterPath="$PROJECT_DIR$/src/Gestion/EntrepriseBundle/Controller/DefaultController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/EntrepriseBundle/Resources/views/Default/ajouterEntrep.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/EntrepriseBundle/Resources/views/Default/ajouterEntrep.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/EntrepriseBundle/Resources/views/Default/listEntrep.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/EntrepriseBundle/Resources/views/Default/listEntrep.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/EntrepriseBundle/Resources/views/Default/modifierEntrep.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/EntrepriseBundle/Resources/views/Default/modifierEntrep.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/FiliereBundle/Resources/views/Default/ajouterFiliere.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/FiliereBundle/Resources/views/Default/ajouterFiliere.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/FiliereBundle/Resources/views/Default/listeFiliere.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/FiliereBundle/Resources/views/Default/listeFiliere.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/MatiereBundle/Resources/views/Default/ajoutMatiere.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/MatiereBundle/Resources/views/Default/ajoutMatiere.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/MatiereBundle/Resources/views/Default/listMatiere.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/MatiereBundle/Resources/views/Default/listMatiere.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/MatiereBundle/Resources/views/Default/modifierMatiere.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/MatiereBundle/Resources/views/Default/modifierMatiere.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/NiveauBundle/Controller/DefaultController.php" afterPath="$PROJECT_DIR$/src/Gestion/NiveauBundle/Controller/DefaultController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/NiveauBundle/Form/NiveauType.php" afterPath="$PROJECT_DIR$/src/Gestion/NiveauBundle/Form/NiveauType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/NiveauBundle/Resources/views/Default/ajouterNiveau.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/NiveauBundle/Resources/views/Default/ajouterNiveau.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/NiveauBundle/Resources/views/Default/listeNiveaux.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/NiveauBundle/Resources/views/Default/listeNiveaux.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/NiveauBundle/Resources/views/Default/modifierNiveau.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/NiveauBundle/Resources/views/Default/modifierNiveau.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/NoteBundle/Resources/views/Default/ajouterNote.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/NoteBundle/Resources/views/Default/ajouterNote.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/NoteBundle/Resources/views/Default/listeNote.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/NoteBundle/Resources/views/Default/listeNote.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/NoteBundle/Resources/views/Default/modifierNote.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/NoteBundle/Resources/views/Default/modifierNote.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/NoteBundle/Resources/views/Default/resultSearch.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/NoteBundle/Resources/views/Default/resultSearch.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Controller/DefaultController.php" afterPath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Controller/DefaultController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Entity/Preinscrit.php" afterPath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Entity/Preinscrit.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Form/ContactType.php" afterPath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Form/ContactType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/accepterPreinscrit.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/accepterPreinscrit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/ajouterEtudiant.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/ajouterEtudiant.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/ajouterParent.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/ajouterParent.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/contact.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/contact.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/infosEtudiant.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/infosEtudiant.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/infosParents.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/infosParents.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/infosPreEtudiant.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/infosPreEtudiant.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/listEtd.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/listEtd.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/listParents.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/listParents.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/listePre.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/listePre.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierEtudiant.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierEtudiant.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierParent.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierParent.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierProfilEtudiant.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierProfilEtudiant.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierProfilParent.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierProfilParent.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/profilEtudiant.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/profilEtudiant.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/profilParent.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/profilParent.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/refuserPreinscrit.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/refuserPreinscrit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/reponse.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/reponse.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/valider_preinscrit.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/valider_preinscrit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/SalleBundle/Resources/views/Default/ajouterSalle.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/SalleBundle/Resources/views/Default/ajouterSalle.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/SalleBundle/Resources/views/Default/listeSalles.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/SalleBundle/Resources/views/Default/listeSalles.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/SalleBundle/Resources/views/Default/modifierSalle.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/SalleBundle/Resources/views/Default/modifierSalle.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/UEBundle/Resources/views/Default/ajouter.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/UEBundle/Resources/views/Default/ajouter.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/UEBundle/Resources/views/Default/listeUE.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/UEBundle/Resources/views/Default/listeUE.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gestion/UEBundle/Resources/views/Default/modifierUE.html.twig" afterPath="$PROJECT_DIR$/src/Gestion/UEBundle/Resources/views/Default/modifierUE.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/User/UserBundle/Resources/views/Default/admin.html.twig" afterPath="$PROJECT_DIR$/src/User/UserBundle/Resources/views/Default/admin.html.twig" />
     </list>
     <ignored path="ERP.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -517,7 +456,7 @@
     </favorites_list>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -561,12 +500,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Gestion/AbsenceBundle/Resources/views/Groupe/ajoutGroupe.html.twig" />
-        <option value="$PROJECT_DIR$/src/Gestion/AbsenceBundle/Resources/views/Groupe/listGroupe.html.twig" />
-        <option value="$PROJECT_DIR$/src/Gestion/AbsenceBundle/Resources/views/Groupe/modifierGroupe.html.twig" />
-        <option value="$PROJECT_DIR$/src/Gestion/EntrepriseBundle/Resources/views/Default/ajouterEntrep.html.twig" />
-        <option value="$PROJECT_DIR$/src/Gestion/EntrepriseBundle/Resources/views/Default/listEntrep.html.twig" />
-        <option value="$PROJECT_DIR$/src/Gestion/EntrepriseBundle/Resources/views/Default/modifierEntrep.html.twig" />
         <option value="$PROJECT_DIR$/src/Gestion/FiliereBundle/Resources/views/Default/ajouterFiliere.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/layoutAdmin.html.twig" />
         <option value="$PROJECT_DIR$/src/Gestion/FiliereBundle/Resources/views/Default/listeFiliere.html.twig" />
@@ -582,7 +515,6 @@
         <option value="$PROJECT_DIR$/src/Gestion/MatiereBundle/Resources/views/Default/listMatiere.html.twig" />
         <option value="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/accepterPreinscrit.html.twig" />
         <option value="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Entity/Preinscrit.php" />
-        <option value="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Controller/DefaultController.php" />
         <option value="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/valider_preinscrit.html.twig" />
         <option value="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/ajouterParent.html.twig" />
         <option value="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/ajouterEtudiant.html.twig" />
@@ -592,10 +524,6 @@
         <option value="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/listePre.html.twig" />
         <option value="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/listEtd.html.twig" />
         <option value="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/listParents.html.twig" />
-        <option value="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierEtudiant.html.twig" />
-        <option value="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierParent.html.twig" />
-        <option value="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierProfilEtudiant.html.twig" />
-        <option value="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierProfilParent.html.twig" />
         <option value="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/infosParents.html.twig" />
         <option value="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/profilEtudiant.html.twig" />
         <option value="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/profilParent.html.twig" />
@@ -609,9 +537,20 @@
         <option value="$PROJECT_DIR$/src/Gestion/UEBundle/Resources/views/Default/modifierUE.html.twig" />
         <option value="$PROJECT_DIR$/src/Gestion/NoteBundle/Resources/views/Default/ajouterNote.html.twig" />
         <option value="$PROJECT_DIR$/src/Gestion/NiveauBundle/Form/NiveauType.php" />
-        <option value="$PROJECT_DIR$/src/Admin/AdminBundle/Controller/DefaultController.php" />
         <option value="$PROJECT_DIR$/src/Admin/AdminBundle/Resources/views/Default/profilAdmin.html.twig" />
         <option value="$PROJECT_DIR$/src/Admin/AdminBundle/Resources/views/Default/profileAdmin.html.twig" />
+        <option value="$PROJECT_DIR$/src/Admin/AdminBundle/Resources/views/Default/modifierProfilAdmin.html.twig" />
+        <option value="$PROJECT_DIR$/src/Admin/AdminBundle/Resources/views/Default/modifierPersonnel.html.twig" />
+        <option value="$PROJECT_DIR$/src/Admin/AdminBundle/Resources/views/Default/modifierProfilMembre.html.twig" />
+        <option value="$PROJECT_DIR$/src/Gestion/EnseignantBundle/Resources/views/Default/modifierEnseignant.html.twig" />
+        <option value="$PROJECT_DIR$/src/Admin/AdminBundle/Controller/DefaultController.php" />
+        <option value="$PROJECT_DIR$/src/Gestion/EnseignantBundle/Controller/DefaultController.php" />
+        <option value="$PROJECT_DIR$/src/Gestion/EnseignantBundle/Resources/views/Default/modifierProfilEnseignant.html.twig" />
+        <option value="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Controller/DefaultController.php" />
+        <option value="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierEtudiant.html.twig" />
+        <option value="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierParent.html.twig" />
+        <option value="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierProfilEtudiant.html.twig" />
+        <option value="$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierProfilParent.html.twig" />
       </list>
     </option>
   </component>
@@ -701,73 +640,7 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="User" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="IAE" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="IAE" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="Gestion" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="IAE" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="IAE" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Admin" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AdminBundle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="IAE" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="IAE" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Admin" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AdminBundle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Controller" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -950,7 +823,8 @@
       <workItem from="1496743953752" duration="8336000" />
       <workItem from="1496816105157" duration="13367000" />
       <workItem from="1496926438388" duration="22594000" />
-      <workItem from="1496986943066" duration="3544000" />
+      <workItem from="1496986943066" duration="9998000" />
+      <workItem from="1497077045803" duration="589000" />
     </task>
     <task id="LOCAL-00001" summary="Fixing matiers list with jquery">
       <created>1492414128624</created>
@@ -1106,11 +980,18 @@
       <option name="project" value="LOCAL" />
       <updated>1496659784754</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="edit Admin profile page">
+      <created>1497001596151</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1497001596151</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1160045000" />
+    <option name="totallyTimeSpent" value="1167088000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
@@ -1190,114 +1071,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Gestion/NiveauBundle/Resources/views/Default/listeNiveaux.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="38" column="6" selection-start-line="38" selection-start-column="6" selection-end-line="38" selection-end-column="6" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="true" />
-            <element signature="e#949#1596#0#Twig" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Gestion/UEBundle/Form/UEType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-26">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Gestion/NiveauBundle/Resources/views/Default/ajouterNiveau.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="31" column="35" selection-start-line="31" selection-start-column="35" selection-end-line="31" selection-end-column="35" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="true" />
-            <element signature="e#723#762#0#Twig" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Gestion/NoteBundle/Resources/views/Default/listeNote.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="547">
-          <caret line="301" column="25" selection-start-line="301" selection-start-column="25" selection-end-line="301" selection-end-column="25" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="true" />
-            <element signature="e#41#1216#0#Twig" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Gestion/NoteBundle/Resources/views/Default/modifierNote.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="70" column="34" selection-start-line="70" selection-start-column="34" selection-end-line="70" selection-end-column="34" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="true" />
-            <element signature="e#721#1686#0#Twig" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Gestion/NoteBundle/Resources/views/Default/resultSearch.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="394">
-          <caret line="64" column="30" selection-start-line="64" selection-start-column="30" selection-end-line="64" selection-end-column="30" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="true" />
-            <element signature="e#41#930#0#Twig" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/refuser.html.twig" />
-    <entry file="file://$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/new.html.twig" />
-    <entry file="file://$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/config/routing.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="17" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/accepterPreinscrit.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
-          <folding>
-            <element signature="e#268#285#0#Twig" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Entity/Preinscrit.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="142">
           <caret line="574" column="27" selection-start-line="574" selection-start-column="20" selection-end-line="574" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Controller/DefaultController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="165" column="40" selection-start-line="165" selection-start-column="40" selection-end-line="165" selection-end-column="40" />
-          <folding>
-            <element signature="e#3155#3195#1#PHP" expanded="true" />
-            <element signature="e#4533#4599#0#PHP" expanded="true" />
-            <element signature="e#4853#4893#1#PHP" expanded="true" />
-            <element signature="e#8284#8324#1#PHP" expanded="true" />
-            <element signature="e#9877#9942#0#PHP" expanded="true" />
-            <marker date="1496960569848" expanded="true" signature="17283:17297" placeholder="..." />
-            <marker date="1496960569848" expanded="true" signature="17324:17338" placeholder="..." />
-            <marker date="1496960569848" expanded="true" signature="17445:17459" placeholder="..." />
-            <marker date="1496960569848" expanded="true" signature="17486:17500" placeholder="..." />
-            <marker date="1496960569848" expanded="true" signature="18100:18114" placeholder="..." />
-            <marker date="1496960569848" expanded="true" signature="18139:18153" placeholder="..." />
-            <marker date="1496960569848" expanded="true" signature="18260:18274" placeholder="..." />
-            <marker date="1496960569848" expanded="true" signature="18299:18313" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1305,9 +1082,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="28" column="4" selection-start-line="28" selection-start-column="4" selection-end-line="31" selection-end-column="37" />
-          <folding>
-            <element signature="e#41#1036#0#Twig" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1315,10 +1089,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="398">
           <caret line="215" column="75" selection-start-line="215" selection-start-column="75" selection-end-line="215" selection-end-column="75" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="true" />
-            <element signature="e#723#4399#0#Twig" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1326,7 +1096,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="371">
           <caret line="40" column="28" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1341,9 +1110,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
           <caret line="30" column="16" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1351,10 +1117,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="386">
           <caret line="235" column="16" selection-start-line="235" selection-start-column="16" selection-end-line="235" selection-end-column="40" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="true" />
-            <element signature="e#723#4237#0#Twig" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1362,9 +1124,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="31" column="32" selection-start-line="31" selection-start-column="32" selection-end-line="31" selection-end-column="32" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1372,10 +1131,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="true" />
-            <element signature="e#41#1036#0#Twig" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1383,10 +1138,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="76" column="47" selection-start-line="76" selection-start-column="47" selection-end-line="76" selection-end-column="47" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="true" />
-            <element signature="e#41#1099#0#Twig" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1394,54 +1145,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="81" column="36" selection-start-line="81" selection-start-column="36" selection-end-line="81" selection-end-column="36" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="true" />
-            <element signature="e#41#810#0#Twig" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierEtudiant.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="256" column="27" selection-start-line="256" selection-start-column="27" selection-end-line="256" selection-end-column="27" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="true" />
-            <element signature="e#723#4768#0#Twig" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierParent.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="217" column="61" selection-start-line="217" selection-start-column="61" selection-end-line="217" selection-end-column="61" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="true" />
-            <element signature="e#723#4399#0#Twig" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierProfilEtudiant.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="219" column="36" selection-start-line="219" selection-start-column="36" selection-end-line="219" selection-end-column="36" />
-          <folding>
-            <element signature="e#12#38#0#Twig" expanded="true" />
-            <element signature="e#726#3583#0#Twig" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierProfilParent.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="184" column="45" selection-start-line="184" selection-start-column="45" selection-end-line="184" selection-end-column="45" />
-          <folding>
-            <element signature="e#12#36#0#Twig" expanded="true" />
-            <element signature="e#724#3534#0#Twig" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1449,10 +1152,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="371">
           <caret line="57" column="36" selection-start-line="57" selection-start-column="36" selection-end-line="57" selection-end-column="36" />
-          <folding>
-            <element signature="e#12#38#0#Twig" expanded="true" />
-            <element signature="e#44#933#0#Twig" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1460,10 +1159,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="52" column="36" selection-start-line="52" selection-start-column="36" selection-end-line="52" selection-end-column="36" />
-          <folding>
-            <element signature="e#12#36#0#Twig" expanded="true" />
-            <element signature="e#42#931#0#Twig" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1471,9 +1166,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="29" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
-          <folding>
-            <element signature="e#342#359#0#Twig" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1481,9 +1173,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="40" selection-start-line="9" selection-start-column="40" selection-end-line="9" selection-end-column="40" />
-          <folding>
-            <element signature="e#36#52#0#Twig" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1491,9 +1180,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="6" selection-end-column="25" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1501,10 +1187,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="true" />
-            <element signature="e#723#1397#0#Twig" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1512,10 +1194,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="99">
           <caret line="56" column="37" selection-start-line="56" selection-start-column="37" selection-end-line="56" selection-end-column="37" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="true" />
-            <element signature="e#41#916#0#Twig" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1523,10 +1201,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="298">
           <caret line="60" column="33" selection-start-line="60" selection-start-column="33" selection-end-line="60" selection-end-column="33" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="true" />
-            <element signature="e#723#1397#0#Twig" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1534,9 +1208,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="397">
           <caret line="40" column="10" selection-start-line="40" selection-start-column="10" selection-end-line="40" selection-end-column="10" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1551,10 +1222,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="409">
           <caret line="82" column="6" selection-start-line="82" selection-start-column="6" selection-end-line="82" selection-end-column="6" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="true" />
-            <element signature="e#41#1036#0#Twig" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1562,9 +1229,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="281">
           <caret line="45" column="33" selection-start-line="45" selection-start-column="33" selection-end-line="45" selection-end-column="33" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1572,9 +1236,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="7" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1582,9 +1243,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#12#33#0#Twig" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1627,10 +1285,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="47" column="7" selection-start-line="47" selection-start-column="7" selection-end-line="47" selection-end-column="7" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="false" />
-            <element signature="e#723#1913#0#Twig" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1638,7 +1292,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1646,46 +1299,133 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="109">
           <caret line="23" column="109" selection-start-line="23" selection-start-column="109" selection-end-line="23" selection-end-column="109" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Admin/AdminBundle/Resources/views/Default/profilAdmin.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="50" column="82" selection-start-line="49" selection-start-column="35" selection-end-line="50" selection-end-column="82" />
-          <folding>
-            <element signature="e#12#35#0#Twig" expanded="true" />
-            <element signature="e#41#930#0#Twig" expanded="false" />
-          </folding>
+        <state relative-caret-position="119">
+          <caret line="32" column="20" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Admin/AdminBundle/Resources/views/Default/profileAdmin.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="84" column="94" selection-start-line="84" selection-start-column="94" selection-end-line="84" selection-end-column="94" />
-          <folding>
-            <element signature="e#6877#6896#0#Twig" expanded="true" />
-          </folding>
+        <state relative-caret-position="241">
+          <caret line="72" column="104" selection-start-line="72" selection-start-column="104" selection-end-line="72" selection-end-column="104" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/phpstorm.jar!/resources/html5-schema/html5/core-scripting.rnc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="206" column="18" selection-start-line="206" selection-start-column="18" selection-end-line="206" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Admin/AdminBundle/Form/ProfilType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Admin/AdminBundle/Form/MembreType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-584">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Admin/AdminBundle/Resources/views/Default/modifierProfilAdmin.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="197" column="44" selection-start-line="197" selection-start-column="44" selection-end-line="197" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Admin/AdminBundle/Resources/views/Default/modifierPersonnel.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="111" column="68" selection-start-line="111" selection-start-column="68" selection-end-line="111" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Admin/AdminBundle/Resources/views/Default/modifierProfil.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Admin/AdminBundle/Resources/views/Default/modifierProfilMembre.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="212" column="112" selection-start-line="212" selection-start-column="112" selection-end-line="212" selection-end-column="112" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Admin/AdminBundle/Controller/DefaultController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="763" column="72" selection-start-line="763" selection-start-column="72" selection-end-line="763" selection-end-column="72" />
-          <folding>
-            <element signature="e#30582#30631#0#PHP" expanded="true" />
-            <marker date="1497000933256" expanded="true" signature="7635:7649" placeholder="..." />
-            <marker date="1497000933256" expanded="true" signature="7676:7690" placeholder="..." />
-            <marker date="1497000933256" expanded="true" signature="7797:7811" placeholder="..." />
-            <marker date="1497000933256" expanded="true" signature="7838:7852" placeholder="..." />
-            <marker date="1497000933256" expanded="true" signature="8452:8466" placeholder="..." />
-            <marker date="1497000933256" expanded="true" signature="8491:8505" placeholder="..." />
-            <marker date="1497000933256" expanded="true" signature="8612:8626" placeholder="..." />
-            <marker date="1497000933256" expanded="true" signature="8651:8665" placeholder="..." />
-          </folding>
+        <state relative-caret-position="-1068">
+          <caret line="161" column="17" selection-start-line="161" selection-start-column="17" selection-end-line="161" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Gestion/EnseignantBundle/Controller/DefaultController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-963">
+          <caret line="216" column="40" selection-start-line="216" selection-start-column="40" selection-end-line="216" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Gestion/EnseignantBundle/Resources/views/Default/modifierEnseignant.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1249">
+          <caret line="129" column="14" selection-start-line="129" selection-start-column="14" selection-end-line="129" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Gestion/EnseignantBundle/Resources/views/Default/modifierProfilEnseignant.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="197" column="79" selection-start-line="197" selection-start-column="79" selection-end-line="197" selection-end-column="79" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Controller/DefaultController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="775" column="47" selection-start-line="775" selection-start-column="47" selection-end-line="775" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierEtudiant.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="404">
+          <caret line="273" column="80" selection-start-line="273" selection-start-column="80" selection-end-line="273" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierParent.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="225" column="83" selection-start-line="225" selection-start-column="83" selection-end-line="225" selection-end-column="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierProfilEtudiant.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="223" column="80" selection-start-line="223" selection-start-column="80" selection-end-line="223" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Gestion/PreinscriptionBundle/Resources/views/Default/modifierProfilParent.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="192" column="83" selection-start-line="192" selection-start-column="83" selection-end-line="192" selection-end-column="83" />
         </state>
       </provider>
     </entry>

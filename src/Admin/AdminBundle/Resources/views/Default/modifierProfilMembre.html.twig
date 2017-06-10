@@ -116,6 +116,17 @@
         }
     </script>
 
+    <script>
+        function disableField() {
+            if( document.getElementById("yourBox").checked == true ) {
+                document.getElementById("admin_adminbundle_membre_password").disabled = true;
+            }
+            else{
+                document.getElementById("yourText").disabled = false;
+                document.getElementById("yourText").setAttribute("required","false");
+            }}
+    </script>
+
 
 {% endblock %}
 
@@ -194,9 +205,12 @@
                                      <label>Mot de passe</label>
                                      <div class="form-group">
                                          {{ form_widget(form.password, { 'attr': { 'onkeyup': 'same();'  } } ) }}
+                                         <input type="checkbox" id="yourBox" onClick="disableField();" />
+                                         <label>Garder le même mot de passe ?</label>
                                          <div class="control-group">
                                              <input type="hidden" name="dateNaisPers" value={{ personnel.dateNaissance|date('d-m-Y') }} >
                                              <input type="hidden" name="idPers" value={{ oldUser }} >
+                                             <input type="hidden" name="oldPwd" value={{ personnel.password }} >
                                              {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
                                          </div>
                                          {{ form_end(form) }}

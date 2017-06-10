@@ -108,6 +108,7 @@ class DefaultController extends Controller
         $usr = $this->getUser();
         $Old_user=$request->get('username');
         $Old_usr=$request->get('idPers');
+        $oldPwd=$request->get('oldPwd');
         $em = $this->container->get('doctrine')->getEntityManager();
         $personnel= $em->getRepository('AdminAdminBundle:Membre')->find($id);
         if (null === $personnel) {
@@ -153,6 +154,9 @@ class DefaultController extends Controller
             if (null === $dateNaisPerson) {
                 $date = new \DateTime($dateNaisPers);
                 $personnel->setDateNaissance($date);
+            }
+            if (null === $password) {
+                $personnel->setPassword($oldPwd);
             }
             $em->persist($personnel);
             $em->flush();
@@ -785,6 +789,7 @@ class DefaultController extends Controller
         $usr = $this->getUser();
         $Old_user=$request->get('username');
         $Old_usr=$request->get('idPers');
+        $oldPwd=$request->get('oldPwd');
         $em = $this->container->get('doctrine')->getEntityManager();
         $personnel= $em->getRepository('AdminAdminBundle:Membre')->find($id);
         if (null === $personnel) {
@@ -826,6 +831,9 @@ class DefaultController extends Controller
             if (null === $dateNaisPerson) {
                 $date = new \DateTime($dateNaisPers);
                 $personnel->setDateNaissance($date);
+            }
+            if (null === $password) {
+                $personnel->setPassword($oldPwd);
             }
             $em->persist($personnel);
             $em->flush();
@@ -841,6 +849,7 @@ class DefaultController extends Controller
         $usr = $this->getUser();
         $Old_user=$request->get('username');
         $Old_usr=$request->get('idPers');
+        $oldPwd=$request->get('oldPwd');
         $em = $this->container->get('doctrine')->getEntityManager();
         $personnel= $em->getRepository('AdminAdminBundle:Membre')->find($id);
         if (null === $personnel) {
@@ -882,6 +891,9 @@ class DefaultController extends Controller
             if (null === $dateNaisPerson) {
                 $date = new \DateTime($dateNaisPers);
                 $personnel->setDateNaissance($date);
+            }
+            if (null === $password) {
+                $personnel->setPassword($oldPwd);
             }
             $em->persist($personnel);
             $em->flush();

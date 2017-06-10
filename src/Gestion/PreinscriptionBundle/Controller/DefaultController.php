@@ -248,6 +248,7 @@ class DefaultController extends Controller
         $users = $this->getUser();
         $Old_user=$request->get('username');
         $Old_usr=$request->get('idEtud');
+        $oldPwd=$request->get('oldPwd');
         //var_dump($Old_user);die('Hello');
         $em = $this->container->get('doctrine')->getEntityManager();
         $parent= $em->getRepository('GestionPreinscriptionBundle:Parents')->find($id);
@@ -281,7 +282,10 @@ class DefaultController extends Controller
                 $date = new \DateTime($dateNaisPers);
                 $parent->setDateNaissance($date);
             }
-            // Inutile de persister ici, Doctrine connait déjà les donées
+            if (null === $password) {
+                $parent->setPassword($oldPwd);
+            }
+            $em->persist($parent);
             $em->flush();
             return $this->redirectToRoute('DashboardParent', array('user' => $users));
         }
@@ -390,6 +394,7 @@ class DefaultController extends Controller
         $usr = $this->getUser();
         $Old_user=$request->get('username');
         $Old_usr=$request->get('idEtud');
+        $oldPwd=$request->get('oldPwd');
         //var_dump($Old_user);die('Hello');
         $em = $this->container->get('doctrine')->getEntityManager();
         $etudiant= $em->getRepository('GestionPreinscriptionBundle:Etudiant')->find($id);
@@ -440,7 +445,11 @@ class DefaultController extends Controller
                 $etudiant->setDateNaissance($date);
                 $etudiant->setAnneeObtention($dateObt);
             }
-                $em->flush();
+            if (null === $password) {
+                $etudiant->setPassword($oldPwd);
+            }
+            $em->persist($etudiant);
+            $em->flush();
             return $this->redirectToRoute('listEtudiant', array('id' => $etudiant->getId(),'user' => $usr ));
         }
 
@@ -457,6 +466,7 @@ class DefaultController extends Controller
         $usr = $this->getUser();
         $Old_user=$request->get('username');
         $Old_usr=$request->get('idEtud');
+        $oldPwd=$request->get('oldPwd');
         //var_dump($Old_user);die('Hello');
         $em = $this->container->get('doctrine')->getEntityManager();
         $etudiant= $em->getRepository('GestionPreinscriptionBundle:Etudiant')->find($id);
@@ -496,7 +506,10 @@ class DefaultController extends Controller
                 $etudiant->setDateNaissance($date);
                 $etudiant->setAnneeObtention($dateObt);
             }
-            // Inutile de persister ici, Doctrine connait déjà notre annonce
+            if (null === $password) {
+                $etudiant->setPassword($oldPwd);
+            }
+            $em->persist($etudiant);
             $em->flush();
             return $this->redirectToRoute('DashboardEtudiant', array('user' => $usr));
         }
@@ -526,41 +539,6 @@ class DefaultController extends Controller
         $em->flush();
         $usrs = $this->getUser();
         return new RedirectResponse($this->container->get('router')->generate('listEtudiant',array('user' => $usrs)));
-    }
-
-    public function rechercherAction(Request $request)
-    {
-        if($request->isXmlHttpRequest())
-        {
-            $motcle = '';
-            $motcle = $request->get('motcle');
-
-            $em = $this->container->get('doctrine')->getEntityManager();
-
-            if($motcle != '')
-            {
-                $qb = $em->createQueryBuilder();
-
-                $qb->select('a')
-                    ->from('GestionPreinscriptionBundle:Etudiant', 'a')
-                    ->where("a.nom LIKE :motcle OR a.prenom LIKE :motcle")
-                    ->orderBy('a.nom', 'ASC')
-                    ->setParameter('motcle', '%'.$motcle.'%');
-
-                $query = $qb->getQuery();
-                $etudiants = $query->getResult();
-            }
-            else {
-                $etudiants = $em->getRepository('GestionPreinscriptionBundle:Etudiant')->findAll();
-            }
-            $usr = $this->getUser();
-            return $this->container->get('templating')->renderResponse('GestionPreinscriptionBundle:Default:listEtd.html.twig', array(
-                'etudiants' => $etudiants, 'user' => $usr
-            ));
-        }
-        else {
-            return $this->listEtudiantAction();
-        }
     }
 
 
@@ -730,6 +708,7 @@ class DefaultController extends Controller
         $usr = $this->getUser();
         $Old_user=$request->get('username');
         $Old_usr=$request->get('idEtud');
+        $oldPwd=$request->get('oldPwd');
         //var_dump($Old_user);die('Hello');
         $em = $this->container->get('doctrine')->getEntityManager();
         $parent= $em->getRepository('GestionPreinscriptionBundle:Parents')->find($id);
@@ -776,7 +755,11 @@ class DefaultController extends Controller
                 $date = new \DateTime($dateNaisPers);
                 $parent->setDateNaissance($date);
             }
-                $em->flush();
+            if (null === $password) {
+                $parent->setPassword($oldPwd);
+            }
+            $em->persist($parent);
+            $em->flush();
             return $this->redirectToRoute('listParent', array('id' => $parent->getId(), 'user' => $usr));
         }
 

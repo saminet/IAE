@@ -61,6 +61,7 @@ class DefaultController extends Controller
     {
         $Old_user=$request->get('username');
         $Old_usr=$request->get('idEns');
+        $oldPwd=$request->get('oldPwd');
 
         $em = $this->container->get('doctrine')->getEntityManager();
         $enseignant= $em->getRepository('GestionEnseignantBundle:Enseignant')->find($id);
@@ -95,6 +96,10 @@ class DefaultController extends Controller
                 $date = new \DateTime($dateNaisPers);
                 $enseignant->setDateNaissance($date);
             }
+            if (null === $password) {
+                $enseignant->setPassword($oldPwd);
+            }
+            $em->persist($enseignant);
             $em->flush();
 
             return $this->redirectToRoute('DashboardEnseignant', array('id' => $enseignant->getId()));
@@ -209,6 +214,7 @@ class DefaultController extends Controller
         $usrs = $this->getUser();
         $Old_user=$request->get('username');
         $Old_usr=$request->get('idEns');
+        $oldPwd=$request->get('oldPwd');
 
         $em = $this->container->get('doctrine')->getEntityManager();
         $enseignant= $em->getRepository('GestionEnseignantBundle:Enseignant')->find($id);
@@ -252,6 +258,9 @@ class DefaultController extends Controller
                 if (null === $dateNaisPerson) {
                     $date = new \DateTime($dateNaisPers);
                     $enseignant->setDateNaissance($date);
+                }
+                if (null === $password) {
+                    $enseignant->setPassword($oldPwd);
                 }
                 $em->persist($enseignant);
                 $em->flush();
