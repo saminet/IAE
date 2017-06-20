@@ -1,5 +1,5 @@
 gestion_filiere_homepage:
-    path:     /
+    path:     /gestion_filiere_homepage
     defaults: { _controller: GestionFiliereBundle:Default:index }
 
 liste_filieres:

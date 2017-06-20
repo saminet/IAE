@@ -1,5 +1,5 @@
 admin_admin_homepage:
-    path:     /
+    path:     /admin_homepage
     defaults: { _controller: AdminAdminBundle:Default:index }
 
 GestionProfilAdmin:

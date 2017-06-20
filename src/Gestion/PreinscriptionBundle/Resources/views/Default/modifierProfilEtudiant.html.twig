@@ -112,11 +112,13 @@
     <script>
         function disableField() {
             if( document.getElementById("yourBox").checked == true ) {
-                document.getElementById("etudiant_password").disabled = true;
+                //document.getElementById("gestion_enseignantbundle_enseignant_password").disabled = true;
+                document.getElementById( "etudiant_password" ).value=document.getElementById( "oldPwd" ).value;
             }
             else{
-                document.getElementById("yourText").disabled = false;
-                document.getElementById("yourText").setAttribute("required","false");
+                document.getElementById("etudiant_password").disabled = false;
+                document.getElementById( "etudiant_password" ).value="";
+                document.getElementById("etudiant_password").setAttribute("required","true");
             }}
     </script>
 
@@ -214,14 +216,14 @@
                         <div class="form-group">
                             {{ form_widget(form.password) }}
                             <input type="checkbox" id="yourBox" onClick="disableField();" />
-                            <label>Garder le même mot de passe ?</label>
+                            <label for="yourBox">Garder le même mot de passe ?</label>
                         </div>
                         <br>
                         <div class="control-group">
                             <input type="hidden" name="dateNaisEtud" value={{ etudiant.dateNaissance|date('d-m-Y') }} >
                             <input type="hidden" name="dateObtDip" value={{ etudiant.anneeObtention|date('d-m-Y') }} >
                             <input type="hidden" name="idEtud" value={{ oldUser }} >
-                            <input type="hidden" name="oldPwd" value={{ etudiant.password }} >
+                            <input type="hidden" id="oldPwd" name="oldPwd" value={{ etudiant.password }} >
                             {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
                         </div>
                         {{ form_end(form) }}

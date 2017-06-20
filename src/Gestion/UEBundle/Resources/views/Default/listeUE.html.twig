@@ -26,59 +26,57 @@
 {% endblock %}
 
 {% block body %}
-<div class="col-md-12 col-xs-12">
-    <div class="content">
-    <h2>Liste des Unités d'enseignament</h2>
-    <div id="no-more-tables">
-        <table class="table-vertical" id="example">
-        <thead>
-        <tr>
-            <th>Intitulé</th>
-            <th>Coefficient</th>
-            <th>Credit d'unité</th>
-            <th>Niveau</th>
-            <th>Filiere</th>
-            <th>Matiere</th>
-            <th><a href="{{path('AjoutUnites')}}">+Nouvelle UE</a></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for ue in unites %}
-            <tr>
-                <td data-title="Intitulé">{{ ue.intitule }}</td>
-                <td data-title="Coefficient">{{ ue.coeffUnite }}</td>
-                <td data-title="Credit">{{ ue.creditUnite }}</td>
-                <td data-title="Niveau">{{ ue.niveau }}</td>
-                <td data-title="Filière">{{ ue.filiere }}</td>
-                <td data-title="Matières">{% for matiere in ue.matieres %}- {{matiere.nomMatiere}}<br>{% endfor %}</td>
-                <td data-title="Action">
-                    <div class="btn-toolbar" role="toolbar">
+    <div class="col-md-12 col-xs-12">
+        <div class="content">
+            <h2>Liste des Unités d'enseignament</h2>
+            <div id="no-more-tables">
+                <table class="table-vertical" id="example">
+                    <thead>
+                    <tr>
+                        <th>Intitulé</th>
+                        <th>Classe</th>
+                        <th>Coefficient</th>
+                        <th>Credit d'unité</th>
+                        <th>Matiere</th>
+                        <th><a href="{{path('AjoutUnites')}}">+Nouvelle UE</a></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for ue in unites %}
+                        <tr>
+                            <td data-title="Intitulé">{{ ue.intitule }}</td>
+                            <td data-title="Niveau">{{ ue.classe }}</td>
+                            <td data-title="Coefficient">{{ ue.coeffUnite }}</td>
+                            <td data-title="Credit">{{ ue.creditUnite }}</td>
+                            <td data-title="Matières">{% for matiere in ue.matieres %}- {{matiere.nomMatiere}}<br>{% endfor %}</td>
+                            <td data-title="Action">
+                                <div class="btn-toolbar" role="toolbar">
 
-                        <div class="btn-group">
+                                    <div class="btn-group">
 
-                            <a href="{{path('modifierUE',{'id':ue.id})}}">
-                                <button type="button" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </button>
-                            </a>
+                                        <a href="{{path('modifierUE',{'id':ue.id})}}">
+                                            <button type="button" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                            </button>
+                                        </a>
 
-                            <a href="{{ path('supprimerUE', { 'id' : ue.id }) }}">
-                                <button type="button" class="btn btn-default" onclick="if(window.confirm('Voulez-vous vraiment supprimer ?'))
+                                        <a href="{{ path('supprimerUE', { 'id' : ue.id }) }}">
+                                            <button type="button" class="btn btn-default" onclick="if(window.confirm('Voulez-vous vraiment supprimer ?'))
                                 {return true;}else{return false;}">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </button></a>
-                        </div>
-                    </div>
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button></a>
+                                    </div>
+                                </div>
 
 
-                </td>
-            </tr>
-        {% else %}
-            <p>Aucune Unité n'a été trouvée.</p>
-        {% endfor %}
-        </tbody>
-    </table>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <p>Aucune Unité n'a été trouvée.</p>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    </div>
-</div>
 {% endblock %}

@@ -43,55 +43,17 @@ class UE
      */
     private $creditUnite;
 
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="niveau", type="string", length=255)
-     */
-    private $Niveau;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="filiere", type="string", length=255)
-     */
-    private $filiere;
-
-
-
     /**
      * @ORM\ManyToMany(targetEntity="Gestion\MatiereBundle\Entity\Matiere", cascade={"persist"})
+     * @ORM\JoinTable(name="ue_matiere")
      */
     private $matieres;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Gestion\AbsenceBundle\Entity\Classe", cascade={"persist"})
+     */
+    private $classe;
 
-    public function __construct()
-    {
-        $this->matieres = new ArrayCollection();
-    }
-
-    public function addMatiere(Matiere $matiere)
-    {
-        $this->matieres[] = $matiere;
-
-        return $this;
-    }
-
-    public function removeMatiere(Matiere $matiere)
-    {
-        $this->matieres->removeElement($matiere);
-    }
-
-    public function getMatieres()
-    {
-        return $this->matieres;
-    }
-    
-    
-    
-    
-    
     /**
      * Get id
      *
@@ -175,50 +137,73 @@ class UE
     }
 
     /**
-     * Set niveau
+     * Set classe
      *
-     * @param string $niveau
+     * @param \Gestion\AbsenceBundle\Entity\Classe $classe
      *
      * @return UE
      */
-    public function setNiveau($niveau)
+    public function setClasse(\Gestion\AbsenceBundle\Entity\Classe $classe = null)
     {
-        $this->Niveau = $niveau;
+        $this->classe = $classe;
 
         return $this;
     }
 
     /**
-     * Get niveau
+     * Get classe
      *
-     * @return string
+     * @return \Gestion\AbsenceBundle\Entity\Classe
      */
-    public function getNiveau()
+    public function getClasse()
     {
-        return $this->Niveau;
+        return $this->classe;
+    }
+
+    public function __construct()
+    {
+        $this->classe = new ArrayCollection();
+        $this->matieres = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Set filiere
+     * Add matiere
      *
-     * @param string $filiere
+     * @param \Gestion\MatiereBundle\Entity\Matiere $matiere
      *
      * @return UE
      */
-    public function setFiliere($filiere)
+    public function addMatiere(\Gestion\MatiereBundle\Entity\Matiere $matiere)
     {
-        $this->filiere = $filiere;
+        $this->matieres[] = $matiere;
 
         return $this;
     }
 
     /**
-     * Get filiere
+     * Remove matiere
      *
-     * @return string
+     * @param \Gestion\MatiereBundle\Entity\Matiere $matiere
      */
-    public function getFiliere()
+    public function removeMatiere(\Gestion\MatiereBundle\Entity\Matiere $matiere)
     {
-        return $this->filiere;
+        $this->matieres->removeElement($matiere);
     }
+
+    /**
+     * Get matieres
+     */
+    public function getMatieres()
+    {
+        return $this->matieres;
+    }
+
+    public function setMatieres($matieres)
+    {
+        $this->matieres = $matieres;
+
+        return $this;
+    }
+
+
 }

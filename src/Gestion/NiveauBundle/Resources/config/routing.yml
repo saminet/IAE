@@ -1,5 +1,5 @@
 gestion_niveau_homepage:
-    path:     /
+    path:     /gestion_niveau_homepage
     defaults: { _controller: GestionNiveauBundle:Default:index }
 
 Liste_Niveau:

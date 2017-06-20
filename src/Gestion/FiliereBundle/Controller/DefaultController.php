@@ -17,18 +17,19 @@ class DefaultController extends Controller
 
     public function listFilieresAction()
     {
-        $usr = $this->getUser();
+        $user = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         $filiere = $em->getRepository('GestionFiliereBundle:Filiere')->findAll();
 
         return $this->container->get('templating')->renderResponse('GestionFiliereBundle:Default:listeFiliere.html.twig',array(
-                'filiere' => $filiere,'user' => $usr)
+                'filiere' => $filiere,'user' => $user)
         );
     }
 
 
     public function ajouterFiliereAction(Request $request)
     {
+        $user = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         //on crée un nouveau etudiant
         $filiere = new Filiere();
@@ -44,18 +45,18 @@ class DefaultController extends Controller
             if($form->isValid()){
                 $em->persist($filiere);
                 $em->flush();
-                $usr = $this->getUser();
-                return $this->redirect($this->generateUrl('liste_filieres',array('user' => $usr)));
+                return $this->redirect($this->generateUrl('liste_filieres',array('user' => $user)));
             }
         }
         //on rend la vue
         return $this->render('GestionFiliereBundle:Default:ajouterFiliere.html.twig',array(
-            'form' => $formView) );
+            'form' => $formView, 'user' => $user ));
     }
 
 
     public function modifierFilieresAction($id, Request $request)
     {
+        $user = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         $filiere= $em->getRepository('GestionFiliereBundle:Filiere')->find($id);
         if (null === $filiere) {
@@ -69,17 +70,18 @@ class DefaultController extends Controller
             // Inutile de persister ici, Doctrine connait déjà notre filière
             $em->flush();
             $usr = $this->getUser();
-            return $this->redirectToRoute('liste_filieres', array('id' => $filiere->getId(), 'user' => $usr));
+            return $this->redirectToRoute('liste_filieres', array('id' => $filiere->getId(), 'user' => $user));
         }
 
         return $this->render('GestionFiliereBundle:Default:modifierFilieres.html.twig', array(
             'filiere' => $filiere,
-            'form'   => $formView,
+            'form'   => $formView, 'user' => $user
         ));
     }
 
     public function supprimerFilieresAction($id)
     {
+        $user = $this->getUser();
         $em = $this->container->get('doctrine')->getEntityManager();
         $filiere= $this->getDoctrine()->getRepository('GestionFiliereBundle:Filiere')->find($id);
         if (!$filiere)
@@ -88,8 +90,7 @@ class DefaultController extends Controller
         }
         $em->remove($filiere);
         $em->flush();
-        $usr = $this->getUser();
-        return new RedirectResponse($this->container->get('router')->generate('liste_filieres',array('user' => $usr)));
+        return new RedirectResponse($this->container->get('router')->generate('liste_filieres',array('user' => $user)));
     }
 
 }

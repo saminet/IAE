@@ -117,21 +117,6 @@
         }
     </script>
 
-    <script>
-        function pwdFocus() {
-            $('#fakepassword').hide();
-            $('#passwords').show();
-            $('#passwords').focus();
-        }
-
-        function pwdBlur() {
-            if ($('#passwords').attr('value') == '') {
-                $('#passwords').hide();
-                $('#fakepassword').show();
-            }
-        }
-    </script>
-
     <script type="text/javascript">
         function validateForm()
         {
@@ -149,28 +134,24 @@
     <script>
         function disableField() {
             if( document.getElementById("yourBox").checked == true ) {
-                document.getElementById("etudiant_password").disabled = true;
+                //document.getElementById("gestion_enseignantbundle_enseignant_password").disabled = true;
+                document.getElementById( "etudiant_password" ).value=document.getElementById( "oldPwd" ).value;
             }
             else{
-                document.getElementById("yourText").disabled = false;
-                document.getElementById("yourText").setAttribute("required","false");
+                document.getElementById("etudiant_password").disabled = false;
+                document.getElementById( "etudiant_password" ).value="";
+                document.getElementById("etudiant_password").setAttribute("required","true");
             }}
     </script>
 
 {% endblock %}
 
  {% block body %}
-<div class="col-md-12 profile-contain">
-    <div class="row">
-        <div class="col-md-12 col-xs-12">
-            <div class="content">
-<h3>Mise à jours des donnée de l'étudiant :</h3>  <b>{{ etudiant.nom }} {{ etudiant.prenom }}</b>
-<div class="content content-product-edit datatable-width">
-    <div class="nav-tab-horizontal">
-        <div class="divider15"></div>
-        <div class="tab-content">
-            <div>
-                <div class="row">
+     <div class="col-md-12 profile-contain">
+         <div class="row">
+             <div class="col-md-12 col-xs-12">
+                 <div class="content">
+                     <h3>Mise à jours des donnée de l'étudiant :</h3>  <b>{{ etudiant.nom }} {{ etudiant.prenom }}</b>
                     {{ form_start(form, {'action': path('modifier_Etudiant',{'id': etudiant.id, 'name':'etudiant'}),'attr': {'class': 'smart-form userform', 'onsubmit':'return validatesForm();'} } ) }}
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
                         <label for="etudiant_nom">Nom</label>
@@ -259,7 +240,7 @@
                         <div class="form-group">
                             {{ form_widget(form.password) }}
                             <input type="checkbox" id="yourBox" onClick="disableField();" />
-                            <label>Garder le même mot de passe ?</label>
+                            <label for="yourBox">Garder le même mot de passe ?</label>
                         </div>
 
                         <label>Etat</label>
@@ -271,13 +252,12 @@
                             <input type="hidden" name="dateNaisEtud" value={{ etudiant.dateNaissance|date('d-m-Y') }} >
                             <input type="hidden" name="dateObtDip" value={{ etudiant.anneeObtention|date('d-m-Y') }} >
                             <input type="hidden" name="idEtud" value={{ oldUser }} >
-                            <input type="hidden" name="oldPwd" value={{ etudiant.password }} >
+                            <input type="hidden" id="oldPwd" name="oldPwd" value={{ etudiant.password }} >
                             {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
                         </div>
 
                         {{ form_end(form) }}
-                    </div></div></div></div></div></div></div></div></div></div>
-
+                    </div></div></div></div></div>
                         <script type="text/javascript">
                             <!-- filtrer la liste des groupe selon la classe séléctionnée -->
                             (function ($) {

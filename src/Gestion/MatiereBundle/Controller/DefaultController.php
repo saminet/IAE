@@ -5,6 +5,8 @@ namespace Gestion\MatiereBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Gestion\MatiereBundle\Entity\Matiere;
+use Gestion\MatiereBundle\Form\MatiereType;
+use Gestion\AbsenceBundle\Entity\Classe;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 class DefaultController extends Controller
 {
@@ -26,69 +28,51 @@ class DefaultController extends Controller
             'user' => $user,'matieres'=>$matiere));
     }
 
-    public function ajoutMatiereAction(Request $request)
-    {
-        $classes= $this->getDoctrine()->getEntityManager()->getRepository('GestionAbsenceBundle:Classe')->findAll();
-        $user = $this->getUser();
-        return $this->render('GestionMatiereBundle:Default:ajoutMatiere.html.twig', array(
-            'user' => $user, 'classe'=>$classes ));
-    }
 
-    public function validerAjoutMatiereAction(Request $request)
+    public function AjoutMatiereAction(Request $request)
     {
-        $nomMatiere=$request->get('nomMatiere');
-        $coefficient=$request->get('coefficient');
-        $credit=$request->get('credit');
-        $classe=$request->get('classe');
-        //sauvegarde dans la base des donnée,table profil
+        $user = $this->getUser();
+        $em = $this->container->get('doctrine')->getEntityManager();
+        //on crée un nouveau matière
         $matiere = new Matiere();
-        $matiere->setNomMatiere($nomMatiere);
-        $matiere->setCoefficient($coefficient);
-        $matiere->setCredit($credit);
-        $matiere->setClasse($classe);
+        //on recupere le formulaire
+        $form = $this->createForm(MatiereType::class,$matiere);
 
-        //sauvegarde des idprofil dans chaque ligne de boucle dans acces
-        $em = $this->getDoctrine()->getManager();
-        // tells Doctrine you want to (eventually) save the Product (no queries yet)
-        $em->persist($matiere);
-        // actually executes the queries (i.e. the INSERT query)
-        $em->flush();
-
-        $matiere= $this->getDoctrine()->getEntityManager()->getRepository('GestionMatiereBundle:Matiere')->findAll();
-        $usr = $this->getUser();
-        return new RedirectResponse($this->container->get('router')->generate('listMatiere',array('user' => $usr)));
+        //on génère le html du formulaire crée
+        $formView = $form->createView();
+        // Refill the fields in case the form is not valid.
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $em->persist($matiere);
+            $em->flush();
+            return new RedirectResponse($this->container->get('router')->generate('listMatiere',array('user' => $user)));
+        }
+        //on rend la vue
+        return $this->render('GestionMatiereBundle:Default:ajoutMatiere.html.twig', array('user' => $user, 'form' => $formView ));
     }
 
-    public function modifierMatiereAction($id)
+    public function modifierMatiereAction($id, Request $request)
     {
-        $classes= $this->getDoctrine()->getEntityManager()->getRepository('GestionAbsenceBundle:Classe')->findAll();
-        $matiere= $this->getDoctrine()->getRepository('GestionMatiereBundle:Matiere')->find($id);
+
         $user = $this->getUser();
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $matiere= $em->getRepository('GestionMatiereBundle:Matiere')->find($id);
+        if (null === $matiere) {
+            throw new NotFoundHttpException("La matière d'id ".$id." n'existe pas.");
+        }
+        //on recupere le formulaire
+        $form = $this->createForm(MatiereType::class, $matiere);
+        //on génère le html du formulaire crée
+        $formView = $form->createView();
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            // Inutile de persister ici, Doctrine connait déjà notre Matiere
+            $em->flush();
+            return new RedirectResponse($this->container->get('router')->generate('listMatiere',array('user' => $user)));
+        }
+
         return $this->render('GestionMatiereBundle:Default:modifierMatiere.html.twig', array(
-            'user' => $user,'matieres'=>$matiere, 'classe'=>$classes ));
+            'user' => $user,'matiere'=>$matiere, 'form' => $formView ));
 
-    }
-
-    public function ValiderModificationAction(Request $request)
-    {
-        $matiereID=$request->get('idMatiere');
-        $NomMatiere=$request->get('nomMatiere');
-        $Coefficient=$request->get('coefficient');
-        $Credit=$request->get('credit');
-        $classe=$request->get('classe');
-
-        $em = $this->getDoctrine()->getManager();
-        $matiere = $em->getRepository('GestionMatiereBundle:Matiere')->find($matiereID);
-        $matiere->setNomMatiere($NomMatiere);
-        $matiere->setCoefficient($Coefficient);
-        $matiere->setCredit($Credit);
-        $matiere->setClasse($classe);
-        $em->flush();
-
-        $matieree= $this->getDoctrine()->getEntityManager()->getRepository('GestionMatiereBundle:Matiere')->findAll();
-        $classes= $this->getDoctrine()->getEntityManager()->getRepository('GestionAbsenceBundle:Classe')->findAll();
-        $user = $this->getUser();
-        return new RedirectResponse($this->container->get('router')->generate('listMatiere',array('user' => $user)));
     }
 
     public function deleteMatiereAction($id)

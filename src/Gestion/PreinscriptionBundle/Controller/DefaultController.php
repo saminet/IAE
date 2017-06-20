@@ -24,6 +24,53 @@ class DefaultController extends Controller
         return $this->render('GestionPreinscriptionBundle:Default:index.html.twig');
     }
 
+    public function importerPreinscritAction(Request $request)
+    {
+        $usr = $this->getUser();
+        if (isset($_POST['submit'])) {
+
+            $file=$_FILES['file']['tmp_name'];
+
+            $handle = fopen($file, "r");
+            while(($fileop = fgetcsv($handle,1000, ";")) !== false){
+                $em = $this->getDoctrine()->getManager();
+
+                $preinscrit1 = new Preinscrit();
+                $preinscrit1->setNom($fileop[1]);
+                $preinscrit1->setPrenom($fileop[2]);
+                $preinscrit1->setDateNaissance(new \DateTime($fileop[3]));
+                $preinscrit1->setLieuNaissance($fileop[4]);
+                $preinscrit1->setNationalite($fileop[5]);
+                $preinscrit1->setVille($fileop[6]);
+                $preinscrit1->setNumCinPass($fileop[7]);
+                $preinscrit1->setSexe($fileop[8]);
+                $preinscrit1->setAdresse($fileop[9]);
+                $preinscrit1->setTel($fileop[10]);
+                $preinscrit1->setEmail($fileop[11]);
+                $preinscrit1->setDiplome($fileop[12]);
+                $preinscrit1->setEtablissement($fileop[13]);
+                $preinscrit1->setAnneeObtention(new \DateTime($fileop[14]));
+                $preinscrit1->setMessage($fileop[15]);
+                $preinscrit1->setNiveau($fileop[16]);
+                $preinscrit1->setFormation($fileop[17]);
+                $preinscrit1->setEtat($fileop[18]);
+                $em->persist($preinscrit1);
+                $verif = $em->getRepository('GestionPreinscriptionBundle:Preinscrit')->findOneBy(array('numCinPass' => $fileop[0]));
+                if($verif){
+                    echo 'personne déjà existante';
+                }else{
+
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($preinscrit1);
+                    $em->flush();
+                }
+            }
+            $request->getSession()->getFlashBag()->add('success', 'Liste enregistrée.');
+            return $this->redirect($this->generateUrl('Liste_preinscrits', array('id' => $preinscrit1->getId())));
+        }
+        return $this->render('GestionPreinscriptionBundle:Default:listePre.html.twig', array('user' => $usr));
+    }
+
 
     public function newAction() {
         $em = $this->container->get('doctrine')->getEntityManager();
@@ -282,10 +329,6 @@ class DefaultController extends Controller
                 $date = new \DateTime($dateNaisPers);
                 $parent->setDateNaissance($date);
             }
-            if (null === $password) {
-                $parent->setPassword($oldPwd);
-            }
-            $em->persist($parent);
             $em->flush();
             return $this->redirectToRoute('DashboardParent', array('user' => $users));
         }
@@ -445,10 +488,6 @@ class DefaultController extends Controller
                 $etudiant->setDateNaissance($date);
                 $etudiant->setAnneeObtention($dateObt);
             }
-            if (null === $password) {
-                $etudiant->setPassword($oldPwd);
-            }
-            $em->persist($etudiant);
             $em->flush();
             return $this->redirectToRoute('listEtudiant', array('id' => $etudiant->getId(),'user' => $usr ));
         }
@@ -506,10 +545,6 @@ class DefaultController extends Controller
                 $etudiant->setDateNaissance($date);
                 $etudiant->setAnneeObtention($dateObt);
             }
-            if (null === $password) {
-                $etudiant->setPassword($oldPwd);
-            }
-            $em->persist($etudiant);
             $em->flush();
             return $this->redirectToRoute('DashboardEtudiant', array('user' => $usr));
         }
@@ -755,10 +790,6 @@ class DefaultController extends Controller
                 $date = new \DateTime($dateNaisPers);
                 $parent->setDateNaissance($date);
             }
-            if (null === $password) {
-                $parent->setPassword($oldPwd);
-            }
-            $em->persist($parent);
             $em->flush();
             return $this->redirectToRoute('listParent', array('id' => $parent->getId(), 'user' => $usr));
         }

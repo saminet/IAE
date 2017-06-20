@@ -30,6 +30,12 @@
         <div class="row">
             <div class="col-md-12 col-xs-12">
                 <div class="content">
+    <form action="{{ path('ImportPreinscrits') }}" method="post" enctype="multipart/form-data">
+     Ajouter une nouvelle liste à partir d'un fichier :
+     <input type="file" name="file" id="fileToUpload">
+     <input type="submit" value="Upload Fichier" name="submit">
+     </form>
+
     <h3>Liste des préinscits :</h3>
     <div id="no-more-tables">
         <table class="table-vertical" id="example">

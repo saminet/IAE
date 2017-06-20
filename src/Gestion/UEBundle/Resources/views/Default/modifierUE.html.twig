@@ -1,123 +1,90 @@
 {% extends '::layoutAdmin.html.twig' %}
-
-{% block header %}
-
-    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/font-awesome/css/font-awesome.min.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables/media/css/dataTables.bootstrap4.min.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/datatables-scroller/css/scroller.bootstrap4.min.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/flatpickr/dist/flatpickr.min.css') }}"/>
-
-{% endblock %}
-
 {% block javascripts %}
+    <script>
+        function same()
+        {
+            var a=document.getElementById( "gestion_uebundle_ue_niveau" ).value;
+            var b=document.getElementById( "gestion_uebundle_ue_filiere" ).value;
+            var c=document.getElementById( "select_matieres" ).value;
+            document.getElementById( "classe" ).value= b;
+        }
+    </script>
+{% endblock %}
+{% block body %}
+    <div class="col-md-12 col-xs-12">
+        <div class="content">
+            <p>Ajouter une nouvele unité / <a href="{{path('Liste_UE')}}">Liste des unités</a> </p>
+            {{ form_start(form,{'attr':{'action':path('modifierUE', { 'id': unite.id })}}) }}
+
+            <div class="form-group">
+                <label for="gestion_uebundle_ue_intitule">Intitulé de l'unité</label>
+                {{ form_widget(form.intitule) }}
+            </div>
+
+            <div class="form-group">
+                <label for="gestion_uebundle_ue_classe">Classe</label>
+                {{ form_widget(form.classe) }}
+            </div>
+
+            <div class="form-group">
+                <label for="">Matière(s)</label>
+                {{ form_widget(form.matieres, {'id': 'select_matieres', 'attr': { 'class': 'custom-class'}}) }}
+            </div>
+
+            <div class="control-group">
+                <input type="hidden" name="classe" id="classe" >
+                {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <!-- filtrer la liste des matières selon la classe séléctionnée -->
+    <script type="text/javascript">
+        (function($) {
+            $('#gestion_uebundle_ue_classe').change(function(){
+                var val = $(this).val();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('matiere_list_ajax_call') }}?classe_id=" + val,
+                    success: function(data) {
+                        // Remove current options
+                        $('#select_matieres').html('');
+                        $.each(data, function(k, v) {
+                            $('#select_matieres').append('<option value="' + v + '">' + k + '</option>');
+                        });
+                    }
+                });
+                return false;
+            });
+        })(jQuery);
+    </script>
+
+    <!-- script permettant la séléction multiple des matières
+
+    <script>
+        var eventHandler = function(name) {
+            return function() {
+                console.log(name, arguments);
+                $('#log').append('<div><span class="name">' + name + '</span></div>');
+            };
+        };
+        var $select = $('#select_matieres').selectize({
+            create          : false,
+            plugins: ['remove_button'],
+            onChange        : eventHandler('onChange'),
+            onItemAdd       : eventHandler('onItemAdd'),
+            onItemRemove    : eventHandler('onItemRemove'),
+            onOptionAdd     : eventHandler('onOptionAdd'),
+            onOptionRemove  : eventHandler('onOptionRemove'),
+            onDropdownOpen  : eventHandler('onDropdownOpen'),
+            onDropdownClose : eventHandler('onDropdownClose'),
+            onFocus         : eventHandler('onFocus'),
+            onBlur          : eventHandler('onBlur'),
+            onInitialize    : eventHandler('onInitialize'),
+        });
+    </script>
+    -->
+
 
 {% endblock %}
-
- {% block body %}
-     <div class="col-md-12 col-xs-12">
-         <div class="content">
-     <h3>Modifier une unité / <a href="{{path('Liste_UE')}}">Liste des unités d'enseignement</a> </h3>
-                         {{ form_start(form,{'attr':{'action':path('modifierUE',{ 'id': unite.id })}}) }}
-                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                             <label for="etudiant_nom">Intitulé</label>
-                             <div class="form-group">
-                                 {{ form_widget(form.intitule) }}
-                             </div>
-                             <label>Niveau</label>
-                             <div class="form-group">
-                                 {{ form_widget(form.niveau) }}
-                             </div>
-                             <label>Filières</label>
-                             <div class="form-group">
-                                 {{ form_widget(form.filiere) }}
-                             </div>
-                             <label>Matières</label>
-                             <div class="form-group">
-                                 {{ form_widget(form.matieres, {'id': 'select_matieres', 'attr': { 'class': 'custom-class'}}) }}
-                             </div>
-                             <br>
-                             <div class="control-group">
-                                 {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
-                             </div>
-                             {{ form_end(form) }}
-                             <br><br>
-                         </div>
-                     </div></div>
-
-     <!-- filtrer la liste des filières selon le niveau séléctionnée -->
-     <script type="text/javascript">
-         (function($) {
-             $('#gestion_uebundle_ue_niveau').change(function(){
-                 var val = $(this).val();
-                 $.ajax({
-                     type: "POST",
-                     url: "{{ url('filieres_list_ajax_call') }}?niveau_id=" + val,
-                     success: function(data) {
-                         // Remove current options
-                         $('#gestion_uebundle_ue_filiere').html('');
-                         $.each(data, function(k, v) {
-                             $('#gestion_uebundle_ue_filiere').append('<option value="' + v + '">' + k + '</option>');
-                         });
-                     }
-                 });
-                 return false;
-             });
-         })(jQuery);
-     </script>
-
-     <!-- script permettant la séléction multiple des matières -->
-
-     <script>
-         var eventHandler = function(name) {
-             return function() {
-                 console.log(name, arguments);
-                 $('#log').append('<div><span class="name">' + name + '</span></div>');
-             };
-         };
-         var $select = $('#select_matieres').selectize({
-             create          : false,
-             plugins: ['remove_button'],
-             onChange        : eventHandler('onChange'),
-             onItemAdd       : eventHandler('onItemAdd'),
-             onItemRemove    : eventHandler('onItemRemove'),
-             onOptionAdd     : eventHandler('onOptionAdd'),
-             onOptionRemove  : eventHandler('onOptionRemove'),
-             onDropdownOpen  : eventHandler('onDropdownOpen'),
-             onDropdownClose : eventHandler('onDropdownClose'),
-             onFocus         : eventHandler('onFocus'),
-             onBlur          : eventHandler('onBlur'),
-             onInitialize    : eventHandler('onInitialize'),
-         });
-     </script>
-
- {% endblock %}
-
-
-                        {% block footer %}
-
-                            <!-- START CORE JAVASCRIPT -->
-                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/jquery/dist/jquery.min.js') }}"></script>
-                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/tether/dist/js/tether.min.js') }}"></script>
-                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js') }}"></script>
-                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/switchery/dist/switchery.min.js') }}"></script>
-                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/screenfull.js/dist/screenfull.min.js') }}"></script>
-                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/classie/classie.js') }}"></script>
-                            <!-- END CORE JAVASCRIPT -->
-
-                            <!-- START PAGE PLUGINS -->
-
-                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/moment/min/moment.min.js') }}"></script>
-                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/flatpickr/dist/flatpickr.min.js') }}"></script>
-                            <script type="text/javascript" src="{{ asset('templates/assets/global/plugins/jQuery.print/jQuery.print.js') }}"></script>
-                            <!-- END PAGE PLUGINS -->
-
-
-                            <!-- START GLOBAL JAVASCRIPT -->
-                            <script type="text/javascript" src="{{ asset('templates/assets/global/js/site.min.js') }}"></script>
-                            <script type="text/javascript" src="{{ asset('templates/assets/global/js/site-settings.min.js') }}"></script>
-                            <script type="text/javascript" src="{{ asset('templates/assets/global/js/global/userlist.js') }}"></script>
-                            <!-- END THEME LAYOUT JAVASCRIPT -->
-
-                        {% endblock %}

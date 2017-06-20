@@ -7,7 +7,7 @@ Liste_UE:
     defaults: { _controller: GestionUEBundle:Default:list }
 
 AjoutUnites:
-    path:     /Unite_Enseignement/new
+    path:     /Unite_Enseignement/ajouter
     defaults: { _controller: GestionUEBundle:Default:AjouterUE }
 
 modifierUE:
@@ -21,6 +21,10 @@ supprimerUE:
 filieres_list_ajax_call:
     path:     /ajax/filieres_list
     defaults: { _controller: GestionUEBundle:Default:ajaxGetFilieres }
+
+matiere_list_ajax_call:
+    path:     /ajax/matiere_list
+    defaults: { _controller: GestionUEBundle:Default:ajaxGetMatieres }
 
 Save_Query_Unites:
     path:     /Unite_Enseignement/ajouterUE

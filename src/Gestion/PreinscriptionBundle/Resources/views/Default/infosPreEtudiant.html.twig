@@ -12,6 +12,7 @@
         <tr><td><b>Nom</b></td><td>{{ preinscrit.nom }}</td></tr>
         <tr><td><b>Prenom</b></td><td>{{ preinscrit.prenom }}</td></tr>
         <tr><td><b>Sexe</b></td><td>{{ preinscrit.sexe }}</td></tr>
+        <tr><td><b>date de Naissance</b></td><td>{{ preinscrit.dateNaissance|date('d-m-Y') }}</td></tr>
         <tr><td><b>LieuNaissance</b></td><td>{{ preinscrit.nationalite }}</td></tr>
         <tr><td><b>Ville</b></td><td>{{ preinscrit.ville }}</td>
         <tr><td><b>Numéro Cin/Pass</b></td><td>{{ preinscrit.numCinPass }}</td></tr>
@@ -19,6 +20,7 @@
         <tr><td><b>Téléphone</b></td><td>{{ preinscrit.tel }}</td></tr>
         <tr><td><b>Email</b></td><td>{{ preinscrit.email }}</td></tr>
         <tr><td><b>Diplome</b></td><td>{{ preinscrit.diplome }}</td></tr>
+        <tr><td><b>Année d'obtention</b></td><td>{{ preinscrit.anneeObtention|date('d-m-Y') }}</td></tr>
         <tr><td><b>Etablissement</b></td><td>{{ preinscrit.etablissement }}</td></tr>
         <tr><td><b>Niveau</b></td><td>{{ preinscrit.niveau }}</td></tr>
         <tr><td><b>Formation Souhaité</b></td><td>{{ preinscrit.formation }}</td></tr>

@@ -1,0 +1,126 @@
+{% extends "::layoutAdmin.html.twig" %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ asset('templates/assets/global/js/dataFilter.js') }}"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            $('#myTable').DataTable( {
+                columnDefs: [ {
+                    targets: [ 0 ],
+                    orderData: [ 0, 1 ]
+                }, {
+                    targets: [ 1 ],
+                    orderData: [ 1, 0 ]
+                }, {
+                    targets: [ 4 ],
+                    orderData: [ 4, 0 ]
+                } ]
+            } );
+        } );
+    </script>
+
+    <script>
+        function VerfiEtatPayer() {
+            if(document.getElementById('choice1').checked)
+            { $("td:contains('--payé--')").css("background", "lawngreen");
+                $("td:contains('nonPayé')").css("background", "none");
+
+            }
+            else if(document.getElementById('choice2').checked){
+                $("td:contains('nonPayé')").css("background", "#e62711");
+                $("td:contains('--payé--')").css("background", "none");
+            }
+            else {
+                $("td:contains('--payé--')").css("background", "none");
+                $("td:contains('nonPayé')").css("background", "none");
+            }
+        }
+    </script>
+
+
+    <link rel="stylesheet" type="text/css" href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/css/Responsive_Table_Style.css') }}"/>
+
+{% endblock %}
+
+{% block body %}
+    <div class="col-md-12 profile-contain">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="content">
+                    <h3>Paiement Enseignant :</h3>
+                    <label for="choice1" style="background-color:lawngreen";>Tranches payés</label><input type="radio" id="choice1" name="choice" onclick="VerfiEtatPayer()" />&nbsp;&nbsp;
+                    <label for="choice2" style="background-color:#e62711";>Tranches non payés</label><input type="radio" id="choice2" name="choice" onclick="VerfiEtatPayer()" />&nbsp;&nbsp;
+                    <label for="choice3">Tout&nbsp;</label><input type="radio" id="choice3" name="choice" onclick="VerfiEtatPayer()" />
+
+                    <br>
+                    <div id="no-more-tables">
+                        <table class="table-vertical" id="myTable">
+                            <thead>
+                            <tr>
+                                <th>Nom Enseignant</th>
+                                <th>DateTranche1</th>
+                                <th>DateTranche2</th>
+                                <th>DateTranche3</th>
+                                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">+Nouveau</a></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for paiement in paiements %}
+                                <tr>
+                                    <td data-title="Etudiant">{{ paiement.enseignant.nom }} {{ paiement.enseignant.prenom }}<a href="">
+                                        </a>
+                                    </td>
+                                    <td id="trn1" data-title="Groupe">{{ paiement.dateTranche1|date('d-m-Y') }}
+                                        <div class="hidden">
+                                            {{ paiement.EtatDateTranche1 }}
+                                        </div>
+                                    </td>
+                                    <td id="trn2" data-title="Semestre">{{ paiement.dateTranche2|date('d-m-Y') }}
+                                        <div class="hidden">
+                                            {{ paiement.EtatDateTranche2 }}
+                                        </div>
+                                    </td>
+                                    <td id="trn3" data-title="Etat">{{ paiement.dateTranche3|date('d-m-Y') }}
+                                        <div class="hidden">
+                                            {{ paiement.EtatDateTranche3 }}
+                                        </div>
+                                    </td>
+                                    <td data-title="Action">
+                                        <div class="btn-toolbar" role="toolbar">
+
+                                            <div class="btn-group">
+
+                                                <a href="">
+                                                    <button type="button" class="btn btn-default">
+                                                        <span class="	glyphicon glyphicon-search"></span>
+                                                    </button>
+                                                </a>
+
+                                                <a href="">
+                                                    <button type="button" class="btn btn-default">
+                                                        <span class="glyphicon glyphicon-pencil"></span>
+                                                    </button>
+                                                </a>
+
+                                                <a href="{{ path('Supprimer_Payment',{'id':paiement.id}) }}">
+                                                    <button type="button" class="btn btn-default" onclick="if(window.confirm('Voulez-vous vraiment supprimer ?'))
+                                {return true;}else{return false;}">
+                                                        <span class="glyphicon glyphicon-trash"></span>
+                                                    </button></a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <p>Aucune données n'a été trouvée.</p>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div></div></div></div>
+
+{% endblock %}

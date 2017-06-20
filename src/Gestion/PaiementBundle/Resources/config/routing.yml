@@ -1,0 +1,24 @@
+gestion_paiement_homepage:
+    path:     /gestion_paiement_homepage
+    defaults: { _controller: GestionPaiementBundle:Default:index }
+
+gestion_paiement_enseignant:
+    path:     /paiement/enseignant
+    defaults: { _controller: GestionPaiementBundle:PaymentEnseignant:listPaiementEnseignant }
+
+Supprimer_Payment:
+    path:     /paiement/delete/{id}
+    defaults: { _controller: GestionPaiementBundle:PaymentEnseignant:deletePaiementEnseignant }
+
+
+gestion_paiement_etudiant:
+    path:     /paiement/etudiant
+    defaults: { _controller: GestionPaiementBundle:PaymentEtudiant:listePaiement }
+
+search_paiement_etudiant:
+    path:     /paiement/etudiant/liste
+    defaults: { _controller: GestionPaiementBundle:PaymentEtudiant:listePaiementGroupe }
+
+supp_paiement_etudiant:
+    path:     /paiement/delete/{id}
+    defaults: { _controller: GestionPaiementBundle:PaymentEtudiant:PaiementSupp }

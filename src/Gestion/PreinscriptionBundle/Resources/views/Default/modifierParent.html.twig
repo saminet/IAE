@@ -127,28 +127,24 @@
     <script>
         function disableField() {
             if( document.getElementById("yourBox").checked == true ) {
-                document.getElementById("gestion_preinscriptionbundle_parents_password").disabled = true;
+                //document.getElementById("gestion_enseignantbundle_enseignant_password").disabled = true;
+                document.getElementById( "gestion_preinscriptionbundle_parents_password" ).value=document.getElementById( "oldPwd" ).value;
             }
             else{
-                document.getElementById("yourText").disabled = false;
-                document.getElementById("yourText").setAttribute("required","false");
+                document.getElementById("gestion_preinscriptionbundle_parents_password").disabled = false;
+                document.getElementById( "gestion_preinscriptionbundle_parents_password" ).value="";
+                document.getElementById("gestion_preinscriptionbundle_parents_password").setAttribute("required","true");
             }}
     </script>
 
 {% endblock %}
 
  {% block body %}
-<div class="col-md-12 profile-contain">
-    <div class="row">
-        <div class="col-md-12 col-xs-12">
-            <div class="content">
+     <div class="col-md-12 profile-contain">
+         <div class="row">
+             <div class="col-md-12 col-xs-12">
+                 <div class="content">
      <h3>Modifier un parent / <a href="{{path('listParent')}}">Liste des parents</a> </h3>
-     <div class="content content-product-edit datatable-width">
-         <div class="nav-tab-horizontal">
-             <div class="divider15"></div>
-             <div class="tab-content">
-                 <div>
-                     <div class="row">
                          {{ form_start(form, {'action': path('modifier_Parent',{'id': parent.id, 'name':'gestion_preinscriptionbundle_parents'}),'attr': {'class': 'smart-form userform', 'onsubmit':'return validatesForm();'} } ) }}
                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
                              <label for="etudiant_nom">Nom</label>
@@ -212,7 +208,7 @@
                              <div class="form-group">
                                  {{ form_widget(form.password) }}
                                  <input type="checkbox" id="yourBox" onClick="disableField();" />
-                                 <label>Garder le même mot de passe ?</label>
+                                 <label for="yourBox">Garder le même mot de passe ?</label>
                              </div>
 
                              <label>Etat</label>
@@ -221,15 +217,15 @@
                              </div>
                              <br>
                              <div class="control-group">
-                                 <input type="text" name="dateNaisParnt" value={{ parent.dateNaissance|date('d-m-Y') }} >
+                                 <input type="hidden" name="dateNaisParnt" value={{ parent.dateNaissance|date('d-m-Y') }} >
                                  <input type="hidden" name="idEtud" value={{ oldUser }} >
-                                 <input type="hidden" name="oldPwd" value={{ parent.password }} >
+                                 <input type="hidden" id="oldPwd" name="oldPwd" value={{ parent.password }} >
                                  {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
                              </div>
                              {{ form_end(form) }}
                              <br><br>
                          </div>
-                     </div></div></div></div></div></div></div></div></div>
+                     </div></div></div></div>
 
  {% endblock %}
 

@@ -37,6 +37,7 @@ class AppKernel extends Kernel
             new Gestion\EventBundle\GestionEventBundle(),
             new Gestion\NoteBundle\GestionNoteBundle(),
             new Gestion\EntrepriseBundle\GestionEntrepriseBundle(),
+            new Gestion\PaiementBundle\GestionPaiementBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

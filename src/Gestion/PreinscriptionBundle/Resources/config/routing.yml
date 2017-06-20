@@ -1,10 +1,14 @@
 gestion_preinscription_homepage:
-    path:     /
+    path:     /gestion_paiement_homepage
     defaults: { _controller: GestionPreinscriptionBundle:Default:index }
 
 preinscrits:
     path:     /preinscrits/instance
     defaults: { _controller: GestionPreinscriptionBundle:Default:new }
+
+ImportPreinscrits:
+    path:     /preinscrits/import
+    defaults: { _controller: GestionPreinscriptionBundle:Default:importerPreinscrit }
 
 Liste_preinscrits:
     path:     /preinscrit/liste

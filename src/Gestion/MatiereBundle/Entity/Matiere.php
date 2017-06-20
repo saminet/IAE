@@ -48,9 +48,7 @@ class Matiere
     private $credit;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="classe", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Gestion\AbsenceBundle\Entity\Classe", cascade={"persist"})
      */
     private $classe;
 
@@ -140,11 +138,11 @@ class Matiere
     /**
      * Set classe
      *
-     * @param string $classe
+     * @param \Gestion\AbsenceBundle\Entity\Classe $classe
      *
      * @return Matiere
      */
-    public function setClasse($classe)
+    public function setClasse(\Gestion\AbsenceBundle\Entity\Classe $classe = null)
     {
         $this->classe = $classe;
 
@@ -154,7 +152,7 @@ class Matiere
     /**
      * Get classe
      *
-     * @return string
+     * @return \Gestion\AbsenceBundle\Entity\Classe
      */
     public function getClasse()
     {

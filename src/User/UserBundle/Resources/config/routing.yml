@@ -1,6 +1,6 @@
 user_user_homepage:
     path:     /
-    defaults: { _controller: UserUserBundle:Default:index }
+    defaults: { _controller: UserUserBundle:Default:dashboardAdmin }
 
 user_test_homepage:
     path:     /user

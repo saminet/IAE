@@ -2,11 +2,12 @@
 
 {% block javascripts %}
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
+    <script type="text/javascript" src="{{ asset('templates/assets/global/js/dataFilter.js') }}"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{{ asset('templates/assets/global/css/Responsive_Table_Style.css') }}"/>
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function() {
-            $('#example').DataTable( {
+            $('#myTable').DataTable( {
                 columnDefs: [ {
                     targets: [ 0 ],
                     orderData: [ 0, 1 ]
@@ -17,6 +18,13 @@
                     targets: [ 4 ],
                     orderData: [ 4, 0 ]
                 } ]
+            } );
+        } );
+    </script>
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            $('#myTable').ddTableFilter( {
             } );
         } );
     </script>
@@ -32,7 +40,7 @@
                 <div class="content">
     <p>Liste des matières :</p>
     <div id="no-more-tables">
-    <table class="table-vertical" id="example">
+    <table class="table-vertical" id="myTable">
     <thead>
       <tr>
         <th>ID</th>

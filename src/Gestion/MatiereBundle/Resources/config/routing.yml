@@ -6,17 +6,9 @@ AjoutMatiere:
     path:     /matieres/ajouter
     defaults: { _controller: GestionMatiereBundle:Default:AjoutMatiere }
 
-ValiderAjoutMatiere:
-    path:     /matieres/valider
-    defaults: { _controller: GestionMatiereBundle:Default:validerAjoutMatiere }
-
 modifierMatiere:
     path:     /matieres/edit/{id}
     defaults: { _controller: GestionMatiereBundle:Default:modifierMatiere }
-
-ValiderModification:
-    path:     /matieres/valider/{id}
-    defaults: { _controller: GestionMatiereBundle:Default:ValiderModification }
 
 deleteMatiere:
     path:     /matieres/delete/{id}

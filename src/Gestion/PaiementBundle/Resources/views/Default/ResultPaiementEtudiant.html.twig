@@ -1,0 +1,272 @@
+{% extends "::layoutAdmin.html.twig" %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            $('#myTable').DataTable( {
+                columnDefs: [ {
+                    targets: [ 0 ],
+                    orderData: [ 0, 1 ]
+                }, {
+                    targets: [ 1 ],
+                    orderData: [ 1, 0 ]
+                }, {
+                    targets: [ 5 ],
+                    orderData: [ 5, 0 ]
+                } ]
+            } );
+        } );
+    </script>
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            $('#myTable').ddTableFilter( {
+            } );
+        } );
+    </script>
+
+
+    <link rel="stylesheet" type="text/css" href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'/>
+    <link rel="stylesheet" href="{{ asset('templates/assets/global/css/Responsive_Table_Style.css') }}"/>
+
+{% endblock %}
+
+{% block body %}
+<div class="col-md-12 profile-contain">
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="content">
+                <h1>Paiements Etudiants</h1>
+
+    <form action="{{path('search_paiement_etudiant')}}" method="post" id="myFormGroupe" class="form-inline">
+        <select id="gestion_notebundle_note_classe" name="class" onchange="process();">
+            <option value="Classe" selected>choisr la Classe</option>
+            {% for clas in classes %}
+                <option value="{{ clas.id }}" >{{ clas.intitule }}</option>
+            {% endfor %}
+        </select>
+        <select id="gestion_notebundle_note_groupe" name="idgroupe">
+            <option value="Classe" selected>Choisir le groupe</option>
+        </select>
+        &nbsp;&nbsp;
+        <button type="submit" class="btn btn-default">
+            <span class="glyphicon glyphicon-search"></span>
+        </button></a>
+        <a href="">
+            <button type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-refresh"></span>
+            </button></a>
+    </form>
+    <br>
+    <div id="no-more-tables">
+        <table class="table-vertical" id="myTable">
+            <thead>
+            <tr>
+                <th>Etudiant</th>
+                <th>Type de paiement</th>
+                <th>Date tranche 1</th>
+                <th>Date tranche 2</th>
+                <th>Date tranche 3</th>
+                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">+Nouvelle Paiement</a></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for paiements in SelectedPayment %}
+                <tr>
+                    <td data-title="Etudiant">{{ paiements.etudiant.nom }} {{ paiements.etudiant.prenom }}<a href=""></a>
+                    </td>
+                    <td data-title="Type de paiement">{{ paiements.typePaiement }}</td>
+                    <td data-title="Date tranche 1">{{ paiements.dateTranche1|date("m/d/Y", false) }}</td>
+                    <td data-title="Date tranche 2">{{ paiements.dateTranche2|date("m/d/Y", false) }}</td>
+                    <td data-title="Date tranche 3">{{ paiements.dateTranche3|date("m/d/Y", false) }}</td>
+                    <td data-title="Action">
+                        <div class="btn-toolbar" role="toolbar">
+
+                            <div class="btn-group">
+
+                                <a href="">
+                                    <button type="button" class="btn btn-default">
+                                        <span class="	glyphicon glyphicon-search"></span>
+                                    </button>
+                                </a>
+
+                                <a href=" ">
+                                    <button type="button" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </button>
+                                </a>
+
+                                <a href=" ">
+                                    <button type="button" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                    </button>
+                                </a>
+
+                                <a href=" ">
+                                    <button type="button" class="btn btn-default" onclick="if(window.confirm('Voulez-vous vraiment supprimer ?'))
+                                {return true;}else{return false;}">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button></a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                <p>Aucune paiement n'a été trouvée .</p>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div></div></div></div></div>
+
+    <!-- filtrer la liste des groupe selon la classe séléctionnée -->
+    <script type="text/javascript">
+        (function($) {
+            $('#gestion_notebundle_note_classe').change(function(){
+                var idClasse = $(this).val();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('groupe_list_ajax_call') }}?classe_id=" + idClasse,
+                    success: function(data) {
+                        // Remove current options
+                        $('#gestion_notebundle_note_groupe').html('');
+                        $.each(data, function(k, v) {
+                            $('#gestion_notebundle_note_groupe').append('<option value="' + v + '">' + k + '</option>');
+                        });
+                    }
+                });
+                return false;
+            });
+        })(jQuery);
+    </script>
+
+    <script type="text/javascript">
+        (function($) {
+            $.fn.ddTableFilter = function(options) {
+                options = $.extend(true, $.fn.ddTableFilter.defaultOptions, options);
+
+                return this.each(function() {
+                    if($(this).hasClass('ddtf-processed')) {
+                        refreshFilters(this);
+                        return;
+                    }
+                    var table = $(this);
+                    var start = new Date();
+
+                    $('th:visible', table).each(function(index) {
+                        if($(this).hasClass('skip-filter')) return;
+                        var selectbox = $('<select>');
+                        var values = [];
+                        var opts = [];
+                        selectbox.append('<option value="--all--">' + $(this).text() + '</option>');
+
+                        var col = $('tr:not(.skip-filter) td:nth-child(' + (index + 1) + ')', table).each(function() {
+                            var cellVal = options.valueCallback.apply(this);
+                            if(cellVal.length == 0) {
+                                cellVal = '--empty--';
+                            }
+                            $(this).attr('ddtf-value', cellVal);
+
+                            if($.inArray(cellVal, values) === -1) {
+                                var cellText = options.textCallback.apply(this);
+                                if(cellText.length == 0) {cellText = options.emptyText;}
+                                values.push(cellVal);
+                                opts.push({val:cellVal, text:cellText});
+                            }
+                        });
+                        if(opts.length < options.minOptions){
+                            return;
+                        }
+                        if(options.sortOpt) {
+                            opts.sort(options.sortOptCallback);
+                        }
+                        $.each(opts, function() {
+                            $(selectbox).append('<option value="' + this.val + '">' + this.text + '</option>')
+                        });
+
+                        $(this).wrapInner('<div style="display:none">');
+                        $(this).append(selectbox);
+
+                        selectbox.bind('change', {column:col}, function(event) {
+                            var changeStart = new Date();
+                            var value = $(this).val();
+
+                            event.data.column.each(function() {
+                                if($(this).attr('ddtf-value') === value || value == '--all--') {
+                                    $(this).removeClass('ddtf-filtered');
+                                }
+                                else {
+                                    $(this).addClass('ddtf-filtered');
+                                }
+                            });
+                            var changeStop = new Date();
+                            if(options.debug) {
+                                console.log('Search: ' + (changeStop.getTime() - changeStart.getTime()) + 'ms');
+                            }
+                            refreshFilters(table);
+
+                        });
+                        table.addClass('ddtf-processed');
+                        if($.isFunction(options.afterBuild)) {
+                            options.afterBuild.apply(table);
+                        }
+                    });
+
+                    function refreshFilters(table) {
+                        var refreshStart = new Date();
+                        $('tr', table).each(function() {
+                            var row = $(this);
+                            if($('td.ddtf-filtered', row).length > 0) {
+                                options.transition.hide.apply(row, options.transition.options);
+                            }
+                            else {
+                                options.transition.show.apply(row, options.transition.options);
+                            }
+                        });
+
+                        if($.isFunction(options.afterFilter)) {
+                            options.afterFilter.apply(table);
+                        }
+
+                        if(options.debug) {
+                            var refreshEnd = new Date();
+                            console.log('Refresh: ' + (refreshEnd.getTime() - refreshStart.getTime()) + 'ms');
+                        }
+                    }
+
+                    if(options.debug) {
+                        var stop = new Date();
+                        console.log('Build: ' + (stop.getTime() - start.getTime()) + 'ms');
+                    }
+                });
+            };
+
+            $.fn.ddTableFilter.defaultOptions = {
+                valueCallback:function() {
+                    return encodeURIComponent($.trim($(this).text()));
+                },
+                textCallback:function() {
+                    return $.trim($(this).text());
+                },
+                sortOptCallback: function(a, b) {
+                    return a.text.toLowerCase() > b.text.toLowerCase();
+                },
+                afterFilter: null,
+                afterBuild: null,
+                transition: {
+                    hide:$.fn.hide,
+                    show:$.fn.show,
+                    options: []
+                },
+                emptyText:'--Empty--',
+                sortOpt:true,
+                debug:false,
+                minOptions:2
+            }
+
+        })(jQuery);
+
+    </script>
+
+{% endblock %}

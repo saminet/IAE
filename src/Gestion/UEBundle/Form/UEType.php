@@ -12,40 +12,29 @@ use Gestion\UEBundle\Form\TagsType as TagType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
+use Gestion\AbsenceBundle\Entity\Classe;
+use Gestion\MatiereBundle\Entity\Matiere;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class UEType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-
             ->add('intitule',TextType::class, array('attr' => array('class'=>'form-control')))
             //->add('coeffUnite',integerType::class, array('attr' => array('class'=>'form-control')))
             //->add('creditUnite',integerType::class, array('attr' => array('class'=>'form-control')))
 
-            ->add('niveau', EntityType::class, array(
+            ->add('classe', EntityType::class, array(
                 'required' => true,
-                'class' => 'GestionNiveauBundle:Niveau',
-                'placeholder' => '-- Choisir le Niveau --',
+                'class' => 'GestionAbsenceBundle:Classe',
+                'placeholder' => '-- Choisir la Classe --',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
-                        ->orderBy('u.nomNiveau', 'ASC');
-                },
-                'choice_label' => 'nomNiveau',
-                'attr' => array(
-                    'class'     => 'form-control',
-                ),
-            ))
-            ->add('filiere', EntityType::class, array(
-                'required' => true,
-                'class' => 'GestionFiliereBundle:Filiere',
-                'placeholder' => '-- Choisir le filiére --',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        // ->join('u.niveau','n')
                         ->orderBy('u.intitule', 'ASC');
                 },
                 'choice_label' => 'intitule',
@@ -53,26 +42,22 @@ class UEType extends AbstractType
                     'class'     => 'form-control',
                 ),
             ))
-
             ->add('matieres', EntityType::class, array(
                 'required' => true,
                 'class' => 'GestionMatiereBundle:Matiere',
-                'placeholder' => '-- Choix des matieres --',
+                'placeholder' => '',
+                'multiple' => true,
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        // ->join('u.niveau','n')
-                        ->orderBy('u.nomMatiere', 'ASC');
+                    return $er->createQueryBuilder('p')
+                        ->orderBy('p.nomMatiere', 'ASC');
                 },
                 'choice_label' => 'nomMatiere',
                 'attr' => array(
                     'class'     => 'form-control',
-                    'expanded'     => true,
-                    'multiple'     => true,
                 ),
             ))
+
             ->add('submit',SubmitType::class, array('attr' => array('class'=>'btn btn-success')));
-
-
 
 
     }
@@ -94,6 +79,4 @@ class UEType extends AbstractType
     {
         return 'gestion_uebundle_ue';
     }
-
-
 }

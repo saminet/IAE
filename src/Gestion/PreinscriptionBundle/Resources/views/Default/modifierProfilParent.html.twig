@@ -106,11 +106,13 @@
     <script>
         function disableField() {
             if( document.getElementById("yourBox").checked == true ) {
-                document.getElementById("gestion_preinscriptionbundle_parents_password").disabled = true;
+                //document.getElementById("gestion_enseignantbundle_enseignant_password").disabled = true;
+                document.getElementById( "gestion_preinscriptionbundle_parents_password" ).value=document.getElementById( "oldPwd" ).value;
             }
             else{
-                document.getElementById("yourText").disabled = false;
-                document.getElementById("yourText").setAttribute("required","false");
+                document.getElementById("gestion_preinscriptionbundle_parents_password").disabled = false;
+                document.getElementById( "gestion_preinscriptionbundle_parents_password" ).value="";
+                document.getElementById("gestion_preinscriptionbundle_parents_password").setAttribute("required","true");
             }}
     </script>
 
@@ -190,7 +192,7 @@
                              <div class="control-group">
                                  <input type="text" name="dateNaisParnt" value={{ parent.dateNaissance|date('d-m-Y') }} >
                                  <input type="hidden" name="idEtud" value={{ oldUser }} >
-                                 <input type="hidden" name="oldPwd" value={{ parent.password }} >
+                                 <input type="hidden" id="oldPwd" name="oldPwd" value={{ parent.password }} >
                                  {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
                              </div>
                              {{ form_end(form) }}

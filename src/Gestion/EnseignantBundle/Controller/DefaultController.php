@@ -96,10 +96,6 @@ class DefaultController extends Controller
                 $date = new \DateTime($dateNaisPers);
                 $enseignant->setDateNaissance($date);
             }
-            if (null === $password) {
-                $enseignant->setPassword($oldPwd);
-            }
-            $em->persist($enseignant);
             $em->flush();
 
             return $this->redirectToRoute('DashboardEnseignant', array('id' => $enseignant->getId()));
@@ -213,8 +209,6 @@ class DefaultController extends Controller
     {
         $usrs = $this->getUser();
         $Old_user=$request->get('username');
-        $Old_usr=$request->get('idEns');
-        $oldPwd=$request->get('oldPwd');
 
         $em = $this->container->get('doctrine')->getEntityManager();
         $enseignant= $em->getRepository('GestionEnseignantBundle:Enseignant')->find($id);
@@ -234,7 +228,9 @@ class DefaultController extends Controller
             $email = $donnee->getEmail();
             $dateNaisPerson=$donnee->getDateNaissance();
             $dateNaisPers=$request->get('dateNaisEns');
-            //var_dump($username,$Old_usr,$password,$email,$Old_user);die('Hello');
+            $Old_usr=$request->get('idEns');
+            $oldPwd=$request->get('oldPwd');
+            //var_dump($username,$Old_usr,$password,$email);die('Hello');
             //ajout des paramètres username et password dans la table 'fos_user'
             $userManager = $this->get('fos_user.user_manager');
             $usr = $userManager->findUserByUsername($Old_usr);
@@ -259,10 +255,6 @@ class DefaultController extends Controller
                     $date = new \DateTime($dateNaisPers);
                     $enseignant->setDateNaissance($date);
                 }
-                if (null === $password) {
-                    $enseignant->setPassword($oldPwd);
-                }
-                $em->persist($enseignant);
                 $em->flush();
             }
             return $this->redirectToRoute('Liste_enseignant', array('id' => $enseignant->getId(), 'user' => $usrs));

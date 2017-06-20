@@ -1,5 +1,5 @@
 gestion_note_homepage:
-    path:     /
+    path:     /gestion_niveau_homepage
     defaults: { _controller: GestionNoteBundle:Default:index }
 
 list_note:

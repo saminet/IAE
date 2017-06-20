@@ -189,6 +189,24 @@ class DefaultController extends Controller
             'user' => $user, 'note' => $note, 'EtudiantID'=>$SelectedEtud,'idEtud'=>$selectedIdEtudiant, 'nomPrenom'=>$NomPrenom, 'semestre'=>$Semestre, 'classe'=>$Classe, 'groupe'=>$Groupe));
     }
 
+    public function verifMatiereAction(Request $request)
+    {
+        $selectedIdEtudiant = $request->query->get('idEtud');
+        //var_dump($pseudo,$email);die('Hello');
+        $repository1=$this->getDoctrine()->getRepository('GestionNoteBundle:Note');
+        $SelectedEtud=$repository1->createQueryBuilder('e')->where('e.etudiant = :idEtudiant')->setParameter('idEtudiant', $selectedIdEtudiant)->getQuery()->getResult();
+        //var_dump($SelectedEtud);die('Hello');
+        if(Count($SelectedEtud)>0) {
+            echo "<span style=\"color:#ff0000;\">La matière est déjà affécté à l'étudiant choisi</span>";
+        }
+        else
+        {
+            echo "<span style=\"color:#00aaaa;\">La matière est disponible à l'étudiant choisi</span>";
+        }
+        exit();
+    }
+
+
     public function filterNoteAction(Request $request)
     {
         $IDEtud=$request->get('etudiant');

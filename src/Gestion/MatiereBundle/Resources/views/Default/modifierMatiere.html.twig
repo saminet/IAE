@@ -17,7 +17,6 @@
             alert(this.value);
         };
     </script>
-
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
 
     <script>
@@ -36,50 +35,59 @@
 {% endblock %}
 
 {% block body %}
-<div class="row">
-    <div class="col-md-12 col-xs-12">
-        <div class="content">
-    <p>Ajouter une matière / <a href="{{path('listMatiere')}}">Liste des matière</a></p>
-                            <form action="{{ path('ValiderModification', { 'id': matieres.id }) }}" method="POST" id="MyForm">
-                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                                    <br>
-                                    <label for="class_selectbox">Intitulé de la matière:</label>
-                                    <div class="form-group">
-                                        <input type="text" value="{{matieres.nomMatiere}}" class="form-control" id="usr" name="nomMatiere" required>
-                                    </div>
+    <div class="col-md-12 profile-contain">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="content">
+                    <P>Ajouter une matière / <a href="{{ path('listMatiere') }}">Liste des matières</a></P>
+                    {{ form_start(form,{'attr':{'action':path('modifierMatiere', {'id': matiere.id})}}) }}
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <label for="etudiant_nom">Intitulé de la matière</label>
+                        <div class="form-group">
+                            {{ form_widget(form.nomMatiere) }}
+                        </div>
+                        <label>Coefficient</label>
+                        <div class="form-group">
+                            {{ form_widget(form.coefficient, {'attr': { 'step': '0.01', 'onkeyup': 'testnumber();'}}) }}
+                        </div>
+                        <label>Credit</label>
+                        <div class="form-group">
+                            {{ form_widget(form.credit, {'attr': { 'step': '0.01', 'onkeyup': 'testnumber();'}}) }}
+                        </div>
+                        <label>Classe</label>
+                        <div class="form-group">
+                            {{ form_widget(form.classe) }}
+                        </div>
+                        <div class="control-group">
+                            {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div></div></div></div>
+    <!-- script permettant la séléction multiple des matières -->
 
-                                    <label for="groupe_list">Coefficient:</label>
-                                    <div class="form-group">
-                                        <input input type="number" step="0.01" value="{{matieres.coefficient}}" class="form-control" id="coef" name="coefficient" onkeyup="testnumber()" required>
-                                    </div>
-
-                                    <label for="etudiant_list">Credit:</label>
-                                    <div class="control-group">
-                                        <input input type="number" value="{{matieres.credit}}" step="0.01" class="form-control" id="credit" name="credit" onkeyup="testnumber()" required>
-                                    </div>
-                                    <br>
-                                    <label for="etudiant_list">Classe:</label>
-                                    <div class="control-group">
-                                        <select name="classe" class="form-control" required>
-                                            <option value="">{{matieres.classe}}</option>
-                                            {% if classe is not empty %}
-                                                {% for clas in classe %}
-                                                    <option value="{{clas.intitule}}">{{clas.intitule}}</option>
-                                                {% endfor %}
-                                            {% endif %}
-                                        </select>
-                                    </div>
-                                    <br>
-                                    <div class="control-group">
-                                        <input type="hidden" value="{{matieres.id}}" name="idMatiere">
-                                        <input type="submit" value="Sauvegarder" type="button" class="btn btn-success">
-                                        <input type="reset" value="Annuler" class="btn btn-danger">
-                                    </div>
-                                    <br><br>
-                                </div>
-                            </form>
-                        </div></div></div></div></div></div>
-    </div>
+    <script>
+        var eventHandler = function(name) {
+            return function() {
+                console.log(name, arguments);
+                $('#log').append('<div><span class="name">' + name + '</span></div>');
+            };
+        };
+        var $select = $('#select-matieres').selectize({
+            create          : false,
+            plugins: ['remove_button'],
+            onChange        : eventHandler('onChange'),
+            onItemAdd       : eventHandler('onItemAdd'),
+            onItemRemove    : eventHandler('onItemRemove'),
+            onOptionAdd     : eventHandler('onOptionAdd'),
+            onOptionRemove  : eventHandler('onOptionRemove'),
+            onDropdownOpen  : eventHandler('onDropdownOpen'),
+            onDropdownClose : eventHandler('onDropdownClose'),
+            onFocus         : eventHandler('onFocus'),
+            onBlur          : eventHandler('onBlur'),
+            onInitialize    : eventHandler('onInitialize'),
+        });
+    </script>
 
 {% endblock %}
 

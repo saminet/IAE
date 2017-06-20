@@ -75,11 +75,19 @@ class DefaultController extends Controller
     public function dashboardAdminAction()
     {
         if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
-            $user = $this->getUser();
-            return $this->render('UserUserBundle:Default:admin.html.twig', array(
-                'user' => $user
-            ));
-
+            return $this->render('UserUserBundle:Default:admin.html.twig');
+        }
+        elseif ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            return $this->render('UserUserBundle:Default:personnel.html.twig');
+        }
+        elseif ($this->get('security.authorization_checker')->isGranted('ROLE_ENSEIGNANT')) {
+            return $this->render('UserUserBundle:Default:enseignant.html.twig');
+        }
+        elseif ($this->get('security.authorization_checker')->isGranted('ROLE_ETUDIANT')) {
+            return $this->render('UserUserBundle:Default:etudiant.html.twig');
+        }
+        elseif ($this->get('security.authorization_checker')->isGranted('ROLE_PARENTS')) {
+            return $this->render('UserUserBundle:Default:parent.html.twig');
         }
     }
 

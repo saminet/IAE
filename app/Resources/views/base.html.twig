@@ -13,7 +13,7 @@
 
     <script type="text/javascript">
         //<![CDATA[
-        try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag2:1,mirage2:0,oracle:0,paths:{cloudflare:"/cdn-cgi/nexp/dok3v=1613a3a185/"},atok:"de2f1d2ca7a4618e2e35af9620d39dfd",petok:"6951daf743559100a5a9336c6b2eb20686d18235-1494240511-1800",zone:"themesadmin.com",rocket:"0",apps:{"ga_key":{"ua":"UA-92643213-2","ga_bs":"2"}}}];!function(a,b){a=document.createElement("script"),b=document.getElementsByTagName("script")[0],a.async=!0,a.src="../../../../../ajax.cloudflare.com/cdn-cgi/nexp/dok3v%3d85b614c0f6/cloudflare.min.js",b.parentNode.insertBefore(a,b)}()}}catch(e){};
+        try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag2:1,mirage2:0,oracle:0,paths:{cloudflare:"/cdn-cgi/nexp/dok3v=1613a3a185/"},atok:"de2f1d2ca7a4618e2e35af9620d39dfd",petok:"6951daf743559100a5a9336c6b2eb20686d18235-1494240511-1800",zone:"themesadmin.com",rocket:"0",apps:{"ga_key":{"ua":"UA-92643213-2","ga_bs":"2"}}}];!function(a,b){a=document.createElement("script"),b=document.getElementsByTagName("script")[0],a.async=!0,a.src="//ajax.cloudflare.com/cdn-cgi/nexp/dok3v%3d85b614c0f6/cloudflare.min.js",b.parentNode.insertBefore(a,b)}()}}catch(e){};
         //]]>
     </script>
     <link href="//fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css" />
@@ -33,10 +33,10 @@
 
     <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/bootstrap/dist/css/bootstrap.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('templates/assets/icons_fonts/elegant_font/elegant.min.css') }}"/>
-    <link id="site-color" rel="stylesheet" href="{{ asset('templates/assets/layouts/layout-icon-menu/css/color/light/color-default.min.css') }}"/>
+    <link id="site-color" rel="stylesheet" href="{{ asset('templates/assets/layouts/layout-icon-menu/css/color/light/color-default.css') }}"/>
     <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/switchery/dist/switchery.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('templates/assets/global/plugins/perfect-scrollbar/css/perfect-scrollbar.min.css') }}"/>
-    <link rel="stylesheet" type="text/css" href='https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css'/>
+    <link rel="stylesheet" type="text/css" href='//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css'/>
 
 
 
@@ -79,7 +79,7 @@
     {% endblock %}
 </head>
 
-<body onload = "on_load()">
+<body onload = "">
 <div class="loader-overlay">
     <div class="loader-preview-area">
         <div class="spinners">
@@ -96,7 +96,7 @@
         <div class="header-width">
             <div class="col-xl-9">
                 <div class="logo float-xs-left">
-                    <a href="#"><img src="{{ asset('templates/assets/global/image/web-logos.png') }}" alt="logo"></a>
+                    <a href="{{ path('user_user_homepage')  }}"><img src="{{ asset('templates/assets/global/image/web-logos.png') }}" alt="logo"></a>
                 </div>
             </div>
             <div class="col-xl-3 header-right">
@@ -285,7 +285,7 @@
                                     <a href="#">
                                         <div class="media">
                                             <div class="media-left float-xs-left">
-                                                <img src="{{ asset('assets/global/image/image1-profile.jpg') }}" alt="message"/>
+                                                <img src="{{ asset('templates/assets/global/image/image1-profile.jpg') }}" alt="message"/>
                                             </div>
                                             <div class="media-body">
                                                 <h5>Judy Fowler</h5>
@@ -303,7 +303,7 @@
                                     <a href="#">
                                         <div class="media">
                                             <div class="media-left float-xs-left">
-                                                <img src="{{ asset('assets/global/image/image2-profile.jpg') }}" alt="message"/>
+                                                <img src="{{ asset('templates/assets/global/image/image2-profile.jpg') }}" alt="message"/>
                                             </div>
                                             <div class="media-body">
                                                 <h5>Judy Fowler</h5>
@@ -322,7 +322,7 @@
                                     <a href="#">
                                         <div class="media">
                                             <div class="media-left float-xs-left">
-                                                <img src="{{ asset('assets/global/image/image3-profile.jpg') }}" alt="message"/>
+                                                <img src="{{ asset('templates/assets/global/image/image3-profile.jpg') }}" alt="message"/>
                                             </div>
                                             <div class="media-body">
                                                 <h5>Judy Fowler</h5>
@@ -339,7 +339,7 @@
                                     <a href="#">
                                         <div class="media">
                                             <div class="media-left float-xs-left">
-                                                <img src="{{ asset('assets/global/image/image4-profile.jpg') }}" alt="message"/>
+                                                <img src="{{ asset('templates/assets/global/image/image4-profile.jpg') }}" alt="message"/>
                                             </div>
                                             <div class="media-body">
                                                 <h5>Judy Fowler</h5>
@@ -371,7 +371,11 @@
                             <div class="dropdown-menu drop-profile">
                                 <div class="userProfile">
                                     <img src="{{ asset('templates/assets/global/image/profilIcon.png') }}" alt="Profile image"/>
-                                    <p>{{ user }}</p>
+                                    <p>
+                                        {% if app.user is defined %}
+                                            {{ app.user.username }}
+                                        {% endif %}
+                                    </p>
                                 </div>
                                 <div class="dropdown-divider"></div>
                                 {% if is_granted('ROLE_SUPER_ADMIN') %}

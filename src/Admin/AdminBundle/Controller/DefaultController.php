@@ -155,10 +155,7 @@ class DefaultController extends Controller
                 $date = new \DateTime($dateNaisPers);
                 $personnel->setDateNaissance($date);
             }
-            if (null === $password) {
-                $personnel->setPassword($oldPwd);
-            }
-            $em->persist($personnel);
+            //$em->persist($personnel);
             $em->flush();
             return $this->redirect($this->generateUrl('liste_Membre',array('user' => $usr)));
         }
@@ -832,10 +829,6 @@ class DefaultController extends Controller
                 $date = new \DateTime($dateNaisPers);
                 $personnel->setDateNaissance($date);
             }
-            if (null === $password) {
-                $personnel->setPassword($oldPwd);
-            }
-            $em->persist($personnel);
             $em->flush();
 
                 return $this->redirect($this->generateUrl('profilMembre', array('user' => $usr)));
@@ -892,10 +885,6 @@ class DefaultController extends Controller
                 $date = new \DateTime($dateNaisPers);
                 $personnel->setDateNaissance($date);
             }
-            if (null === $password) {
-                $personnel->setPassword($oldPwd);
-            }
-            $em->persist($personnel);
             $em->flush();
 
             return $this->redirect($this->generateUrl('profilAdmin', array('user' => $usr)));

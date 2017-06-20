@@ -119,11 +119,13 @@
     <script>
         function disableField() {
             if( document.getElementById("yourBox").checked == true ) {
-                document.getElementById("gestion_enseignantbundle_enseignant_password").disabled = true;
+                //document.getElementById("gestion_enseignantbundle_enseignant_password").disabled = true;
+                document.getElementById( "gestion_enseignantbundle_enseignant_password" ).value=document.getElementById( "oldPwd" ).value;
             }
             else{
-                document.getElementById("yourText").disabled = false;
-                document.getElementById("yourText").setAttribute("required","false");
+                document.getElementById("gestion_enseignantbundle_enseignant_password").disabled = false;
+                document.getElementById( "gestion_enseignantbundle_enseignant_password" ).value="";
+                document.getElementById("gestion_enseignantbundle_enseignant_password").setAttribute("required","true");
             }}
     </script>
 
@@ -207,7 +209,7 @@
                                      <div class="form-group">
                                          {{ form_widget(form.password) }}
                                          <input type="checkbox" id="yourBox" onClick="disableField();" />
-                                         <label>Garder le même mot de passe ?</label>
+                                         <label for="yourBox">Garder le même mot de passe ?</label>
                                      </div>
                                      <label>Etat</label>
                                      <div class="form-group">
@@ -215,7 +217,7 @@
                                      </div>
                                      <input type="hidden" name="dateNaisEns" value={{ enseignant.dateNaissance|date('d-m-Y') }} >
                                      <input type="hidden" name="idEns" value={{ oldUser }} >
-                                     <input type="hidden" name="oldPwd" value={{ personnel.password }} >
+                                     <input type="hidden" id="oldPwd" name="oldPwd" value={{ enseignant.password }} >
                                      <div class="form-group">
                                          {{ form_widget(form.submit, { 'label': 'Sauvegarder' }) }}
                                      </div>
