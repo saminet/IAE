@@ -32,13 +32,6 @@ class UE
     /**
      * @var float
      *
-     * @ORM\Column(name="coeffUnite", type="float")
-     */
-    private $coeffUnite;
-
-    /**
-     * @var float
-     *
      * @ORM\Column(name="creditUnite", type="float")
      */
     private $creditUnite;
@@ -62,30 +55,6 @@ class UE
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set coeffUnite
-     *
-     * @param float $coeffUnite
-     *
-     * @return UE
-     */
-    public function setCoeffUnite($coeffUnite)
-    {
-        $this->coeffUnite = $coeffUnite;
-
-        return $this;
-    }
-
-    /**
-     * Get coeffUnite
-     *
-     * @return float
-     */
-    public function getCoeffUnite()
-    {
-        return $this->coeffUnite;
     }
 
     /**

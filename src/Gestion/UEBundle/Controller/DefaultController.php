@@ -52,8 +52,13 @@ class DefaultController extends Controller
             $classe = $donnee->getClasse();
             //$matieres = $unite->getMatieres();
             $matieres = $donnee->getMatieres();
-            $unite->setCoeffUnite('2');
-            $unite->setCreditUnite("2");
+            $unite->setCreditUnite(0);
+
+            if(!is_null($matieres)) {
+                foreach ($matieres as $matiere) {
+                    $unite->setCreditUnite($unite->getCreditUnite() + $matiere->getCredit() );
+                }
+            }
 
             $em->persist($unite);
             $em->flush();
@@ -80,6 +85,16 @@ class DefaultController extends Controller
         $formView = $form->createView();
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             // Inutile de persister ici, Doctrine connait déjà notre unité d'enseignement
+            $matieres = $ue->getMatieres();
+            $ue->setCreditUnite(0);
+
+            if(!is_null($matieres)) {
+                foreach ($matieres as $matiere) {
+                    $ue->setCreditUnite($ue->getCreditUnite() + $matiere->getCredit() );
+                }
+            }
+
+
             $em->flush();
 
             return $this->redirectToRoute('Liste_UE',array('user' => $usr));

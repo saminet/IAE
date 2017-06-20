@@ -39,38 +39,18 @@
             {{ form_end(form) }}
         </div>
     </div>
-    <!-- filtrer la liste des matières selon la classe séléctionnée -->
-    <script type="text/javascript">
-        (function($) {
-            $('#gestion_uebundle_ue_classe').change(function(){
-                var val = $(this).val();
-                $.ajax({
-                    type: "POST",
-                    url: "{{ url('matiere_list_ajax_call') }}?classe_id=" + val,
-                    success: function(data) {
-                        // Remove current options
-                        $('#select_matieres').html('');
-                        $.each(data, function(k, v) {
-                            $('#select_matieres').append('<option value="' + v + '">' + k + '</option>');
-                        });
-                    }
-                });
-                return false;
-            });
-        })(jQuery);
-    </script>
-
-    <!-- script permettant la séléction multiple des matières
+    <!-- script permettant la séléction multiple des matières-->
 
     <script>
         var eventHandler = function(name) {
             return function() {
-                console.log(name, arguments);
-                $('#log').append('<div><span class="name">' + name + '</span></div>');
+                //console.log(name, arguments);
+                //$('#log').append('<div><span class="name">' + name + '</span></div>');
             };
         };
         var $select = $('#select_matieres').selectize({
-            create          : false,
+            persist: false,
+            create: true,
             plugins: ['remove_button'],
             onChange        : eventHandler('onChange'),
             onItemAdd       : eventHandler('onItemAdd'),
@@ -84,7 +64,68 @@
             onInitialize    : eventHandler('onInitialize'),
         });
     </script>
-    -->
+
+    <!-- filtrer la liste des matières selon la classe séléctionnée -->
+    <script type="text/javascript">
+        (function($) {
+            $('#gestion_uebundle_ue_classe').change(function(){
+                var val = $(this).val();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('matiere_list_ajax_call') }}?classe_id=" + val,
+                    success: function(data) {
+                        // Remove current options
+                        $('#select_matieres').html('');
+
+                        var selectize = $("#select_matieres")[0].selectize;
+                        selectize.clear();
+
+                        var htmldata = '';
+                        var new_value_options   = '[';
+                        var key =0;
+                        $.each(data, function (k, v) {
+                            //    $('#select_matieres').append('<option value="' + v + '">' + k + '</option>');
+                            htmldata += '<option value="'+ v +'">'+ k +'</option>';
+
+                            var keyPlus = parseInt(key) + 1;
+                            if (keyPlus == data.length) {
+                                new_value_options += '{text: "'+ k +'", value: '+ v +'}';
+                            } else {
+                                new_value_options += '{text: "'+ k +'", value: '+ v +'},';
+                            }
+                            key++;
+                        });
+                        new_value_options   += ']';
+
+                        //convert to json object
+                        new_value_options = eval('(' + new_value_options + ')');
+                        if (new_value_options[0] != undefined) {
+                            // re-fill html select option field
+                            $("#select_matieres").html(htmldata);
+                            // re-fill/set the selectize values
+                            var selectize = $("#select_matieres")[0].selectize;
+
+                            selectize.clear();
+                            selectize.clearOptions();
+                            selectize.renderCache['option'] = {};
+                            selectize.renderCache['item'] = {};
+
+                            selectize.addOption(new_value_options);
+
+                            selectize.setValue(new_value_options[0].value);
+                        }
+
+                        //var selectize = $select[0].selectize;
+                        //selectize.clear();
+
+
+
+                    }});
+                return false;
+            });
+        })(jQuery);
+    </script>
+
 
 
 {% endblock %}

@@ -35,7 +35,6 @@
                     <tr>
                         <th>Intitulé</th>
                         <th>Classe</th>
-                        <th>Coefficient</th>
                         <th>Credit d'unité</th>
                         <th>Matiere</th>
                         <th><a href="{{path('AjoutUnites')}}">+Nouvelle UE</a></th>
@@ -46,7 +45,6 @@
                         <tr>
                             <td data-title="Intitulé">{{ ue.intitule }}</td>
                             <td data-title="Niveau">{{ ue.classe }}</td>
-                            <td data-title="Coefficient">{{ ue.coeffUnite }}</td>
                             <td data-title="Credit">{{ ue.creditUnite }}</td>
                             <td data-title="Matières">{% for matiere in ue.matieres %}- {{matiere.nomMatiere}}<br>{% endfor %}</td>
                             <td data-title="Action">
